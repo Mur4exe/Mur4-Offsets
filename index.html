@@ -135,21 +135,10 @@ footer .brand{color:var(--text);font-weight:800}
     <a class="dl" href="Mur4_Offsets.h" download><div class="ico">⚙️</div><div class="t">Mur4_Offsets.h</div><div class="d" data-i18n="dlH">C++ header · drop into your project</div></a>
   </div>
 
-  <div class="sec reveal">🧪 <span data-i18n="secVerify">Verification & Community</span></div>
-  <div class="grid2 reveal">
-    <div class="verify">
-      <h3 data-i18n="verifyT">How offsets are verified</h3>
-      <p data-i18n="verifyP1">Unique sentinel values are written through Roblox properties inside a sandboxed lab, then the live client memory is scanned. Every found address is re-sampled over time and classified:</p>
-      <span class="pill live" data-i18n="pillLive">LIVE — value tracks script phases</span>
-      <span class="pill stable" data-i18n="pillStable">STABLE — sentinel value in place</span>
-      <span class="pill dead" data-i18n="pillDead">DEAD — auto-filtered from releases</span>
-      <p style="margin-top:12px" data-i18n="verifyP2">Dead offsets never reach the published package. Typical run: 246 LIVE / 136 STABLE / 0 DEAD.</p>
-    </div>
-    <div class="widget-box">
-      <h3>💬 <span data-i18n="secCommunity">Our Discord</span></h3>
-      <div id="meCard" class="reveal" style="margin-bottom:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px;display:none"></div>
-      <iframe src="https://discord.com/widget?id=SERVER_ID&theme=dark" width="100%" height="420" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-    </div>
+  <div class="sec reveal">💬 <span data-i18n="secCommunity">Our Discord</span></div>
+  <div class="widget-box reveal" style="max-width:640px;margin:0 auto">
+    <div id="meCard" class="reveal" style="margin-bottom:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px;display:none"></div>
+    <iframe src="https://discord.com/widget?id=SERVER_ID&theme=dark" width="100%" height="420" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
   </div>
 </div>
 
