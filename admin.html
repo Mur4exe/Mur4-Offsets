@@ -183,7 +183,7 @@ async function uploadAll(){
   if(!CFG.pat){logout();return}
   if(!queue.length){msg('m2','Önce en az bir dosya bırak.',false);return}
   $('log').textContent='';$('log').style.display='block';
-  let okCount=0;const newVersions=[];
+  let okCount=0;const newVersions=[];let statsFor=null,statsData=null;
   let manifest=[];
   try{
     const mf=await ghGet('versions.json');
@@ -201,6 +201,10 @@ async function uploadAll(){
         if(m){
           newVersions.push({tag:m[1],count:j.count||Object.values(j.offsets||{}).reduce((a,c)=>a+Object.keys(c).length,0),
             dump_time:j.dump_time||'',not_working:(j.not_working||[]).length});
+        }
+        if(q.name==='verify_stats.json'&&j.version){
+          // dogrulama istatistiklerini manifest'e isle
+          statsFor=j.version;statsData=j;
         }
       }
       await ghPut(q.name,text);
@@ -220,6 +224,19 @@ async function uploadAll(){
       await ghPut('versions.json',JSON.stringify(manifest,null,2),'Mur4 Offsets: sürüm manifesti güncellendi');
       log('✅ versions.json güncellendi ('+manifest.length+' sürüm) — site menüsü otomatik yenilendi');
     }catch(e){log('❌ versions.json → '+e.message)}
+  }
+
+  // verify istatistiklerini manifest'in ilgili sürümüne işle
+  if(statsFor&&statsData){
+    let i=manifest.findIndex(m=>m.tag===statsFor);
+    if(i<0){manifest.push({tag:statsFor,count:statsData.total,dump_time:statsData.dump_time});i=manifest.length-1}
+    manifest[i].live=statsData.live;
+    manifest[i].stable=statsData.stable;
+    manifest[i].dead=statsData.dead;
+    try{
+      await ghPut('versions.json',JSON.stringify(manifest,null,2),'Mur4 Offsets: verify istatistikleri eklendi');
+      log(`✅ verify istatistikleri işlendi: ${statsFor} → LIVE=${statsData.live} SABIT=${statsData.stable} OLU=${statsData.dead}`);
+    }catch(e){log('❌ verify istatistikleri → '+e.message)}
   }
 
   msg('m2',okCount+' dosya gönderildi. Site 1-2 dk içinde yenilenir (Pages build). Tarayıcıda Ctrl+F5 yap.',true);
