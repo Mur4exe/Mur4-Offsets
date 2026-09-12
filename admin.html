@@ -116,8 +116,14 @@ async function login(){
   try{
     const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{headers:{Authorization:'Bearer '+pat}});
     if(r.status===401){msg('m1','Token geçersiz (401). Yeni token oluşturup tekrar yapıştır.',false);return}
-    if(r.status===404||r.status===403){msg('m1','Bu token Mur4-Offsets reposuna erişemiyor ('+r.status+'). Fine-grained token\'da bu repo + Contents: read&write seçili olmalı.',false);return}
     if(!r.ok){msg('m1','GitHub hatası: '+r.status,false);return}
+    const j=await r.json();
+    // KRITIK: yazma izni kontrolu — public repoyu OKUMAK herkesin hakkı,
+    // ama push yetkisi olmayan token bu panele GIREMEZ bile
+    if(!j.permissions||!j.permissions.push){
+      msg('m1','❌ Bu token MUR4-Offsets reposuna YAZMA iznine sahip değil. Giriş reddedildi. (Sadece Mur4exe\'nin kendi token\'ı kabul edilir)',false);
+      return;
+    }
     CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
     localStorage.setItem(LS,JSON.stringify({user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,remember:$('remember').checked}));
     if($('remember').checked) localStorage.setItem(LS+'_t',pat); else sessionStorage.setItem(LS+'_t',pat);
@@ -135,10 +141,15 @@ function logout(){localStorage.removeItem(LS+'_t');sessionStorage.removeItem(LS+
 (async function(){
   const pat=getToken();
   if(pat){
-    CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
     try{
       const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{headers:{Authorization:'Bearer '+pat}});
-      if(r.ok)openPanel();
+      if(r.ok){
+        const j=await r.json();
+        if(j.permissions&&j.permissions.push){
+          CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
+          openPanel();
+        }
+      }
     }catch(e){}
   }
 })();
