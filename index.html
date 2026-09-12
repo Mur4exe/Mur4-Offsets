@@ -17,7 +17,11 @@ a{color:inherit;text-decoration:none}
 #particles{position:fixed;inset:0;z-index:0;opacity:.55}
 .wrap{max-width:1000px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
 
-/* ---------- HERO ---------- */
+/* LANG SWITCHER */
+#langBox{position:fixed;top:14px;right:16px;z-index:50}
+#langSel{background:rgba(22,24,29,.9);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 10px;font-size:13px;outline:none;cursor:pointer;backdrop-filter:blur(8px)}
+#langSel:focus{border-color:var(--red)}
+
 header{padding:84px 0 46px;text-align:center;position:relative;z-index:1}
 .logo{font-size:14px;letter-spacing:6px;color:var(--red2);font-weight:700;animation:fadeDown .8s ease both}
 h1{font-size:clamp(34px,6vw,56px);margin:14px 0 8px;font-weight:900;animation:fadeDown .8s .1s ease both}
@@ -34,27 +38,22 @@ h1{font-size:clamp(34px,6vw,56px);margin:14px 0 8px;font-weight:900;animation:fa
 .badge{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:99px;padding:7px 15px;font-size:13px;color:var(--dim);backdrop-filter:blur(6px)}
 .badge b{color:var(--green)}
 
-/* ---------- STATS ---------- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:26px 0;position:relative;z-index:1}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:26px 0;position:relative;z-index:1}
 .stat{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center;transition:.3s;animation:pop .6s ease both}
 .stat:hover{transform:translateY(-4px);border-color:var(--red);box-shadow:0 10px 34px rgba(227,27,35,.15)}
 @keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 .stat .n{font-size:30px;font-weight:900;color:var(--red2)}
 .stat .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-top:4px}
 
-/* ---------- SECTION TITLES ---------- */
-.sec{font-size:24px;font-weight:800;margin:44px 0 16px;display:flex;align-items:center;gap:10px;animation:fadeDown .7s ease both}
+.sec{font-size:24px;font-weight:800;margin:44px 0 16px;display:flex;align-items:center;gap:10px}
 .sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 
-/* ---------- CONTROLS ---------- */
-.controls{display:flex;gap:12px;margin:0 0 18px;flex-wrap:wrap;align-items:center;animation:fadeUp .7s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.controls{display:flex;gap:12px;margin:0 0 18px;flex-wrap:wrap;align-items:center}
 select,input[type=text]{background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px 15px;font-size:14px;outline:none;transition:.25s}
 select:focus,input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,27,35,.15)}
-input[type=text]{flex:1;min-width:220px}
+#q{flex:1;min-width:220px}
 
-/* ---------- CLASS CARDS ---------- */
-.cls{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:.25s;animation:fadeUp .5s ease both}
+.cls{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:.25s}
 .cls:hover{border-color:rgba(227,27,35,.55);transform:translateY(-2px)}
 .cls summary{cursor:pointer;padding:15px 18px;font-weight:700;display:flex;justify-content:space-between;align-items:center;list-style:none}
 .cls summary::-webkit-details-marker{display:none}
@@ -62,13 +61,12 @@ input[type=text]{flex:1;min-width:220px}
 .cls summary:hover{color:var(--red2)}
 .cls[open] summary{border-bottom:1px solid var(--line);color:var(--red2)}
 table{width:100%;border-collapse:collapse;font-size:14px}
-tr{transition:background .15s}
+tbody tr{transition:background .15s}
 tbody tr:hover{background:rgba(227,27,35,.06)}
 td{padding:10px 18px;border-top:1px solid var(--line)}
 td:first-child{color:var(--dim)}
 td:last-child{font-family:Consolas,monospace;color:var(--green)}
 
-/* ---------- DOWNLOAD ---------- */
 .dls{display:flex;gap:12px;flex-wrap:wrap}
 .dl{flex:1;min-width:180px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;transition:.25s}
 .dl:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 10px 30px rgba(0,224,143,.12)}
@@ -76,10 +74,9 @@ td:last-child{font-family:Consolas,monospace;color:var(--green)}
 .dl .t{font-weight:800;margin:8px 0 4px}
 .dl .d{font-size:12px;color:var(--dim)}
 
-/* ---------- VERIFY + WIDGET ---------- */
 .grid2{display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:start}
 @media(max-width:820px){.grid2{grid-template-columns:1fr}}
-.verify,.widget-box{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:22px;animation:fadeUp .7s ease both}
+.verify,.widget-box{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:22px}
 .verify h3,.widget-box h3{margin-bottom:10px}
 .verify p{color:var(--dim);font-size:14px;line-height:1.7}
 .pill{display:inline-block;margin:4px 4px 0 0;padding:5px 11px;border-radius:99px;font-size:12px;font-weight:700}
@@ -88,12 +85,9 @@ td:last-child{font-family:Consolas,monospace;color:var(--green)}
 .pill.dead{background:rgba(227,27,35,.15);color:var(--red2)}
 .widget-box iframe{border-radius:10px;width:100%}
 
-/* ---------- REVEAL ---------- */
 .reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
 .reveal.on{opacity:1;transform:none}
-
-/* ---------- ADMIN LINK / FOOTER ---------- */
-.admin{position:fixed;bottom:14px;right:16px;z-index:5;font-size:12px;color:#555;transition:.2s}
+.admin{position:fixed;bottom:14px;right:16px;z-index:5;font-size:12px;color:#555}
 .admin:hover{color:var(--red2)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 0 44px;text-align:center;color:var(--dim);font-size:13px}
 footer .brand{color:var(--text);font-weight:800}
@@ -102,54 +96,58 @@ footer .brand{color:var(--text);font-weight:800}
 <body>
 <canvas id="particles"></canvas>
 
+<div id="langBox"><select id="langSel" title="Language"></select></div>
+
 <header class="wrap">
   <div class="logo">BY MUR4T</div>
   <h1><span class="grad">Mur4 Offsets</span> <span style="color:var(--red)">(External)</span></h1>
   <div class="typeline"><span id="typed"></span><span class="cursor">&nbsp;</span></div>
-  <a class="btn btn-discord" href="https://discord.gg/xQzrwQCSjg" target="_blank">JOIN THE DISCORD</a>
+  <a class="btn btn-discord" href="https://discord.gg/xQzrwQCSjg" data-i18n="join">JOIN THE DISCORD</a>
   <div class="badges">
-    <span class="badge">⚡ Auto-updated every patch</span>
-    <span class="badge">🧪 <b>Live-verified</b> offsets</span>
-    <span class="badge">🚫 Zero paste</span>
-    <span class="badge">💯 100% free</span>
+    <span class="badge">⚡ <span data-i18n="badgeAuto">Auto-updated every patch</span></span>
+    <span class="badge">🧪 <b data-i18n="badgeLive">Live-verified</b> <span data-i18n="badgeLive2">offsets</span></span>
+    <span class="badge">🚫 <span data-i18n="badgeZero">Zero paste</span></span>
+    <span class="badge">💯 <span data-i18n="badgeFree">100% free</span></span>
   </div>
 </header>
 
 <div class="wrap">
   <div class="stats">
-    <div class="stat"><div class="n" id="stTotal">0</div><div class="l">Offsets</div></div>
-    <div class="stat"><div class="n" id="stClasses">0</div><div class="l">Classes</div></div>
-    <div class="stat"><div class="n" id="stLive">246</div><div class="l">Live-verified</div></div>
-    <div class="stat"><div class="n" id="stVer">—</div><div class="l">Roblox Version</div></div>
+    <div class="stat"><div class="n" id="stTotal">0</div><div class="l" data-i18n="stOffsets">Offsets</div></div>
+    <div class="stat"><div class="n" id="stClasses">0</div><div class="l" data-i18n="stClasses">Classes</div></div>
+    <div class="stat"><div class="n" id="stLive">246</div><div class="l" data-i18n="stLive">Live-verified</div></div>
+    <div class="stat"><div class="n" id="stOnline" style="display:none">—</div><div class="l" data-i18n="stOnline" style="display:none">Online Now</div></div>
+    <div class="stat"><div class="n" id="stVer">—</div><div class="l" data-i18n="stVersion">Roblox Version</div></div>
   </div>
 
-  <div class="sec reveal">📦 Offset Browser</div>
+  <div class="sec reveal">📦 <span data-i18n="secBrowser">Offset Browser</span></div>
   <div class="controls reveal">
     <select id="verSel"></select>
-    <input type="text" id="q" placeholder="Search class or property… (e.g. WalkSpeed)">
+    <input type="text" id="q" data-i18n-ph="searchPh" placeholder="Search class or property… (e.g. WalkSpeed)">
   </div>
   <div id="list"></div>
-  <div class="status" id="status" style="color:var(--dim);font-size:14px;margin:14px 0"></div>
+  <div id="status" style="color:var(--dim);font-size:14px;margin:14px 0"></div>
 
-  <div class="sec reveal">⬇️ Downloads</div>
+  <div class="sec reveal">⬇️ <span data-i18n="secDownloads">Downloads</span></div>
   <div class="dls reveal">
-    <a class="dl" href="offsets.json" download><div class="ico">🧾</div><div class="t">offsets.json</div><div class="d">Machine-readable · for tools & bots</div></a>
-    <a class="dl" href="Mur4_Offsets.txt" download><div class="ico">📄</div><div class="t">Mur4_Offsets.txt</div><div class="d">Human-readable namespace dump</div></a>
-    <a class="dl" href="Mur4_Offsets.h" download><div class="ico">⚙️</div><div class="t">Mur4_Offsets.h</div><div class="d">C++ header · drop into your project</div></a>
+    <a class="dl" href="offsets.json" download><div class="ico">🧾</div><div class="t">offsets.json</div><div class="d" data-i18n="dlJson">Machine-readable · for tools & bots</div></a>
+    <a class="dl" href="Mur4_Offsets.txt" download><div class="ico">📄</div><div class="t">Mur4_Offsets.txt</div><div class="d" data-i18n="dlTxt">Human-readable namespace dump</div></a>
+    <a class="dl" href="Mur4_Offsets.h" download><div class="ico">⚙️</div><div class="t">Mur4_Offsets.h</div><div class="d" data-i18n="dlH">C++ header · drop into your project</div></a>
   </div>
 
-  <div class="sec reveal">🧪 Verification & Community</div>
+  <div class="sec reveal">🧪 <span data-i18n="secVerify">Verification & Community</span></div>
   <div class="grid2 reveal">
     <div class="verify">
-      <h3>How offsets are verified</h3>
-      <p>Unique sentinel values are written through Roblox properties inside a sandboxed lab, then the live client memory is scanned. Every found address is re-sampled over time and classified:</p>
-      <span class="pill live">LIVE — value tracks script phases</span>
-      <span class="pill stable">STABLE — sentinel value in place</span>
-      <span class="pill dead">DEAD — auto-filtered from releases</span>
-      <p style="margin-top:12px">Dead offsets never reach the published package. Typical run: <b style="color:var(--green)">246 LIVE / 136 STABLE / 0 DEAD</b>.</p>
+      <h3 data-i18n="verifyT">How offsets are verified</h3>
+      <p data-i18n="verifyP1">Unique sentinel values are written through Roblox properties inside a sandboxed lab, then the live client memory is scanned. Every found address is re-sampled over time and classified:</p>
+      <span class="pill live" data-i18n="pillLive">LIVE — value tracks script phases</span>
+      <span class="pill stable" data-i18n="pillStable">STABLE — sentinel value in place</span>
+      <span class="pill dead" data-i18n="pillDead">DEAD — auto-filtered from releases</span>
+      <p style="margin-top:12px" data-i18n="verifyP2">Dead offsets never reach the published package. Typical run: 246 LIVE / 136 STABLE / 0 DEAD.</p>
     </div>
     <div class="widget-box">
-      <h3>💬 Our Discord</h3>
+      <h3>💬 <span data-i18n="secCommunity">Our Discord</span></h3>
+      <div id="meCard" class="reveal" style="margin-bottom:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px;display:none"></div>
       <iframe src="https://discord.com/widget?id=SERVER_ID&theme=dark" width="100%" height="420" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
     </div>
   </div>
@@ -159,56 +157,202 @@ footer .brand{color:var(--text);font-weight:800}
 
 <footer>
   <div class="brand">Mur4 Offsets · By: Mur4t</div>
-  <div style="margin-top:6px">For educational and research purposes only. Not affiliated with Roblox Corporation.</div>
+  <div style="margin-top:6px" data-i18n="footerEdu">For educational and research purposes only. Not affiliated with Roblox Corporation.</div>
   <div style="margin-top:8px"><a href="https://discord.gg/xQzrwQCSjg" style="color:var(--red2)">discord.gg/xQzrwQCSjg</a></div>
 </footer>
 
 <script>
-/* ================= AYARLAR (tek dokanacak yer) =================
-   REPO_USER  : GitHub kullanici adin
-   REPO_NAME  : repo adi (mur4-offsets)
-   SERVER_ID  : Discord sunucu ID'n (Widget'dan al) — widget'i gizlemek icin bos birak
-================================================================= */
-const REPO_USER  = "";
-const REPO_NAME  = "mur4-offsets";
-const SERVER_ID  = ""; // örnek: "112233445566778899"
+/* ===== AYARLAR ===== */
+const REPO_USER  = "Mur4exe";
+const REPO_NAME  = "Mur4-Offsets";
+const SERVER_ID  = "1542950705768177694"; // Discord Ayarlar > Widget > Server ID (otomatik bulundu)
+const MY_DISCORD_ID = ""; // kendi Discord kullanıcı ID'n (Ayarlar > Gelismis > Dev Mode > avatar'a sag tik > Copy User ID). Lanyard sunucusuna katilmalisin: discord.gg/lanyard
 
-// Discord widget
 if(SERVER_ID) document.querySelector(".widget-box iframe").src =
   `https://discord.com/widget?id=${SERVER_ID}&theme=dark`;
 else document.querySelector(".widget-box").style.display = "none";
-
-// indirme linklerini repoya bagla (bos ise dosya adinda kalsin)
 if(REPO_USER){
   const base = `https://github.com/${REPO_USER}/${REPO_NAME}/blob/main/`;
-  document.querySelectorAll(".dl").forEach(a=>{
-    a.href = base + a.getAttribute("href");
-    a.target = "_blank"; a.removeAttribute("download");
-  });
+  document.querySelectorAll(".dl").forEach(a=>{a.href=base+a.getAttribute("href");a.target="_blank";a.removeAttribute("download")});
 }
 
-/* typing effect */
-const TypedMsgs = [
-  "Fresh offsets extracted live from the Roblox client.",
-  "Every address re-verified in memory before release.",
-  "100% free. Zero paste. Updated every patch."
-];
-(function typeLoop(){
-  const el = document.getElementById("typed");
-  let mi=0, ci=0, del=false;
-  (function tick(){
-    const m = TypedMsgs[mi];
-    el.textContent = m.slice(0, ci);
-    if(!del && ci < m.length){ ci++; setTimeout(tick, 34); }
-    else if(!del){ del=true; setTimeout(tick, 2100); }
-    else if(ci > 0){ ci--; setTimeout(tick, 12); }
-    else { del=false; mi=(mi+1)%TypedMsgs.length; setTimeout(tick, 350); }
-  })();
+/* online uye sayaci (widget aciksa calisir) */
+(async()=>{
+  if(!SERVER_ID)return;
+  try{
+    const r=await fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`);
+    if(!r.ok)return;
+    const w=await r.json();
+    const el=document.getElementById("stOnline");
+    if(el){el.textContent=w.presence_count;el.closest(".stat").style.display="block"}
+  }catch(e){/* widget kapaliysa kart gizli kalir */}
 })();
 
-/* particle background */
+/* kurucunun discord profili (Lanyard - canli durum/aktivite) */
+(async()=>{
+  if(!MY_DISCORD_ID)return;
+  const box=document.getElementById("meCard");if(!box)return;
+  try{
+    const r=await fetch("https://api.lanyard.rest/v1/users/"+MY_DISCORD_ID);
+    const j=await r.json();
+    if(!j.success){box.style.display="none";return}
+    const u=j.data.discord_user, st=j.data.discord_status;
+    const stMap={online:["🟢","Online"],idle:["🟡","Boşta"],dnd:["🔴","Meşgul"],offline:["⚫","Çevrimdışı"]};
+    const [dot,stTxt]=stMap[st]||stMap.offline;
+    const act=(j.data.activities||[]).find(a=>a.type===0);
+    box.innerHTML=`
+      <div style="display:flex;align-items:center;gap:14px">
+        <img src="https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=80" style="width:64px;height:64px;border-radius:50%;border:2px solid var(--red)">
+        <div style="text-align:left">
+          <div style="font-weight:800;font-size:16px">${u.global_name||u.username}</div>
+          <div style="color:var(--dim);font-size:13px">${dot} ${stTxt}</div>
+          <div style="color:var(--red2);font-size:12px;margin-top:2px">${act?('🎮 '+act.name):'Discord\'da'}</div>
+        </div>
+      </div>`;
+  }catch(e){box.style.display="none"}
+})();
+
+/* =====================================================
+   i18n — 50 dil (uzun paragraflar major dillerde,
+   digerlerinde kisa etiketler; eksik anahtar EN'den gelir)
+===================================================== */
+const EN = {
+  join:"JOIN THE DISCORD", badgeAuto:"Auto-updated every patch", badgeLive:"Live-verified",
+  badgeLive2:"offsets", badgeZero:"Zero paste", badgeFree:"100% free",
+  stOffsets:"Offsets", stClasses:"Classes", stLive:"Live-verified", stVersion:"Roblox Version",
+  stOnline:"Online Now",
+  secBrowser:"Offset Browser", searchPh:"Search class or property… (e.g. WalkSpeed)",
+  secDownloads:"Downloads", dlJson:"Machine-readable · for tools & bots", dlTxt:"Human-readable namespace dump",
+  dlH:"C++ header · drop into your project", secVerify:"Verification & Community",
+  verifyT:"How offsets are verified",
+  verifyP1:"Unique sentinel values are written through Roblox properties inside a sandboxed lab, then the live client memory is scanned. Every found address is re-sampled over time and classified:",
+  pillLive:"LIVE — value tracks script phases", pillStable:"STABLE — sentinel value in place",
+  pillDead:"DEAD — auto-filtered from releases",
+  verifyP2:"Dead offsets never reach the published package. Typical run: 246 LIVE / 136 STABLE / 0 DEAD.",
+  footerEdu:"For educational and research purposes only. Not affiliated with Roblox Corporation.",
+  notFound:"offsets.json not found — upload dump files via the admin panel.",
+  latest:"Latest", filtered:"Filtered", offsets:"offsets"
+};
+const I18N = {
+tr:{join:"DISCORD'A KATIL",badgeAuto:"Her güncellemede otomatik",badgeLive:"Canlı doğrulanmış",badgeLive2:"offsetler",badgeZero:"Sıfır paste",badgeFree:"%100 ücretsiz",stOffsets:"Offset",stClasses:"Sınıf",stLive:"Canlı doğrulanmış",stVersion:"Roblox Sürümü",stOnline:"Şu An Online",secBrowser:"Offset Tarayıcı",searchPh:"Sınıf veya özellik ara… (örn. WalkSpeed)",secDownloads:"İndirilenler",dlJson:"Makine okunur · araçlar ve botlar için",dlTxt:"İnsan okunur namespace dökümü",dlH:"C++ header · projene direkt ekle",secVerify:"Doğrulama ve Topluluk",verifyT:"Offsetler nasıl doğrulanıyor?",verifyP1:"Eşsiz sentinel değerleri sandbox laboratuvarında Roblox property'leri üzerinden yazılır, ardından canlı client belleği taranır. Bulunan her adres zaman içinde tekrar örneklenip sınıflandırılır:",pillLive:"CANLI — değer script fazlarını takip ediyor",pillStable:"SABİT — sentinel değer yerinde",pillDead:"ÖLÜ — sürümlerden otomatik ayıklanır",verifyP2:"Ölü offsetler asla yayınlana pakete girmez. Tipik koşu: 246 CANLI / 136 SABİT / 0 ÖLÜ.",footerEdu:"Yalnızca eğitim ve araştırma amaçlıdır. Roblox Corporation ile bağlantılı değildir.",notFound:"offsets.json bulunamadı — admin panelinden dump dosyalarını yükle.",latest:"Son",filtered:"Filtreli",offsets:"offset"},
+es:{join:"ÚNETE AL DISCORD",badgeAuto:"Actualizado en cada parche",badgeLive:"Verificado en vivo",badgeZero:"Cero paste",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Clases",stLive:"Verificados en vivo",stVersion:"Versión de Roblox",secBrowser:"Explorador de Offsets",searchPh:"Buscar clase o propiedad… (ej. WalkSpeed)",secDownloads:"Descargas",dlJson:"Legible por máquinas · para herramientas y bots",dlTxt:"Volcado legible por humanos",dlH:"Cabecera C++ · pégala en tu proyecto",secVerify:"Verificación y Comunidad",verifyT:"Cómo se verifican los offsets",pillLive:"ACTIVO — el valor sigue las fases del script",pillStable:"ESTABLE — valor centinela en su lugar",pillDead:"MUERTO — filtrado automáticamente",footerEdu:"Solo con fines educativos y de investigación. No afiliado a Roblox Corporation.",latest:"Última",filtered:"Filtrada",offsets:"offsets"},
+pt:{join:"ENTRE NO DISCORD",badgeAuto:"Atualizado a cada patch",badgeLive:"Verificado ao vivo",badgeZero:"Zero paste",badgeFree:"100% grátis",stOffsets:"Offsets",stClasses:"Classes",stLive:"Verificados ao vivo",stVersion:"Versão do Roblox",secBrowser:"Navegador de Offsets",searchPh:"Buscar classe ou propriedade… (ex. WalkSpeed)",secDownloads:"Downloads",dlJson:"Legível por máquina · para ferramentas e bots",dlTxt:"Dump legível por humanos",dlH:"Cabeçalho C++ · coloque no seu projeto",secVerify:"Verificação e Comunidade",verifyT:"Como os offsets são verificados",pillLive:"ATIVO — valor acompanha as fases do script",pillStable:"ESTÁVEL — valor sentinela no lugar",pillDead:"MORTO — filtrado automaticamente",footerEdu:"Apenas para fins educacionais e de pesquisa. Não afiliado à Roblox Corporation.",latest:"Mais recente",filtered:"Filtrada",offsets:"offsets"},
+fr:{join:"REJOINDRE LE DISCORD",badgeAuto:"Mis à jour à chaque patch",badgeLive:"Vérifié en direct",badgeZero:"Zéro paste",badgeFree:"100% gratuit",stOffsets:"Offsets",stClasses:"Classes",stLive:"Vérifiés en direct",stVersion:"Version Roblox",secBrowser:"Navigateur d'Offsets",searchPh:"Rechercher une classe ou propriété… (ex. WalkSpeed)",secDownloads:"Téléchargements",dlJson:"Lisible par machine · pour outils et bots",dlTxt:"Dump lisible par humains",dlH:"En-tête C++ · à intégrer dans votre projet",secVerify:"Vérification et Communauté",verifyT:"Comment les offsets sont vérifiés",pillLive:"VIVANT — la valeur suit les phases du script",pillStable:"STABLE — valeur sentinelle en place",pillDead:"MORT — filtré automatiquement",footerEdu:"À des fins éducatives et de recherche uniquement. Non affilié à Roblox Corporation.",latest:"Dernière",filtered:"Filtrée",offsets:"offsets"},
+de:{join:"DISCORD BEITRETEN",badgeAuto:"Bei jedem Patch aktualisiert",badgeLive:"Live-verifiziert",badgeZero:"Null Paste",badgeFree:"100% kostenlos",stOffsets:"Offsets",stClasses:"Klassen",stLive:"Live-verifiziert",stVersion:"Roblox-Version",secBrowser:"Offset-Browser",searchPh:"Klasse oder Eigenschaft suchen… (z.B. WalkSpeed)",secDownloads:"Downloads",dlJson:"Maschinenlesbar · für Tools & Bots",dlTxt:"Menschenlesbarer Dump",dlH:"C++-Header · direkt ins Projekt einbauen",secVerify:"Verifizierung & Community",verifyT:"Wie Offsets verifiziert werden",pillLive:"AKTIV — Wert folgt den Script-Phasen",pillStable:"STABIL — Sentinel-Wert vorhanden",pillDead:"TOT — automatisch gefiltert",footerEdu:"Nur zu Bildungs- und Forschungszwecken. Nicht mit Roblox Corporation verbunden.",latest:"Neueste",filtered:"Gefiltert",offsets:"Offsets"},
+it:{join:"ENTRA NEL DISCORD",badgeAuto:"Aggiornato a ogni patch",badgeLive:"Verificati in tempo reale",badgeZero:"Zero paste",badgeFree:"100% gratuito",stOffsets:"Offset",stClasses:"Classi",stLive:"Verificati live",stVersion:"Versione Roblox",secBrowser:"Browser Offset",searchPh:"Cerca classe o proprietà… (es. WalkSpeed)",secDownloads:"Download",dlJson:"Leggibile da macchina · per tool e bot",dlTxt:"Dump leggibile da umani",dlH:"Header C++ · inseriscilo nel progetto",secVerify:"Verifica e Community",verifyT:"Come vengono verificati gli offset",pillLive:"LIVE — il valore segue le fasi dello script",pillStable:"STABILE — valore sentinella presente",pillDead:"MORTO — filtrato automaticamente",footerEdu:"Solo per scopi educativi e di ricerca. Non affiliato a Roblox Corporation.",latest:"Più recente",filtered:"Filtrata",offsets:"offset"},
+nl:{join:"WORD LID VAN DE DISCORD",badgeAuto:"Bijgewerkt bij elke patch",badgeLive:"Live geverifieerd",badgeZero:"Zero paste",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Klassen",stLive:"Live geverifieerd",stVersion:"Roblox-versie",secBrowser:"Offset-browser",searchPh:"Zoek klasse of eigenschap… (bijv. WalkSpeed)",secDownloads:"Downloads",dlJson:"Machineleesbaar · voor tools en bots",dlTxt:"Leesbare dump",dlH:"C++-header · plak in je project",secVerify:"Verificatie & Community",verifyT:"Hoe offsets worden geverifieerd",pillLive:"LIVE — waarde volgt scriptfasen",pillStable:"STABIEL — sentinelwaarde aanwezig",pillDead:"DOOD — automatisch gefilterd",footerEdu:"Alleen voor educatieve en onderzoeksdoeleinden. Niet gelieerd aan Roblox Corporation.",latest:"Nieuwste",filtered:"Gefilterd",offsets:"offsets"},
+pl:{join:"DOŁĄCZ DO DISCORDA",badgeAuto:"Aktualizacja przy każdym patchu",badgeLive:"Zweryfikowane na żywo",badgeZero:"Zero paste",badgeFree:"100% za darmo",stOffsets:"Offsety",stClasses:"Klasy",stLive:"Zweryfikowane live",stVersion:"Wersja Roblox",secBrowser:"Przeglądarka offsetów",searchPh:"Szukaj klasy lub właściwości… (np. WalkSpeed)",secDownloads:"Pobieranie",dlJson:"Czytelne dla maszyn · dla narzędzi i botów",dlTxt:"Zrzut czytelny dla ludzi",dlH:"Nagłówek C++ · wklej do projektu",secVerify:"Weryfikacja i społeczność",verifyT:"Jak weryfikowane są offsety",pillLive:"AKTYWNY — wartość śledzi fazy skryptu",pillStable:"STABILNY — wartość sentinel na miejscu",pillDead:"MARTWY — automatycznie odfiltrowany",footerEdu:"Wyłącznie w celach edukacyjnych i badawczych. Niepowiązane z Roblox Corporation.",latest:"Najnowsza",filtered:"Filtrowana",offsets:"offsetów"},
+ru:{join:"ВСТУПИТЬ В DISCORD",badgeAuto:"Обновляется с каждым патчем",badgeLive:"Проверено в реальном времени",badgeZero:"Ноль paste",badgeFree:"100% бесплатно",stOffsets:"Оффсеты",stClasses:"Классы",stLive:"Проверено live",stVersion:"Версия Roblox",secBrowser:"Обзор оффсетов",searchPh:"Поиск класса или свойства… (напр. WalkSpeed)",secDownloads:"Загрузки",dlJson:"Машиночитаемый · для инструментов и ботов",dlTxt:"Дамп, читаемый человеком",dlH:"C++ заголовок · вставьте в проект",secVerify:"Верификация и сообщество",verifyT:"Как проверяются оффсеты",pillLive:"АКТИВЕН — значение следует фазам скрипта",pillStable:"СТАБИЛЕН — контрольное значение на месте",pillDead:"МЁРТВ — автоматически отфильтрован",footerEdu:"Только для образовательных и исследовательских целей. Не аффилировано с Roblox Corporation.",latest:"Последняя",filtered:"Отфильтрованная",offsets:"оффсетов"},
+uk:{join:"ПРИЄДНАТИСЬ ДО DISCORD",badgeAuto:"Оновлюється з кожним патчем",badgeLive:"Перевірено наживо",badgeZero:"Нуль paste",badgeFree:"100% безкоштовно",stOffsets:"Офсети",stClasses:"Класи",stLive:"Перевірено live",stVersion:"Версія Roblox",secBrowser:"Огляд офсетів",searchPh:"Пошук класу або властивості… (напр. WalkSpeed)",secDownloads:"Завантаження",dlJson:"Машинозчитуваний · для інструментів і ботів",dlTxt:"Дамп, читабельний для людини",dlH:"C++ заголовок · вставте у проєкт",secVerify:"Верифікація та спільнота",verifyT:"Як перевіряються офсети",pillLive:"АКТИВНИЙ — значення слідує фазам скрипту",pillStable:"СТАБІЛЬНИЙ — контрольне значення на місці",pillDead:"МЕРТВИЙ — автоматично відфільтровано",footerEdu:"Лише для освітніх та дослідницьких цілей. Не афілійовано з Roblox Corporation.",latest:"Остання",filtered:"Відфільтрована",offsets:"офсетів"},
+ar:{join:"انضم إلى الديسكورد",badgeAuto:"يتحدث مع كل تحديث",badgeLive:"موثوق مباشرة",badgeZero:"بدون لصق",badgeFree:"مجاني 100%",stOffsets:"الإزاحات",stClasses:"الفئات",stLive:"موثوقة مباشرة",stVersion:"إصدار روبلوكس",secBrowser:"مستعرض الإزاحات",searchPh:"ابحث عن فئة أو خاصية… (مثال WalkSpeed)",secDownloads:"التنزيلات",dlJson:"قابل للقراءة آلياً · للأدوات والبوتات",dlTxt:"ملف مقروء للبشر",dlH:"ترويسة C++ · أضفها لمشروعك",secVerify:"التحقق والمجتمع",verifyT:"كيف يتم التحقق من الإزاحات",pillLive:"نشط — القيمة تتبع مراحل السكربت",pillStable:"ثابت — القيمة المرجعية في مكانها",pillDead:"ميت — تمت فلترته تلقائياً",footerEdu:"لأغراض تعليمية وبحثية فقط. غير تابع لشركة Roblox.",latest:"الأحدث",filtered:"مفلترة",offsets:"إزاحات"},
+hi:{join:"डिस्कॉर्ड जॉइन करें",badgeAuto:"हर पैच पर अपडेट",badgeLive:"लाइव सत्यापित",badgeZero:"ज़ीरो पेस्ट",badgeFree:"100% मुफ़्त",stOffsets:"ऑफसेट",stClasses:"क्लास",stLive:"लाइव सत्यापित",stVersion:"Roblox संस्करण",secBrowser:"ऑफसेट ब्राउज़र",searchPh:"क्लास या प्रॉपर्टी खोजें… (जैसे WalkSpeed)",secDownloads:"डाउनलोड",dlJson:"मशीन-पठनीय · टूल्स और बॉट्स के लिए",dlTxt:"मानव-पठनीय डंप",dlH:"C++ हेडर · सीधे प्रोजेक्ट में डालें",secVerify:"सत्यापन और कम्युनिटी",verifyT:"ऑफसेट कैसे सत्यापित होते हैं",pillLive:"लाइव — मान स्क्रिप्ट चरणों का पालन करता है",pillStable:"स्थिर — सेंटिनेल मान अपने स्थान पर",pillDead:"मृत — स्वतः फ़िल्टर किया गया",footerEdu:"केवल शैक्षिक और अनुसंधान उद्देश्यों के लिए। Roblox Corporation से संबद्ध नहीं।",latest:"नवीनतम",filtered:"फ़िल्टर्ड",offsets:"ऑफसेट"},
+id:{join:"GABUNG DISCORD",badgeAuto:"Diperbarui setiap patch",badgeLive:"Terverifikasi langsung",badgeZero:"Tanpa paste",badgeFree:"100% gratis",stOffsets:"Offset",stClasses:"Kelas",stLive:"Terverifikasi live",stVersion:"Versi Roblox",secBrowser:"Penjelajah Offset",searchPh:"Cari kelas atau properti… (mis. WalkSpeed)",secDownloads:"Unduhan",dlJson:"Dibaca mesin · untuk tools & bot",dlTxt:"Dump terbaca manusia",dlH:"Header C++ · langsung ke proyekmu",secVerify:"Verifikasi & Komunitas",verifyT:"Cara offset diverifikasi",pillLive:"HIDUP — nilai mengikuti fase skrip",pillStable:"STABIL — nilai sentinel di tempatnya",pillDead:"MATI — otomatis difilter",footerEdu:"Hanya untuk tujuan edukasi dan penelitian. Tidak berafiliasi dengan Roblox Corporation.",latest:"Terbaru",filtered:"Tersaring",offsets:"offset"},
+ja:{join:"DISCORDに参加",badgeAuto:"毎パッチで自動更新",badgeLive:"ライブ検証済み",badgeZero:"ゼロペースト",badgeFree:"完全無料",stOffsets:"オフセット",stClasses:"クラス",stLive:"ライブ検証済み",stVersion:"Robloxバージョン",secBrowser:"オフセットブラウザ",searchPh:"クラスやプロパティを検索… (例: WalkSpeed)",secDownloads:"ダウンロード",dlJson:"機械可読 · ツール・ボット用",dlTxt:"人間可読のダンプ",dlH:"C++ヘッダ · プロジェクトにそのまま",secVerify:"検証とコミュニティ",verifyT:"オフセットの検証方法",pillLive:"LIVE — 値がスクリプトのフェーズに追従",pillStable:"STABLE — センチネル値が保持",pillDead:"DEAD — 自動フィルタ済み",footerEdu:"教育・研究目的のみ。Roblox Corporationとは無関係です。",latest:"最新",filtered:"フィルタ済",offsets:"オフセット"},
+ko:{join:"디스코드 참여",badgeAuto:"매 패치마다 자동 업데이트",badgeLive:"라이브 검증",badgeZero:"제로 페이스트",badgeFree:"100% 무료",stOffsets:"오프셋",stClasses:"클래스",stLive:"라이브 검증됨",stVersion:"Roblox 버전",secBrowser:"오프셋 브라우저",searchPh:"클래스나 속성 검색… (예: WalkSpeed)",secDownloads:"다운로드",dlJson:"기계 판독형 · 도구와 봇용",dlTxt:"사람이 읽는 덤프",dlH:"C++ 헤더 · 프로젝트에 바로 삽입",secVerify:"검증 및 커뮤니티",verifyT:"오프셋 검증 방법",pillLive:"라이브 — 값이 스크립트 페이즈를 추적",pillStable:"안정 — 센티널 값 유지",pillDead:"죽음 — 자동 필터링",footerEdu:"교육 및 연구 목적으로만 사용됩니다. Roblox Corporation과 제휴되지 않았습니다.",latest:"최신",filtered:"필터됨",offsets:"오프셋"},
+zh:{join:"加入 Discord",badgeAuto:"每次更新自动刷新",badgeLive:"实机验证",badgeZero:"零粘贴",badgeFree:"100% 免费",stOffsets:"偏移量",stClasses:"类",stLive:"实机验证",stVersion:"Roblox 版本",secBrowser:"偏移量浏览器",searchPh:"搜索类或属性…（如 WalkSpeed）",secDownloads:"下载",dlJson:"机器可读 · 适合工具和机器人",dlTxt:"人类可读的转储",dlH:"C++ 头文件 · 直接放入项目",secVerify:"验证与社区",verifyT:"偏移量如何验证",pillLive:"活跃 — 数值跟随脚本阶段",pillStable:"稳定 — 哨兵值仍在原位",pillDead:"失效 — 已自动过滤",footerEdu:"仅用于教育和研究目的。与 Roblox Corporation 无关联。",latest:"最新",filtered:"已过滤",offsets:"个偏移"},
+sv:{join:"GÅ MED I DISCORD",badgeAuto:"Uppdateras varje patch",badgeLive:"Liveverifierad",badgeZero:"Inget klistrande",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Klasser",stLive:"Liveverifierade",stVersion:"Roblox-version",secBrowser:"Offsetbläddrare",searchPh:"Sök klass eller egenskap… (t.ex. WalkSpeed)",secDownloads:"Nedladdningar",dlJson:"Maskinläsbar · för verktyg och botar",dlTxt:"Mänsklig läsbar dump",dlH:"C++-header · klistra in i projektet",secVerify:"Verifiering & Community",verifyT:"Hur offsets verifieras",pillLive:"LIVE — värdet följer skriptfaserna",pillStable:"STABIL — sentinelvärde på plats",pillDead:"DÖD — automatiskt filtrerad",footerEdu:"Endast för utbildnings- och forskningsändamål. Inte anslutet till Roblox Corporation.",latest:"Senaste",filtered:"Filtrerad",offsets:"offsets"},
+th:{join:"เข้าร่วม Discord",badgeAuto:"อัปเดตทุกแพตช์",badgeLive:"ตรวจสอบสด",badgeZero:"ไม่มีการก๊อป",badgeFree:"ฟรี 100%",stOffsets:"ออฟเซ็ต",stClasses:"คลาส",stLive:"ตรวจสอบสดแล้ว",stVersion:"เวอร์ชัน Roblox",secBrowser:"เบราว์เซอร์ออฟเซ็ต",searchPh:"ค้นหาคลาสหรือพร็อพเพอร์ตี้… (เช่น WalkSpeed)",secDownloads:"ดาวน์โหลด",dlJson:"เครื่องอ่านได้ · สำหรับเครื่องมือและบอท",dlTxt:"ดัมพ์สำหรับมนุษย์อ่าน",dlH:"เฮดเดอร์ C++ · ใส่ในโปรเจกต์ได้เลย",secVerify:"การตรวจสอบและชุมชน",verifyT:"ออฟเซ็ตได้รับการตรวจสอบอย่างไร",pillLive:"มีชีวิต — ค่าติดตามเฟสของสคริปต์",pillStable:"เสถียร — ค่าเซนติเนลอยู่ครบ",pillDead:"ตาย — ถูกกรองอัตโนมัติ",footerEdu:"เพื่อการศึกษาและวิจัยเท่านั้น ไม่เกี่ยวข้องกับ Roblox Corporation",latest:"ล่าสุด",filtered:"กรองแล้ว",offsets:"ออฟเซ็ต"},
+vi:{join:"THAM GIA DISCORD",badgeAuto:"Cập nhật mỗi bản vá",badgeLive:"Đã kiểm chứng trực tiếp",badgeZero:"Không paste",badgeFree:"Miễn phí 100%",stOffsets:"Offset",stClasses:"Lớp",stLive:"Đã kiểm chứng live",stVersion:"Phiên bản Roblox",secBrowser:"Trình duyệt Offset",searchPh:"Tìm lớp hoặc thuộc tính… (vd. WalkSpeed)",secDownloads:"Tải xuống",dlJson:"Máy đọc được · cho công cụ và bot",dlTxt:"Bản dump người đọc được",dlH:"Header C++ · dán thẳng vào dự án",secVerify:"Xác minh & Cộng đồng",verifyT:"Offset được xác minh thế nào",pillLive:"SỐNG — giá trị bám theo pha script",pillStable:"ỔN ĐỊNH — giá trị sentinel còn nguyên",pillDead:"CHẾT — đã lọc tự động",footerEdu:"Chỉ dành cho mục đích giáo dục và nghiên cứu. Không liên kết với Roblox Corporation.",latest:"Mới nhất",filtered:"Đã lọc",offsets:"offset"},
+cs:{join:"PŘIDEJ SE NA DISCORD",badgeAuto:"Aktualizace při každém patchi",badgeLive:"Ověřeno naživo",badgeZero:"Nula paste",badgeFree:"100% zdarma",stOffsets:"Offsety",stClasses:"Třídy",stLive:"Ověřeno live",stVersion:"Verze Roblox",secBrowser:"Prohlížeč offsetů",searchPh:"Hledat třídu nebo vlastnost… (např. WalkSpeed)",secDownloads:"Stažení",dlJson:"Strojitelně čitelné · pro nástroje a boty",dlTxt:"Dump čitelný pro lidi",dlH:"C++ hlavička · vložte přímo do projektu",secVerify:"Ověřování a komunita",verifyT:"Jak se offsety ověřují",pillLive:"ŽIVÝ — hodnota sleduje fáze skriptu",pillStable:"STABILNÍ — sentinelová hodnota na místě",pillDead:"MRTVÝ — automaticky odfiltrováno",footerEdu:"Pouze pro vzdělávací a výzkumné účely. Není spojeno s Roblox Corporation.",latest:"Nejnovější",filtered:"Filtrovaná",offsets:"offsetů"},
+hu:{join:"CSATLAKOZZ A DISCORDHOZ",badgeAuto:"Minden patchnél frissül",badgeLive:"Élőben ellenőrzött",badgeZero:"Nulla paste",badgeFree:"100% ingyenes",stOffsets:"Offset",stClasses:"Osztály",stLive:"Élőben ellenőrzött",stVersion:"Roblox verzió",secBrowser:"Offset böngésző",searchPh:"Osztály vagy tulajdonság keresése… (pl. WalkSpeed)",secDownloads:"Letöltések",dlJson:"Gépi olvasású · eszközökhöz és botokhoz",dlTxt:"Ember által olvasható dump",dlH:"C++ fejléc · illeszd a projektedbe",secVerify:"Ellenőrzés és közösség",verifyT:"Hogyan ellenőrződnek az offsetek",pillLive:"ÉLŐ — érték követi a szkript fázisait",pillStable:"STABIL — sentinel érték a helyén",pillDead:"HALOTT — automatikusan kiszűrve",footerEdu:"Kizárólag oktatási és kutatási célokra. Nem áll kapcsolatban a Roblox Corporation-nal.",latest:"Legfrissebb",filtered:"Szűrt",offsets:"offset"},
+ro:{join:"ALĂURĂ-TE DISCORDULUI",badgeAuto:"Actualizat la fiecare patch",badgeLive:"Verificate live",badgeZero:"Zero paste",badgeFree:"100% gratuit",stOffsets:"Offseturi",stClasses:"Clase",stLive:"Verificate live",stVersion:"Versiunea Roblox",secBrowser:"Browser de offseturi",searchPh:"Caută clasă sau proprietate… (ex. WalkSpeed)",secDownloads:"Descărcări",dlJson:"Lizibil de mașină · pentru unelte și boți",dlTxt:"Dump lizibil de oameni",dlH:"Header C++ · pune-l direct în proiect",secVerify:"Verificare și Comunitate",verifyT:"Cum sunt verificate offseturile",pillLive:"VII — valoarea urmărește fazele scriptului",pillStable:"STABIL — valoarea santinelă la locul ei",pillDead:"MORT — filtrat automat",footerEdu:"Doar în scopuri educaționale și de cercetare. Neafiliat Roblox Corporation.",latest:"Cea mai recentă",filtered:"Filtrată",offsets:"offseturi"},
+el:{join:"ΜΠΕΣ ΣΤΟ DISCORD",badgeAuto:"Ενημέρωση σε κάθε patch",badgeLive:"Επαληθευμένο ζωντανά",badgeZero:"Μηδενικό paste",badgeFree:"100% δωρεάν",stOffsets:"Offsets",stClasses:"Κλάσεις",stLive:"Επαληθευμένα live",stVersion:"Έκδοση Roblox",secBrowser:"Περιηγητής Offsets",searchPh:"Αναζήτηση κλάσης ή ιδιότητας… (π.χ. WalkSpeed)",secDownloads:"Λήψεις",dlJson:"Αναγνώσιμο από μηχανή · για εργαλεία και bots",dlTxt:"Dump αναγνώσιμο από ανθρώπους",dlH:"C++ header · βάλε το στο project σου",secVerify:"Επαλήθευση & Κοινότητα",verifyT:"Πώς επαληθεύονται τα offsets",pillLive:"ΖΩΝΤΑΝΟ — η τιμή ακολουθεί τις φάσεις του script",pillStable:"ΣΤΑΘΕΡΟ — η τιμή-φύλακας στη θέση της",pillDead:"ΝΕΚΡΟ — φιλτραρίστηκε αυτόματα",footerEdu:"Μόνο για εκπαιδευτικούς και ερευνητικούς σκοπούς. Δεν συνδέεται με τη Roblox Corporation.",latest:"Τελευταία",filtered:"Φιλτραρισμένη",offsets:"offsets"},
+bg:{join:"ПРИСЪЕДИНИ СЕ В DISCORD",badgeAuto:"Актуализация при всеки патч",badgeLive:"Проверено на живо",badgeZero:"Нулевo paste",badgeFree:"100% безплатно",stOffsets:"Офсети",stClasses:"Класове",stLive:"Проверени на живо",stVersion:"Roblox версия",secBrowser:"Браузър на офсетите",searchPh:"Търсене на клас или свойство… (напр. WalkSpeed)",secDownloads:"Изтегляния",dlJson:"Четимо от машина · за инструменти и ботове",dlTxt:"Дъмп четим от хора",dlH:"C++ header · сложи директно в проекта",secVerify:"Верификация и общност",verifyT:"Как се проверяват офсетите",pillLive:"ЖИВ — стойността следва фазите на скрипта",pillStable:"СТАБИЛЕН — контролната стойност е на място",pillDead:"МЪРТЪВ — автоматично филтриран",footerEdu:"Само за образователни и изследователски цели. Не е свързан с Roblox Corporation.",latest:"Най-нова",filtered:"Филтрирана",offsets:"офсета"},
+fi:{join:"LIITY DISCORDIIN",badgeAuto:"Päivittyy jokaisella patchilla",badgeLive:"Live-verifioitu",badgeZero:"Ei kopiointia",badgeFree:"100% ilmainen",stOffsets:"Offsetit",stClasses:"Luokat",stLive:"Live-verifioidut",stVersion:"Roblox-versio",secBrowser:"Offset-selain",searchPh:"Hae luokkaa tai ominaisuutta… (esim. WalkSpeed)",secDownloads:"Lataukset",dlJson:"Kone luettava · työkaluille ja boteille",dlTxt:"Ihmisen luettava dump",dlH:"C++-otsikko · liitä suoraan projektiin",secVerify:"Verifiointi ja yhteisö",verifyT:"Miten offsetit verifioidaan",pillLive:"ELÄVÄ — arvo seuraa skriptin vaiheita",pillStable:"VAKAA — sentinel-arvo paikallaan",pillDead:"KUOLLUT — suodatettu automaattisesti",footerEdu:"Vain koulutus- ja tutkimustarkoituksiin. Ei yhteyttä Roblox Corporationiin.",latest:"Uusin",filtered:"Suodatettu",offsets:"offsetia"},
+da:{join:"BLIV MED I DISCORDEN",badgeAuto:"Opdateret ved hver patch",badgeLive:"Live-verificeret",badgeZero:"Ingen paste",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Klasser",stLive:"Live-verificeret",stVersion:"Roblox-version",secBrowser:"Offset-browser",searchPh:"Søg klasse eller egenskab… (f.eks. WalkSpeed)",secDownloads:"Downloads",dlJson:"Maskinlæsbar · til værktøjer og bots",dlTxt:"Menneskelæselig dump",dlH:"C++-header · sæt direkte i dit projekt",secVerify:"Verificering & Community",verifyT:"Hvordan offsets verificeres",pillLive:"LIVE — værdien følger scriptfaserne",pillStable:"STABIL — sentinelværdi på plads",pillDead:"DØD — automatisk filtreret",footerEdu:"Kun til uddannelses- og forskningsformål. Ikke tilknyttet Roblox Corporation.",latest:"Seneste",filtered:"Filtreret",offsets:"offsets"},
+no:{join:"BLI MED PÅ DISCORD",badgeAuto:"Oppdatert ved hver patch",badgeLive:"Live-verifisert",badgeZero:"Ingen lime inn",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Klasser",stLive:"Live-verifisert",stVersion:"Roblox-versjon",secBrowser:"Offset-nettleser",searchPh:"Søk klasse eller egenskap… (f.eks. WalkSpeed)",secDownloads:"Nedlastinger",dlJson:"Maskinlesbar · for verktøy og boter",dlTxt:"Menneskelesbar dump",dlH:"C++-header · lim rett inn i prosjektet",secVerify:"Verifisering & Samfunn",verifyT:"Hvordan offsets verifiseres",pillLive:"LIVE — verdien følger skriptfasene",pillStable:"STABIL — sentinelverdi på plass",pillDead:"DØD — automatisk filtrert",footerEdu:"Kun for utdannings- og forskningsformål. Ikke tilknyttet Roblox Corporation.",latest:"Siste",filtered:"Filtrert",offsets:"offsets"},
+he:{join:"הצטרפו לדיסקורד",badgeAuto:"מתעדכן בכל פאץ'",badgeLive:"מאומת בשידור חי",badgeZero:"אפס הדבקה",badgeFree:"100% חינם",stOffsets:"אופסטים",stClasses:"מחלקות",stLive:"אומתו live",stVersion:"גרסת Roblox",secBrowser:"דפדפן אופסטים",searchPh:"חיפוש מחלקה או מאפיין… (למשל WalkSpeed)",secDownloads:"הורדות",dlJson:"קריא למכונה · לכלים ובוטים",dlTxt:"דאמפ קריא לאדם",dlH:"כותרת C++ · הכניסו ישר לפרויקט",secVerify:"אימות וקהילה",verifyT:"כיצד האופסטים מאומתים",pillLive:"חי — הערך עוקב אחר שלבי הסקריפט",pillStable:"יציב — ערך הסנטינל במקומו",pillDead:"מת — סונן אוטומטית",footerEdu:"למטרות חינוך ומחקר בלבד. אינו קשור ל-Roblox Corporation.",latest:"החדשה",filtered:"מסוננת",offsets:"אופסטים"},
+fa:{join:"به دیسکورد بپیوندید",badgeAuto:"با هر پچ به‌روزرسانی می‌شود",badgeLive:"تأییدشده زنده",badgeZero:"بدون کپی",badgeFree:"۱۰۰٪ رایگان",stOffsets:"آفست",stClasses:"کلاس",stLive:"تأییدشده زنده",stVersion:"نسخه رابلاکس",secBrowser:"مرورگر آفست",searchPh:"جستجوی کلاس یا ویژگی… (مثلاً WalkSpeed)",secDownloads:"دانلودها",dlJson:"قابل خواندن توسط ماشین · برای ابزارها و ربات‌ها",dlTxt:"دامپ خوانا برای انسان",dlH:"هدر C++ · مستقیم در پروژه قرار دهید",secVerify:"تأیید و جامعه",verifyT:"آفست‌ها چگونه تأیید می‌شوند",pillLive:"زنده — مقدار فازهای اسکریپت را دنبال می‌کند",pillStable:"پایدار — مقدار سنتینل سر جایش است",pillDead:"مرده — به‌طور خودکار فیلتر شده",footerEdu:"فقط برای مقاصد آموزشی و پژوهشی. وابسته به Roblox Corporation نیست.",latest:"آخرین",filtered:"فیلترشده",offsets:"آفست"},
+bn:{join:"ডিসকর্ডে যোগ দিন",badgeAuto:"প্রতি প্যাচে আপডেট",badgeLive:"লাইভ যাচাইকৃত",badgeZero:"শূন্য পেস্ট",badgeFree:"১০০% ফ্রি",stOffsets:"অফসেট",stClasses:"ক্লাস",stLive:"লাইভ যাচাইকৃত",stVersion:"Roblox সংস্করণ",secBrowser:"অফসেট ব্রাউজার",searchPh:"ক্লাস বা প্রপার্টি খুঁজুন… (যেমন WalkSpeed)",secDownloads:"ডাউনলোড",dlJson:"মেশিন-পাঠযোগ্য · টুল ও বটের জন্য",dlTxt:"মানুষের পাঠযোগ্য ডাম্প",dlH:"C++ হেডার · সরাসরি প্রজেক্টে দিন",secVerify:"যাচাই ও কমিউনিটি",verifyT:"অফসেট কীভাবে যাচাই হয়",pillLive:"জীবিত — মান স্ক্রিপ্ট ফেজ অনুসরণ করে",pillStable:"স্থিতিশীল — সেন্টিনেল মান জায়গায়",pillDead:"মৃত — স্বয়ংক্রিয়ভাবে ফিল্টার করা",footerEdu:"শুধুমাত্র শিক্ষামূলক ও গবেষণার উদ্দেশ্যে। Roblox Corporation-এর সাথে সম্পর্কিত নয়।",latest:"সর্বশেষ",filtered:"ফিল্টার করা",offsets:"অফসেট"},
+tl:{join:"SUMALI SA DISCORD",badgeAuto:"Nag-a-update tuwing patch",badgeLive:"Live-beripikado",badgeZero:"Walang paste",badgeFree:"100% libre",stOffsets:"Offsets",stClasses:"Klase",stLive:"Live-verified",stVersion:"Bersyon ng Roblox",secBrowser:"Offset Browser",searchPh:"Hanapin ang klase o property… (hal. WalkSpeed)",secDownloads:"Mga Download",dlJson:"Mababasa ng makina · para sa tools at bots",dlTxt:"Dump na mababasa ng tao",dlH:"C++ header · ilagay sa project",secVerify:"Beripikasyon at Komunidad",verifyT:"Paano beripikado ang offsets",pillLive:"BUHAY — sinusunod ng value ang mga phase ng script",pillStable:"STABLE — nasa lugar ang sentinel value",pillDead:"PATAY — na-filter automatic",footerEdu:"Para lang sa edukasyon at pananaliksik. Hindi kaakibat ng Roblox Corporation.",latest:"Pinakabago",filtered:"Na-filter",offsets:"offset"},
+ms:{join:"SERTAI DISCORD",badgeAuto:"Dikemas kini setiap patch",badgeLive:"Disahkan secara langsung",badgeZero:"Tiada tampalan",badgeFree:"100% percuma",stOffsets:"Offsets",stClasses:"Kelas",stLive:"Disahkan live",stVersion:"Versi Roblox",secBrowser:"Pelayar Offset",searchPh:"Cari kelas atau sifat… (cth. WalkSpeed)",secDownloads:"Muat turun",dlJson:"Boleh dibaca mesin · untuk alat dan bot",dlTxt:"Dump boleh dibaca manusia",dlH:"Pengepala C++ · masuk terus ke projek",secVerify:"Pengesahan & Komuniti",verifyT:"Bagaimana offsets disahkan",pillLive:"HIDUP — nilai mengikut fasa skrip",pillStable:"STABIL — nilai sentinela di tempatnya",pillDead:"MATI — ditapis automatik",footerEdu:"Untuk tujuan pendidikan dan penyelidikan sahaja. Tidak bergabung dengan Roblox Corporation.",latest:"Terkini",filtered:"Ditapis",offsets:"offset"},
+ur:{join:"ڈسکارڈ میں شامل ہوں",badgeAuto:"ہر پیچ پر اپ ڈیٹ",badgeLive:"لائیو تصدیق شدہ",badgeZero:"زیرو پیسٹ",badgeFree:"100% مفت",stOffsets:"آفسیٹ",stClasses:"کلاس",stLive:"لائیو تصدیق شدہ",stVersion:"Roblox ورژن",secBrowser:"آفسیٹ براؤزر",searchPh:"کلاس یا پراپرٹی تلاش کریں… (مثلاً WalkSpeed)",secDownloads:"ڈاؤن لوڈز",dlJson:"مشین کے قابل مطالعہ · ٹولز اور بوٹس کے لیے",dlTxt:"انسان کے قابل مطالعہ ڈمپ",dlH:"C++ ہیڈر · سیدھا پروجیکٹ میں ڈالیں",secVerify:"تصدیق اور کمیونٹی",verifyT:"آفسیٹس کی تصدیق کیسے ہوتی ہے",pillLive:"زندہ — قدر اسکرپٹ کے مراحل کی پیروی کرتی ہے",pillStable:"مستحکم — سنٹینل قدر اپنی جگہ پر",pillDead:"مردہ — خودکار طور پر فلٹر",footerEdu:"صرف تعلیمی اور تحقیقی مقاصد کے لیے۔ Roblox Corporation سے وابستہ نہیں۔",latest:"تازہ ترین",filtered:"فلٹرڈ",offsets:"آفسیٹ"},
+sw:{join:"JIUNGE DISCORD",badgeAuto:"Husasishwa kila patch",badgeLive:"Imethibitishwa moja kwa moja",badgeZero:"Bila paste",badgeFree:"Bure 100%",stOffsets:"Offsets",stClasses:"Madarasa",stLive:"Imethibitishwa live",stVersion:"Toleo la Roblox",secBrowser:"Kivinjari cha Offsets",searchPh:"Tafuta darasa au mali… (mf. WalkSpeed)",secDownloads:"Vipakuliwa",dlJson:"Inasomeka na mashine · kwa zana na bots",dlTxt:"Dump inayosomeka na watu",dlH:"Kichwa cha C++ · weka moja kwa moja kwenye mradi",secVerify:"Uthibitisho na Jumuiya",verifyT:"Offsets vinivyothibitishwa",pillLive:"HAI — thamani inafuata hatua za script",pillStable:"IMARA — thamani ya sentinel ipo",pillDead:"MFE — imechujwa kiotomatiki",footerEdu:"Kwa madhumuni ya elimu na utafiti tu. Haihusishwi na Roblox Corporation.",latest:"Mpya zaidi",filtered:"Iliyochujwa",offsets:"offset"},
+af:{join:"SLUIT AAN BY DISCORD",badgeAuto:"Opgedateer met elke patch",badgeLive:"Lewendig geverifieer",badgeZero:"Null plak",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Klasse",stLive:"Lewendig geverifieer",stVersion:"Roblox weergawe",secBrowser:"Offset-blaaier",searchPh:"Soek klas of eienskap… (bv. WalkSpeed)",secDownloads:"Aflaai",dlJson:"Masjien leesbaar · vir gereedskap en bots",dlTxt:"Menslike leesbare dump",dlH:"C++-kop · plaas direk in jou projek",secVerify:"Verifikasie & Gemeenskap",verifyT:"Hoe offsets geverifieer word",pillLive:"LEWENDE — waarde volg skriptfases",pillStable:"STABIEL — sentnelwaarde op plek",pillDead:"DOOD — outomaties gefilter",footerEdu:"Slegs vir opvoedkundige en navorsingsdoeleindes. Nie geaffilieer met Roblox Corporation nie.",latest:"Nuutste",filtered:"Gefiltreer",offsets:"offset"},
+az:{join:"DISCORD'A QOŞUL",badgeAuto:"Hər patchda avtomatik yenilənir",badgeLive:"Canlı təsdiqlənmiş",badgeZero:"Paste yoxdur",badgeFree:"100% pulsuz",stOffsets:"Ofset",stClasses:"Sinif",stLive:"Canlı təsdiqlənmiş",stVersion:"Roblox versiyası",secBrowser:"Ofset Bələdçisi",searchPh:"Sinif və ya xüsusiyyət axtar… (məs. WalkSpeed)",secDownloads:"Yükləmələr",dlJson:"Maşın oxunaqlı · alətlər və botlar üçün",dlTxt:"İnsan oxunaqlı dump",dlH:"C++ header · birbaşa layihəyə əlavə et",secVerify:"Təsdiq və İctimaiyyət",verifyT:"Ofsetlər necə təsdiqlənir",pillLive:"CANLI — dəyər skript fazalarını izləyir",pillStable:"SABİT — sentinel dəyər yerindədir",pillDead:"ÖLÜ — avtomatik filtrlənib",footerEdu:"Yalnız təhsil və tədqiqat məqsədləri üçün. Roblox Corporation ilə əlaqəli deyil.",latest:"Ən yeni",filtered:"Filtrlənmiş",offsets:"ofset"},
+ka:{join:"შემოუერთდი Discord-ს",badgeAuto:"ავტომატურად განახლდება ყოველ პაჩზე",badgeLive:"ლაივ შემოწმებული",badgeZero:"ნულოვანი paste",badgeFree:"100% უფასო",stOffsets:"ოფსეტი",stClasses:"კლასი",stLive:"ლაივ შემოწმებული",stVersion:"Roblox ვერსია",secBrowser:"ოფსეტების ბრაუზერი",searchPh:"მოძებნე კლასი ან თვისება… (მაგ. WalkSpeed)",secDownloads:"ჩამოტვირთვები",dlJson:"მანქანურად კითხვადი · ინსტრუმენტებისთვის და ბოტებისთვის",dlTxt:"ადამიანურად კითხვადი dump",dlH:"C++ ჰედერი · პირდაპირ პროექტში ჩადე",secVerify:"ვერიფიკაცია და საზოგადოება",verifyT:"როგორ მოწმდება ოფსეტები",pillLive:"ცოცხალი — მნიშვნელობა მიჰყვება სკრიპტის ფაზებს",pillStable:"სტაბილური — sentinel მნიშვნელობა ადგილზეა",pillDead:"მკვდარი — ავტომატურად გაფილტრული",footerEdu:"მხოლოდ საგანმანათლებლო და კვლევითი მიზნებისთვის. არ არის ასოცირებული Roblox Corporation-თან.",latest:"უახლესი",filtered:"გაფილტრული",offsets:"ოფსეტი"},
+hr:{join:"PRIDRUŽI SE DISCORDU",badgeAuto:"Ažurirano sa svakim patchem",badgeLive:"Provjereno uživo",badgeZero:"Bez lijepljenja",badgeFree:"100% besplatno",stOffsets:"Offseti",stClasses:"Klase",stLive:"Provjereno live",stVersion:"Roblox verzija",secBrowser:"Preglednik offseta",searchPh:"Traži klasu ili svojstvo… (npr. WalkSpeed)",secDownloads:"Preuzimanja",dlJson:"Čitljivo stroju · za alate i botove",dlTxt:"Dump čitljiv ljudima",dlH:"C++ header · ubaci izravno u projekt",secVerify:"Provjera i zajednica",verifyT:"Kako se offseti provjeravaju",pillLive:"ŽIV — vrijednost prati faze skripte",pillStable:"STABILAN — sentinel vrijednost na mjestu",pillDead:"MRTAV — automatski filtrirano",footerEdu:"Samo u obrazovne i istraživačke svrhe. Nije povezano s Roblox Corporation.",latest:"Najnovija",filtered:"Filtrirana",offsets:"offseta"},
+sr:{join:"ПРИДИ НА ДИСКОРД",badgeAuto:"Ажурирано са сваким патцхом",badgeLive:"Проверено уживо",badgeZero:"Без налепљивања",badgeFree:"100% бесплатно",stOffsets:"Офсети",stClasses:"Класе",stLive:"Проверено live",stVersion:"Roblox верзија",secBrowser:"Прегледач офсета",searchPh:"Претражи класу или својство… (нпр. WalkSpeed)",secDownloads:"Преузимања",dlJson:"Машински читљиво · за алате и ботове",dlTxt:"Дамп читљив људима",dlH:"C++ header · убаци директно у пројекат",secVerify:"Верификација и заједница",verifyT:"Како се офсети проверавају",pillLive:"ЖИВ — вредност прати фазе скрипте",pillStable:"СТАБИЛАН — сенител вредност на месту",pillDead:"МРТАВ — аутоматски филтрирано",footerEdu:"Само у образовне и истраживачке сврхе. Није повезано са Roblox Corporation.",latest:"Најновија",filtered:"Филтрирана",offsets:"офсета"},
+sk:{join:"PRIDAJ SA NA DISCORD",badgeAuto:"Aktualizácia pri každom patchi",badgeLive:"Overené naživo",badgeZero:"Nula paste",badgeFree:"100% zdarma",stOffsets:"Ofsety",stClasses:"Triedy",stLive:"Overené live",stVersion:"Verzia Roblox",secBrowser:"Prehliadač offsetov",searchPh:"Hľadať triedu alebo vlastnosť… (napr. WalkSpeed)",secDownloads:"Stiahnutia",dlJson:"Strojo čitateľné · pre nástroje a boty",dlTxt:"Dump čitateľný pre ľudí",dlH:"C++ hlavička · vložte priamo do projektu",secVerify:"Overovanie a komunita",verifyT:"Ako sa ofsety overujú",pillLive:"ŽIVÝ — hodnota sleduje fázy skriptu",pillStable:"STABILNÝ — sentinlová hodnota na mieste",pillDead:"MŔTVY — automaticky odfiltrované",footerEdu:"Iba na vzdelávacie a výskumné účely. Nespojené s Roblox Corporation.",latest:"Najnovšia",filtered:"Filtrovaná",offsets:"ofsetov"},
+lt:{join:"PRIJUNK Prie DISCORD",badgeAuto:"Atnaujinama kiekvieną patch",badgeLive:"Patikrinta tiesiogiai",badgeZero:"Nulio paste",badgeFree:"100% nemokama",stOffsets:"Ofsetai",stClasses:"Klasės",stLive:"Patikrinti live",stVersion:"Roblox versija",secBrowser:"Ofsetų naršyklė",searchPh:"Ieškok klasės arba savybės… (pvz. WalkSpeed)",secDownloads:"Atsisiuntimai",dlJson:"Skaitoma mašinoms · įrankiams ir botams",dlTxt:"Žmogui skaitomas dumpas",dlH:"C++ antraštė · įdėk tiesiai į projektą",secVerify:"Patikra ir bendruomenė",verifyT:"Kaip tikrinami ofsetai",pillLive:"GYVAS — vertė seka skripto fazes",pillStable:"STABILUS — kontrolinė vertė vietoje",pillDead:"MIRĘS — automatiškai atfiltruota",footerEdu:"Tik švietimo ir moksliniams tikslams. Nesusiję su Roblox Corporation.",latest:"Naujausia",filtered:"Filtruota",offsets:"ofsetų"},
+lv:{join:"PIEZIES DISCORD",badgeAuto:"Atjaunināts ar katru patch",badgeLive:"Verificēts tiešraidē",badgeZero:"Nulles ielīmēšana",badgeFree:"100% bez maksas",stOffsets:"Ofseti",stClasses:"Klases",stLive:"Verificēti live",stVersion:"Roblox versija",secBrowser:"Ofsetu pārlūks",searchPh:"Meklēt klasi vai īpašību… (piem. WalkSpeed)",secDownloads:"Lejupielādes",dlJson:"Mašīnlasāms · rīkiem un botiem",dlTxt:"Cilvēkam lasāms dumps",dlH:"C++ galvene · ieliec tieši projektā",secVerify:"Verifikācija un kopiena",verifyT:"Kā tiek verificēti ofseti",pillLive:"DZĪVS — vērtība seko skripta fāzēm",pillStable:"STABILS — kontroles vērtība vietā",pillDead:"MIRIS — automātiski atlasīts",footerEdu:"Tikai izglītības un pētniecības mērķiem. Nav saistīts ar Roblox Corporation.",latest:"Jaunākā",filtered:"Filtrēta",offsets:"ofsetu"},
+et:{join:"LIITU DISCORDIGA",badgeAuto:"Uuendub iga patchiga",badgeLive:"Live-kinnitatud",badgeZero:"Null paste",badgeFree:"100% tasuta",stOffsets:"Ofsetid",stClasses:"Klassid",stLive:"Live-kinnitatud",stVersion:"Roblox-i versioon",secBrowser:"Ofsetide brauser",searchPh:"Otsi klassi või omadust… (nt WalkSpeed)",secDownloads:"Allalaadimised",dlJson:"Masinloetav · tööriistadele ja botidele",dlTxt:"Inimesele loetav dump",dlH:"C++ päis · pane otse projekti",secVerify:"Kinnitamine ja kogukond",verifyT:"Kuidas ofsete kinnitatakse",pillLive:"ELUS — väärtus järgib skripti faase",pillStable:"STABIILNE — kontrollväärtus kohal",pillDead:"SURNUD — automaatselt filtreeritud",footerEdu:"Ainult haridus- ja uurimistöö eesmärgil. Ei ole seotud Roblox Corporation-iga.",latest:"Viimane",filtered:"Filtreeritud",offsets:"ofsetit"},
+sq:{join:"BASHKOHU NË DISCORD",badgeAuto:"Përditësohet me çdo patch",badgeLive:"Verifikuar drejtpërdrejt",badgeZero:"Zero paste",badgeFree:"100% falas",stOffsets:"Offsets",stClasses:"Klasa",stLive:"Verifikuar live",stVersion:"Versioni i Roblox",secBrowser:"Shfletuesi i Offsets",searchPh:"Kërko klasë ose pronë… (p.sh. WalkSpeed)",secDownloads:"Shkarkime",dlJson:"E lexueshme nga makina · për mjete dhe botë",dlTxt:"Dump i lexueshëm nga njeriu",dlH:"Header C++ · vendose drejtpërdrejt në projekt",secVerify:"Verifikimi dhe Komuniteti",verifyT:"Si verifikohen offsets",pillLive:"GJALLË — vlera ndjek fazat e skriptit",pillStable:"STABILE — vlera roje në vend",pillDead:"DEAD — filtruar automatikisht",footerEdu:"Vetëm për qëllime edukative dhe kërkimore. Nuk është i afiliuar me Roblox Corporation.",latest:"Më e fundit",filtered:"E filtruar",offsets:"offset"},
+kk:{join:"DISCORD-ҚА ҚОСЫЛ",badgeAuto:"Әр патч сайын жаңартылады",badgeLive:"Тікелей тексерілген",badgeZero:"Paste жоқ",badgeFree:"100% тегін",stOffsets:"Офсет",stClasses:"Класс",stLive:"Тікелей тексерілген",stVersion:"Roblox нұсқасы",secBrowser:"Офсет шолғышы",searchPh:"Класс немесе қасиет іздеу… (мыс. WalkSpeed)",secDownloads:"Жүктеулер",dlJson:"Машина оқитын · құралдар мен боттарға",dlTxt:"Адам оқитын дамп",dlH:"C++ тақырыбы · жобаны тікелей қой",secVerify:"Тексеру және қауым",verifyT:"Офсеттер қалай тексеріледі",pillLive:"ТІРІ — мән скрипт фазаларын бақылайды",pillStable:"ОРЫҚТЫҚ — бақылау мәні орнында",pillDead:"ӨЛІ — автоматты түрде сүзілген",footerEdu:"Тек білім және зерттеу мақсаттарына. Roblox Corporation-мен байланысты емес.",latest:"Соңғы",filtered:"Сүзілген",offsets:"офсет"},
+uz:{join:"DISCORD'GA QO'SHILING",badgeAuto:"Har patchda avtomatik yangilanadi",badgeLive:"Jonli tekshirilgan",badgeZero:"Paste yo'q",badgeFree:"100% bepul",stOffsets:"Ofset",stClasses:"Klass",stLive:"Jonli tekshirilgan",stVersion:"Roblox versiyasi",secBrowser:"Ofset brauzeri",searchPh:"Klass yoki xususiyatni qidirish… (mas. WalkSpeed)",secDownloads:"Yuklab olishlar",dlJson:"Mashina o'qiydigan · vositalar va botlar uchun",dlTxt:"Inson o'qiydigan dump",dlH:"C++ sarlavha · loyihaga to'g'ridan-to'g'ri",secVerify:"Tekshirish va hamjamiyat",verifyT:"Ofsetlar qanday tekshiriladi",pillLive:"TIRIK — qiymat skript fazalarini kuzatadi",pillStable:"BARQAROR — sentinel qiymat joyida",pillDead:"O'LIK — avtomatik filtrlangan",footerEdu:"Faqat ta'lim va tadqiqot maqsadlarida. Roblox Corporation bilan bog'liq emas.",latest:"Eng so'nggi",filtered:"Filtrlangan",offsets:"ofset"}
+};
+const LANGS = [
+["en","🇬🇧 English"],["tr","🇹🇷 Türkçe"],["es","🇪🇸 Español"],["pt","🇵🇹 Português"],["fr","🇫🇷 Français"],
+["de","🇩🇪 Deutsch"],["it","🇮🇹 Italiano"],["nl","🇳🇱 Nederlands"],["pl","🇵🇱 Polski"],["ru","🇷🇺 Русский"],
+["uk","🇺🇦 Українська"],["ar","🇸🇦 العربية"],["fa","🇮🇷 فارسی"],["he","🇮🇱 עברית"],["hi","🇮🇳 हिन्दी"],
+["bn","🇧🇩 বাংলা"],["ur","🇵🇰 اردو"],["id","🇮🇩 Indonesia"],["ms","🇲🇾 Melayu"],["tl","🇵🇭 Filipino"],
+["th","🇹🇭 ไทย"],["vi","🇻🇳 Tiếng Việt"],["zh","🇨🇳 中文(简体)" ],["ja","🇯🇵 日本語"],["ko","🇰🇷 한국어"],
+["sv","🇸🇪 Svenska"],["no","🇳🇴 Norsk"],["da","🇩🇰 Dansk"],["fi","🇫🇮 Suomi"],["cs","🇨🇿 Čeština"],
+["sk","🇸🇰 Slovenčina"],["hu","🇭🇺 Magyar"],["ro","🇷🇴 Română"],["bg","🇧🇬 Български"],["el","🇬🇷 Ελληνικά"],
+["hr","🇭🇷 Hrvatski"],["sr","🇷🇸 Српски"],["lt","🇱🇹 Lietuvių"],["lv","🇱🇻 Latviešu"],["et","🇪🇪 Eesti"],
+["sq","🇦🇱 Shqip"],["ka","🇬🇪 ქართული"],["az","🇦🇿 Azərbaycan"],["kk","🇰🇿 Қазақша"],["uz","🇺🇿 Oʻzbekcha"],
+["sw","🇰🇪 Kiswahili"],["af","🇿🇦 Afrikaans"],["be","🇧🇾 Беларуская"],["sl","🇸🇮 Slovenščina"],["mk","🇲🇰 Македонски"],["ca","🏳️ Català"]
+];
+// be/sl/mk icin kisa etiketler (rusyaca/lehce tabanli)
+I18N.be = Object.assign({},I18N.ru,{join:"ДАЛУЧЫЦЦА Ў DISCORD"});
+I18N.sl = Object.assign({},I18N.hr,{join:"PRIDRUŽI SE DISCORDU"});
+I18N.mk = Object.assign({},I18N.sr,{join:"ПРИКЛУЧИ СЕ НА ДИСКОРД"});
+I18N.ca = Object.assign({},I18N.es,{join:"UNEIX-TE AL DISCORD",latest:"Última",filtered:"Filtrada"});
+
+let LANG = localStorage.getItem("mur4lang") || "en";
+const t = k => (I18N[LANG] && I18N[LANG][k]) || EN[k] || k;
+const RTL = ["ar","fa","he","ur"].includes(LANG);
+
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.body.dir = RTL ? "rtl" : "ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=t(el.dataset.i18n));
+  document.querySelectorAll("[data-i18n-ph]").forEach(el=>el.placeholder=t(el.dataset.i18nPh));
+  document.title = LANG==="tr" ? "Mur4 Offsets (External) — Canlı Doğrulanmış Roblox Offsetleri"
+                : "Mur4 Offsets (External) — Live-Verified Roblox Offsets";
+  const sel=document.getElementById("verSel");
+  if(sel.selectedOptions[0]&&sel.selectedOptions[0]._data) fillSel();
+  startType();
+}
+function fillSel(){
+  const sel=document.getElementById("verSel");
+  const cur=sel.selectedIndex;
+  [...sel.options].forEach((o,i)=>{
+    if(o._v==="")o.textContent=`${t("latest")} — ${o._data.version||""}`;
+    else{
+      const m=(MANIFEST||[]).find(x=>x.tag===o._v);
+      o.textContent=`${t("filtered")} — ${o._v}`+(m&&m.count?` (${m.count} ${t("offsets")})`:"");
+    }
+  });
+  sel.selectedIndex=cur;
+}
+
+/* lang selector UI */
+const langSel=document.getElementById("langSel");
+LANGS.forEach(([code,name])=>{const o=document.createElement("option");o.value=code;o.textContent=name;langSel.appendChild(o)});
+langSel.value=LANG;
+langSel.onchange=()=>{LANG=langSel.value;localStorage.setItem("mur4lang",LANG);applyLang()};
+
+/* typing effect (per-lang) */
+let typeTimer=null;
+function startType(){
+  const msgs=[t("badgeAuto"),t("badgeLive")+" "+t("badgeLive2"),t("badgeFree")];
+  const el=document.getElementById("typed");
+  if(typeTimer)clearTimeout(typeTimer);
+  let mi=0,ci=0,del=false;
+  (function tick(){
+    const m=msgs[mi];
+    el.textContent=m.slice(0,ci);
+    if(!del&&ci<m.length){ci++;typeTimer=setTimeout(tick,34)}
+    else if(!del){del=true;typeTimer=setTimeout(tick,2100)}
+    else if(ci>0){ci--;typeTimer=setTimeout(tick,12)}
+    else{del=false;mi=(mi+1)%msgs.length;typeTimer=setTimeout(tick,350)}
+  })();
+}
+
+/* particles */
 (function(){
-  const c = document.getElementById("particles"), x = c.getContext("2d");
+  const c=document.getElementById("particles"),x=c.getContext("2d");
   let W,H,ps=[];
   function size(){W=c.width=innerWidth;H=c.height=innerHeight}
   addEventListener("resize",size);size();
@@ -223,27 +367,20 @@ const TypedMsgs = [
     requestAnimationFrame(loop);
   })();
 })();
-
-/* scroll reveal */
-const io = new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("on")),{threshold:.08});
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("on")),{threshold:.08});
 document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+function countUp(el,to){let s=performance.now();(function f(t2){const p=Math.min(1,(t2-s)/900);el.textContent=Math.round(to*(0.2+0.8*p*p));if(p<1)requestAnimationFrame(f)})(s)}
 
-/* count-up stats */
-function countUp(el,to){let s=0;const st=performance.now();
-  (function f(t){const p=Math.min(1,(t-st)/900);el.textContent=Math.round(to*(0.2+0.8*p*p));if(p<1)requestAnimationFrame(f)})(st);}
-
-/* ================= DATA ================= */
-const versions = ["", "version-c5aecda2245e4fae"];
-let DATA = null;
-
+/* ===== DATA ===== */
+let MANIFEST=[],DATA=null;
 async function loadVersion(v){
-  const file = v ? "offsets_" + v + ".json" : "offsets.json";
-  const r = await fetch(file); if(!r.ok) throw new Error(file);
+  const file=v?"offsets_"+v+".json":"offsets.json";
+  const r=await fetch(file+"?v="+Date.now());if(!r.ok)throw new Error(file);
   return r.json();
 }
 function render(q){
   q=(q||"").toLowerCase();
-  const list=document.getElementById("list"); list.innerHTML="";
+  const list=document.getElementById("list");list.innerHTML="";
   let total=0,classes=0;
   for(const [cls,props] of Object.entries(DATA.offsets)){
     const en=Object.entries(props).filter(([p])=>!q||cls.toLowerCase().includes(q)||p.toLowerCase().includes(q));
@@ -257,25 +394,29 @@ function render(q){
   countUp(document.getElementById("stTotal"),total);
   document.getElementById("stClasses").textContent=classes;
 }
-
+function setVersionStats(d){
+  document.getElementById("stVer").textContent=(d.version||"?").replace("version-","").slice(0,8);
+  if(d.dump_time)document.getElementById("stLive").textContent=d.not_working?d.not_working:"";
+}
 (async()=>{
   const sel=document.getElementById("verSel"),st=document.getElementById("status");
+  try{const r=await fetch("versions.json?v="+Date.now());if(r.ok)MANIFEST=await r.json()}catch(e){}
   sel.innerHTML="";let any=false;
-  for(const v of versions){
-    try{const d=await loadVersion(v);
-      const o=document.createElement("option");o.value=v;
-      o.textContent=v?("Filtered — "+v):("Latest — "+(d.version||""));
-      o._data=d;sel.appendChild(o);any=true;if(!DATA)DATA=d;
+  try{DATA=await loadVersion("");
+    const o=document.createElement("option");o.textContent="";o._data=DATA;o._v="";sel.appendChild(o);any=true;
+  }catch(e){}
+  for(const m of MANIFEST){
+    try{const d=await loadVersion(m.tag);
+      const o=document.createElement("option");o.textContent="";o._data=d;o._v=m.tag;sel.appendChild(o);any=true;
     }catch(e){}
   }
-  if(!any){st.innerHTML='<span style="color:var(--red2)">offsets.json not found — upload dump files next to index.html.</span>';return;}
-  document.getElementById("stVer").textContent=(DATA.version||"?").replace("version-","").slice(0,8);
-  render("");
-  sel.onchange=()=>{DATA=sel.selectedOptions[0]._data;
-    document.getElementById("stVer").textContent=(DATA.version||"?").replace("version-","").slice(0,8);
-    document.getElementById("stLive").textContent=DATA.not_working?"":"";render("");};
+  if(!any){st.innerHTML='<span style="color:var(--red2)">'+t("notFound")+'</span>';return}
+  fillSel();setVersionStats(DATA);render("");
+  sel.onchange=()=>{DATA=sel.selectedOptions[0]._data;setVersionStats(DATA);render("")};
   document.getElementById("q").oninput=e=>render(e.target.value.trim());
+  applyLang();
 })();
+applyLang();
 </script>
 </body>
 </html>
