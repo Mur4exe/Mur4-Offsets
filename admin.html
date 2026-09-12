@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mur4 Offsets — Admin Panel</title>
+<style>
+:root{
+  --bg:#0b0c0f; --card:#16181d; --card2:#1b1d23; --line:#26282f;
+  --red:#e31b23; --red2:#ff4d54; --green:#00e08f; --text:#e8e9ec; --dim:#9aa0aa;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:100%;max-width:640px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:32px;animation:pop .5s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+h1{font-size:26px;margin-bottom:4px}
+h1 span{color:var(--red2)}
+.sub{color:var(--dim);font-size:13px;margin-bottom:22px}
+label{display:block;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:14px 0 6px}
+input,textarea{width:100%;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px 14px;font-size:14px;outline:none;transition:.25s}
+input:focus,textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,27,35,.15)}
+textarea{font-family:Consolas,monospace;font-size:13px;resize:vertical;min-height:120px}
+.row{display:flex;gap:10px}.row>*{flex:1}
+button{width:100%;margin-top:20px;padding:14px;border:0;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;transition:.25s;color:#fff}
+.btn-login{background:linear-gradient(135deg,var(--red),#8f1218)}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(227,27,35,.35)}
+.btn-up{background:linear-gradient(135deg,#0a7d52,#00b06f)}
+.btn-up:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,224,143,.3)}
+.btn-gh{background:linear-gradient(135deg,#3a3d46,#24262d);margin-top:10px}
+.btn-gh:hover{transform:translateY(-2px)}
+.msg{margin-top:14px;font-size:13px;padding:10px 14px;border-radius:10px;display:none}
+.msg.ok{display:block;background:rgba(0,224,143,.1);color:var(--green)}
+.msg.err{display:block;background:rgba(227,27,35,.12);color:var(--red2)}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--dim);transition:.25s;margin-top:6px;cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--red);background:rgba(227,27,35,.05);color:var(--text)}
+.files{margin-top:10px;font-size:13px}
+.file{display:flex;justify-content:space-between;background:#0e0f13;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin-top:6px}
+.file .ok{color:var(--green)}.file .wait{color:#ffc107}.file .fail{color:var(--red2)}
+.hidden{display:none}
+.log{background:#0e0f13;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:12px;font-family:Consolas,monospace;color:var(--dim);max-height:180px;overflow:auto;margin-top:14px;display:none}
+.back{position:fixed;top:16px;left:18px;color:var(--dim);font-size:13px}
+.back:hover{color:var(--red2)}
+.hint{font-size:12px;color:#666;margin-top:8px;line-height:1.6}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← back to site</a>
+
+<div class="card">
+  <!-- LOGIN -->
+  <div id="login">
+    <h1>⚡ Mur4 Offsets — <span>Admin</span></h1>
+    <p class="sub">Login with your GitHub token to upload offsets to the live site.</p>
+    <label>GitHub Username</label>
+    <input id="ghUser" placeholder="e.g. mur4t">
+    <label>Repository Name</label>
+    <input id="ghRepo" placeholder="e.g. mur4-offsets">
+    <label>Branch</label>
+    <input id="ghBranch" value="main">
+    <label>Personal Access Token (password)</label>
+    <input id="ghPat" type="password" placeholder="ghp_… (repo scope)">
+    <p class="hint">Create the token at github.com → Settings → Developer settings → Personal access tokens → <b>Fine-grained</b> (only this repo, <b>Contents: Read and write</b>). Token stays in THIS browser only (localStorage), never sent anywhere except GitHub.</p>
+    <button class="btn-login" onclick="login()">🔓 LOGIN</button>
+    <div class="msg" id="m1"></div>
+  </div>
+
+  <!-- PANEL -->
+  <div id="panel" class="hidden">
+    <h1>⚡ Upload <span>Offsets</span></h1>
+    <p class="sub" id="who"></p>
+
+    <label>1) Drop dump files (offsets.json / Mur4_Offsets.txt / .h / versioned…)</label>
+    <div class="drop" id="drop">📁 drag &amp; drop files here — or click to choose</div>
+    <input type="file" id="fileInput" multiple class="hidden">
+    <div class="files" id="files"></div>
+
+    <button class="btn-up" onclick="uploadAll()">🚀 PUSH TO SITE (commit to repo)</button>
+
+    <label>2) Discord webhook (optional — auto-announce after upload)</label>
+    <input id="hook" placeholder="https://discord.com/api/webhooks/…">
+    <button class="btn-gh" onclick="testHook()">🔔 Send test announce</button>
+
+    <div class="log" id="log"></div>
+    <button class="btn-gh" onclick="logout()">🚪 LOGOUT</button>
+  </div>
+  <div class="msg" id="m2"></div>
+</div>
+
+<script>
+const LS='mur4admin';
+const DEFAULT_HOOK='https://discord.com/api/webhooks/1548444722060722318/PBksNPDUvEWci2Ss58L0nn2q1-AB6yNiAS6gwuUTV5uaF4VWO96uFMjG755AgUJlJCPr';
+let CFG=null, queue=[];
+
+document.addEventListener('DOMContentLoaded',()=>{ if(!$('hook').value) $('hook').value=DEFAULT_HOOK; });
+
+function $(id){return document.getElementById(id)}
+function msg(id,txt,ok){const e=$(id);e.textContent=txt;e.className='msg '+(ok?'ok':'err');setTimeout(()=>{if(ok)e.className='msg'},5000)}
+function log(t){const l=$('log');l.style.display='block';l.innerHTML+=t+'<br>';l.scrollTop=l.scrollHeight}
+
+/* ---- LOGIN ---- */
+(function(){ // geri gelindiğinde hatırla (token hariç doldur)
+  try{const c=JSON.parse(localStorage.getItem(LS)||'{}');
+    if(c.user)$('ghUser').value=c.user; if(c.repo)$('ghRepo').value=c.repo; if(c.branch)$('ghBranch').value=c.branch;
+  }catch(e){}
+})();
+
+async function login(){
+  const user=$('ghUser').value.trim(),repo=$('ghRepo').value.trim(),branch=$('ghBranch').value.trim()||'main',pat=$('ghPat').value.trim();
+  if(!user||!repo||!pat){msg('m1','Username, repo and token are required.',false);return}
+  msg('m1','Checking token with GitHub…',true);
+  try{
+    const r=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:{Authorization:'Bearer '+pat}});
+    if(r.status===401){msg('m1','Token invalid (401).',false);return}
+    if(r.status===404){msg('m1','Repo not found (404) — check username/repo name.',false);return}
+    if(!r.ok){msg('m1','GitHub error: '+r.status,false);return}
+    CFG={user,repo,branch,pat};
+    localStorage.setItem(LS,JSON.stringify({user,repo,branch})); // token HAFIZADA DEGIL
+    sessionStorage.setItem(LS+'_t',pat); // token sadece sekme boyu
+    $('login').classList.add('hidden');$('panel').classList.remove('hidden');
+    $('who').textContent=`Logged in as ${user} → ${repo} (branch: ${branch})`;
+    msg('m1','Login OK!',true);
+  }catch(e){msg('m1','Network error: '+e.message,false)}
+}
+function logout(){sessionStorage.removeItem(LS+'_t');location.reload()}
+
+/* ---- DROPZONE ---- */
+const drop=$('drop'),fi=$('fileInput');
+drop.onclick=()=>fi.click();
+drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};
+drop.ondragleave=()=>drop.classList.remove('over');
+drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');addFiles(e.dataTransfer.files)};
+fi.onchange=()=>{addFiles(fi.files);fi.value=''};
+
+function addFiles(list){
+  for(const f of list)queue.push({name:f.name,file:f});
+  renderQueue();
+}
+function renderQueue(){
+  $('files').innerHTML=queue.map((q,i)=>`<div class="file"><span>${q.name}</span><span class="wait">${q.status||'ready'}</span></div>`).join('');
+}
+
+/* ---- GITHUB UPLOAD ---- */
+async function ghPut(path,content,isText){
+  const {user,repo,branch,pat}=CFG;
+  const api=`https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+  // mevcut dosyanin sha'sini al (guncelleme icin sart)
+  let sha=null;
+  const gr=await fetch(api+'?ref='+branch,{headers:{Authorization:'Bearer '+pat}});
+  if(gr.ok){const j=await gr.json();sha=j.sha}
+  const body={message:'Mur4 Offsets update: '+path,branch,sha,
+    content:btoa(unescape(encodeURIComponent(isText?content:content)))};
+  const pr=await fetch(api,{method:'PUT',headers:{Authorization:'Bearer '+pat,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!pr.ok)throw new Error(path+' → HTTP '+pr.status);
+}
+
+async function uploadAll(){
+  if(!queue.length){msg('m2','Drop at least one file first.',false);return}
+  const pat=sessionStorage.getItem(LS+'_t');
+  if(!pat){logout();return}
+  $('log').innerHTML='';$('log').style.display='block';
+  let okCount=0,versionTag=null;
+  for(const q of queue){
+    try{
+      log('⏳ '+q.name+' okunuyor…');
+      const isJson=q.name.endsWith('.json');
+      const text=await q.file.text();
+      if(isJson){
+        try{const j=JSON.parse(text);
+          if(j.version&&j.version.startsWith('version-'))versionTag=j.version;
+        }catch(e){throw new Error('invalid JSON!')}
+      }
+      await ghPut(q.name,text,true);
+      q.status='✅ committed';okCount++;
+      log('✅ '+q.name+' repoya yazildi');
+    }catch(e){q.status='❌ '+e.message;log('❌ '+q.name+' → '+e.message)}
+    renderQueue();
+  }
+  msg('m2',okCount+' file(s) pushed. Site will refresh in ~1 min (Pages build).',true);
+
+  // webhook duyurusu
+  const hook=$('hook').value.trim();
+  if(hook&&versionTag){
+    try{
+      const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({username:'Mur4 Offsets',embeds:[{title:'🚀 New offsets on the website!',description:'**'+versionTag+'** published to the live site.',color:0x00b06f}]})});
+      log(r.ok?'🔔 Discord duyurusu gitti':'⚠️ webhook hata: HTTP '+r.status);
+    }catch(e){log('⚠️ webhook: '+e.message)}
+  }
+}
+
+/* ---- WEBHOOK TEST ---- */
+async function testHook(){
+  const hook=$('hook').value.trim();if(!hook){msg('m2','Webhook URL gir once.',false);return}
+  try{
+    const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:'Mur4 Offsets',content:'🔔 Test announce — site panel connected! ✅'})});
+    msg('m2',r.ok?'Test announce sent to Discord!':'Webhook HTTP '+r.status,r.ok);
+  }catch(e){msg('m2','Hata: '+e.message,false)}
+}
+</script>
+</body>
+</html>

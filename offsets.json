@@ -1,0 +1,726 @@
+{
+  "name": "Mur4 Offsets (External)",
+  "type": "external",
+  "version": "version-c5aecda2245e4fae",
+  "dump_time": "2026-09-12 18:03:30",
+  "count": 577,
+  "offsets": {
+    "Accessory": {
+      "AttachmentPos": "0xDC",
+      "AttachmentPos.y": "0xE0",
+      "AttachmentPos.z": "0xE4"
+    },
+    "AccessoryDescription": {
+      "Position": "0xC8",
+      "Position.y": "0xCC",
+      "Position.z": "0xD0",
+      "Rotation": "0xD4",
+      "Rotation.y": "0xD8",
+      "Rotation.z": "0xDC",
+      "Scale": "0xE0",
+      "Scale.y": "0xE4",
+      "Scale.z": "0xE8"
+    },
+    "Accoutrement": {
+      "AttachmentPos": "0xDC",
+      "AttachmentPos.y": "0xE0",
+      "AttachmentPos.z": "0xE4"
+    },
+    "AlignOrientation": {
+      "LookAtPosition": "0x194",
+      "LookAtPosition.y": "0x198",
+      "LookAtPosition.z": "0x19C"
+    },
+    "AlignPosition": {
+      "MaxAxesForce": "0x170",
+      "MaxAxesForce.y": "0x174",
+      "MaxAxesForce.z": "0x178",
+      "Position": "0x17C",
+      "Position.y": "0x180",
+      "Position.z": "0x184"
+    },
+    "AngularVelocity": {
+      "AngularVelocity": "0x170",
+      "AngularVelocity.y": "0x174",
+      "AngularVelocity.z": "0x178"
+    },
+    "ArcHandles": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0"
+    },
+    "Atmosphere": {
+      "Color": "0xB8",
+      "Color.g": "0xBC",
+      "Color.b": "0xC0",
+      "Decay": "0xC4",
+      "Decay.g": "0xC8",
+      "Decay.b": "0xCC"
+    },
+    "BillboardGui": {
+      "ExtentsOffset": "0x768",
+      "ExtentsOffset.y": "0x76C",
+      "ExtentsOffset.z": "0x770",
+      "ExtentsOffsetWorldSpace": "0x774",
+      "ExtentsOffsetWorldSpace.y": "0x778",
+      "ExtentsOffsetWorldSpace.z": "0x77C",
+      "StudsOffset": "0x780",
+      "StudsOffset.y": "0x784",
+      "StudsOffset.z": "0x788",
+      "StudsOffsetWorldSpace": "0x78C",
+      "StudsOffsetWorldSpace.y": "0x790",
+      "StudsOffsetWorldSpace.z": "0x794"
+    },
+    "BodyAngularVelocity": {
+      "angularvelocity": "0x288",
+      "angularvelocity.y": "0x28C",
+      "angularvelocity.z": "0x290",
+      "maxTorque": "0x294",
+      "maxTorque.y": "0x298",
+      "maxTorque.z": "0x29C"
+    },
+    "BodyColors": {
+      "HeadColor3": "0xC4",
+      "HeadColor3.g": "0xC8",
+      "HeadColor3.b": "0xCC",
+      "LeftArmColor3": "0xD4",
+      "LeftArmColor3.g": "0xD8",
+      "LeftArmColor3.b": "0xDC",
+      "LeftLegColor3": "0xE4",
+      "LeftLegColor3.g": "0xE8",
+      "LeftLegColor3.b": "0xEC",
+      "RightArmColor3": "0xF4",
+      "RightArmColor3.g": "0xF8",
+      "RightArmColor3.b": "0xFC",
+      "RightLegColor3": "0x104",
+      "RightLegColor3.g": "0x108",
+      "RightLegColor3.b": "0x10C",
+      "TorsoColor3": "0x114",
+      "TorsoColor3.g": "0x118",
+      "TorsoColor3.b": "0x11C"
+    },
+    "BodyForce": {
+      "force": "0x280",
+      "force.y": "0x284",
+      "force.z": "0x288"
+    },
+    "BodyGyro": {
+      "cframe": "0x2AC",
+      "cframe.y": "0x2B0",
+      "cframe.z": "0x2B4",
+      "maxTorque": "0x2B8",
+      "maxTorque.y": "0x2BC",
+      "maxTorque.z": "0x2C0"
+    },
+    "BodyPartDescription": {
+      "Color": "0xE8",
+      "Color.g": "0xEC",
+      "Color.b": "0xF0"
+    },
+    "BodyPosition": {
+      "maxForce": "0x288",
+      "maxForce.y": "0x28C",
+      "maxForce.z": "0x290",
+      "position": "0x294",
+      "position.y": "0x298",
+      "position.z": "0x29C"
+    },
+    "BodyThrust": {
+      "force": "0x280",
+      "force.y": "0x284",
+      "force.z": "0x288",
+      "location": "0x28C",
+      "location.y": "0x290",
+      "location.z": "0x294"
+    },
+    "BodyVelocity": {
+      "maxForce": "0x288",
+      "maxForce.y": "0x28C",
+      "maxForce.z": "0x290",
+      "velocity": "0x294",
+      "velocity.y": "0x298",
+      "velocity.z": "0x29C"
+    },
+    "BoxHandleAdornment": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0",
+      "CFrame": "0x13C",
+      "CFrame.y": "0x140",
+      "CFrame.z": "0x144",
+      "SizeRelativeOffset": "0x148",
+      "SizeRelativeOffset.y": "0x14C",
+      "SizeRelativeOffset.z": "0x150",
+      "Size": "0x1A8",
+      "Size.y": "0x1AC",
+      "Size.z": "0x1B0"
+    },
+    "BubbleChatMessageProperties": {
+      "BackgroundColor3": "0x128",
+      "BackgroundColor3.g": "0x12C",
+      "BackgroundColor3.b": "0x130",
+      "TextColor3": "0x134",
+      "TextColor3.g": "0x138",
+      "TextColor3.b": "0x13C"
+    },
+    "CFrameValue": {
+      "Value": "0xDC",
+      "Value.y": "0xE0",
+      "Value.z": "0xE4"
+    },
+    "CanvasGroup": {
+      "BackgroundColor3": "0x540",
+      "BackgroundColor3.g": "0x544",
+      "BackgroundColor3.b": "0x548",
+      "BorderColor3": "0x54C",
+      "BorderColor3.g": "0x550",
+      "BorderColor3.b": "0x554",
+      "GroupColor3": "0x990",
+      "GroupColor3.g": "0x994",
+      "GroupColor3.b": "0x998"
+    },
+    "Clouds": {
+      "Color": "0xB0",
+      "Color.g": "0xB4",
+      "Color.b": "0xB8"
+    },
+    "Color3Value": {
+      "Value": "0xB8",
+      "Value.g": "0xBC",
+      "Value.b": "0xC0"
+    },
+    "ColorCorrectionEffect": {
+      "TintColor": "0xB8",
+      "TintColor.g": "0xBC",
+      "TintColor.b": "0xC0"
+    },
+    "ConeHandleAdornment": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0",
+      "CFrame": "0x13C",
+      "CFrame.y": "0x140",
+      "CFrame.z": "0x144",
+      "SizeRelativeOffset": "0x148",
+      "SizeRelativeOffset.y": "0x14C",
+      "SizeRelativeOffset.z": "0x150"
+    },
+    "ControllerPartSensor": {
+      "HitFrame": "0x274",
+      "HitFrame.y": "0x278",
+      "HitFrame.z": "0x27C"
+    },
+    "CylinderHandleAdornment": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0",
+      "CFrame": "0x13C",
+      "CFrame.y": "0x140",
+      "CFrame.z": "0x144",
+      "SizeRelativeOffset": "0x148",
+      "SizeRelativeOffset.y": "0x14C",
+      "SizeRelativeOffset.z": "0x150"
+    },
+    "CylinderMesh": {
+      "Offset": "0xB8",
+      "Offset.y": "0xBC",
+      "Offset.z": "0xC0",
+      "Scale": "0xC4",
+      "Scale.y": "0xC8",
+      "Scale.z": "0xCC",
+      "VertexColor": "0xD0",
+      "VertexColor.y": "0xD4",
+      "VertexColor.z": "0xD8"
+    },
+    "Decal": {
+      "Color3": "0x250",
+      "Color3.g": "0x254",
+      "Color3.b": "0x258",
+      "EmissiveTint": "0x25C",
+      "EmissiveTint.g": "0x260",
+      "EmissiveTint.b": "0x264"
+    },
+    "Dialog": {
+      "TriggerOffset": "0xF0",
+      "TriggerOffset.y": "0xF4",
+      "TriggerOffset.z": "0xF8"
+    },
+    "DigitsRigDescription": {
+      "Index1TposeAdjustment": "0x1C4",
+      "Index1TposeAdjustment.y": "0x1C8",
+      "Index1TposeAdjustment.z": "0x1CC",
+      "Index2TposeAdjustment": "0x1F4",
+      "Index2TposeAdjustment.y": "0x1F8",
+      "Index2TposeAdjustment.z": "0x1FC",
+      "Index3TposeAdjustment": "0x224",
+      "Index3TposeAdjustment.y": "0x228",
+      "Index3TposeAdjustment.z": "0x22C",
+      "Middle1TposeAdjustment": "0x254",
+      "Middle1TposeAdjustment.y": "0x258",
+      "Middle1TposeAdjustment.z": "0x25C",
+      "Middle2TposeAdjustment": "0x284",
+      "Middle2TposeAdjustment.y": "0x288",
+      "Middle2TposeAdjustment.z": "0x28C",
+      "Middle3TposeAdjustment": "0x2B4",
+      "Middle3TposeAdjustment.y": "0x2B8",
+      "Middle3TposeAdjustment.z": "0x2BC",
+      "Pinky1TposeAdjustment": "0x2E4",
+      "Pinky1TposeAdjustment.y": "0x2E8",
+      "Pinky1TposeAdjustment.z": "0x2EC",
+      "Pinky2TposeAdjustment": "0x314",
+      "Pinky2TposeAdjustment.y": "0x318",
+      "Pinky2TposeAdjustment.z": "0x31C",
+      "Pinky3TposeAdjustment": "0x344",
+      "Pinky3TposeAdjustment.y": "0x348",
+      "Pinky3TposeAdjustment.z": "0x34C",
+      "Ring1TposeAdjustment": "0x374",
+      "Ring1TposeAdjustment.y": "0x378",
+      "Ring1TposeAdjustment.z": "0x37C",
+      "Ring2TposeAdjustment": "0x3A4",
+      "Ring2TposeAdjustment.y": "0x3A8",
+      "Ring2TposeAdjustment.z": "0x3AC",
+      "Ring3TposeAdjustment": "0x3D4",
+      "Ring3TposeAdjustment.y": "0x3D8",
+      "Ring3TposeAdjustment.z": "0x3DC",
+      "Thumb1TposeAdjustment": "0x404",
+      "Thumb1TposeAdjustment.y": "0x408",
+      "Thumb1TposeAdjustment.z": "0x40C",
+      "Thumb2TposeAdjustment": "0x434",
+      "Thumb2TposeAdjustment.y": "0x438",
+      "Thumb2TposeAdjustment.z": "0x43C",
+      "Thumb3TposeAdjustment": "0x464",
+      "Thumb3TposeAdjustment.y": "0x468",
+      "Thumb3TposeAdjustment.z": "0x46C",
+      "IndexRange": "0x470",
+      "IndexRange.y": "0x474",
+      "IndexRange.z": "0x478",
+      "MiddleRange": "0x47C",
+      "MiddleRange.y": "0x480",
+      "MiddleRange.z": "0x484",
+      "PinkyRange": "0x488",
+      "PinkyRange.y": "0x48C",
+      "PinkyRange.z": "0x490",
+      "RingRange": "0x494",
+      "RingRange.y": "0x498",
+      "RingRange.z": "0x49C",
+      "ThumbRange": "0x4A0",
+      "ThumbRange.y": "0x4A4",
+      "ThumbRange.z": "0x4A8"
+    },
+    "DragDetector": {
+      "DragFrame": "0x224",
+      "DragFrame.y": "0x228",
+      "DragFrame.z": "0x22C",
+      "MaxDragTranslation": "0x26C",
+      "MaxDragTranslation.y": "0x270",
+      "MaxDragTranslation.z": "0x274",
+      "MinDragTranslation": "0x278",
+      "MinDragTranslation.y": "0x27C",
+      "MinDragTranslation.z": "0x280"
+    },
+    "Explosion": {
+      "Position": "0xF0",
+      "Position.y": "0xF4",
+      "Position.z": "0xF8"
+    },
+    "FileMesh": {
+      "Offset": "0xB8",
+      "Offset.y": "0xBC",
+      "Offset.z": "0xC0",
+      "Scale": "0xC4",
+      "Scale.y": "0xC8",
+      "Scale.z": "0xCC",
+      "VertexColor": "0xD0",
+      "VertexColor.y": "0xD4",
+      "VertexColor.z": "0xD8"
+    },
+    "Fire": {
+      "Color": "0xB8",
+      "Color.g": "0xBC",
+      "Color.b": "0xC0",
+      "SecondaryColor": "0xC4",
+      "SecondaryColor.g": "0xC8",
+      "SecondaryColor.b": "0xCC"
+    },
+    "Flag": {
+      "GripPos": "0x4AC",
+      "GripPos.y": "0x4B0",
+      "GripPos.z": "0x4B4"
+    },
+    "FloorWire": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0",
+      "StudsBetweenTextures": "0x14C"
+    },
+    "Glue": {
+      "F0": "0x188",
+      "F0.y": "0x18C",
+      "F0.z": "0x190",
+      "F1": "0x194",
+      "F1.y": "0x198",
+      "F1.z": "0x19C",
+      "F2": "0x1A0",
+      "F2.y": "0x1A4",
+      "F2.z": "0x1A8",
+      "F3": "0x1AC",
+      "F3.y": "0x1B0",
+      "F3.z": "0x1B4"
+    },
+    "Handles": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0"
+    },
+    "Hat": {
+      "AttachmentPos": "0xDC",
+      "AttachmentPos.y": "0xE0",
+      "AttachmentPos.z": "0xE4"
+    },
+    "Highlight": {
+      "FillColor": "0xC8",
+      "FillColor.g": "0xCC",
+      "FillColor.b": "0xD0",
+      "OutlineColor": "0xD4",
+      "OutlineColor.g": "0xD8",
+      "OutlineColor.b": "0xDC"
+    },
+    "Humanoid": {
+      "CameraOffset": "0x128",
+      "CameraOffset.y": "0x12C",
+      "CameraOffset.z": "0x130",
+      "TargetPoint": "0x14C",
+      "TargetPoint.y": "0x150",
+      "TargetPoint.z": "0x154",
+      "WalkToPoint": "0x164",
+      "WalkToPoint.y": "0x168",
+      "WalkToPoint.z": "0x16C"
+    },
+    "HumanoidRigDescription": {
+      "ChestTposeAdjustment": "0x254",
+      "ChestTposeAdjustment.y": "0x258",
+      "ChestTposeAdjustment.z": "0x25C",
+      "HeadBaseTposeAdjustment": "0x284",
+      "HeadBaseTposeAdjustment.y": "0x288",
+      "HeadBaseTposeAdjustment.z": "0x28C",
+      "LeftAnkleTposeAdjustment": "0x2B4",
+      "LeftAnkleTposeAdjustment.y": "0x2B8",
+      "LeftAnkleTposeAdjustment.z": "0x2BC",
+      "LeftClavicleTposeAdjustment": "0x2E4",
+      "LeftClavicleTposeAdjustment.y": "0x2E8",
+      "LeftClavicleTposeAdjustment.z": "0x2EC",
+      "LeftElbowTposeAdjustment": "0x314",
+      "LeftElbowTposeAdjustment.y": "0x318",
+      "LeftElbowTposeAdjustment.z": "0x31C",
+      "LeftHipTposeAdjustment": "0x344",
+      "LeftHipTposeAdjustment.y": "0x348",
+      "LeftHipTposeAdjustment.z": "0x34C",
+      "LeftKneeTposeAdjustment": "0x374",
+      "LeftKneeTposeAdjustment.y": "0x378",
+      "LeftKneeTposeAdjustment.z": "0x37C",
+      "LeftShoulderTposeAdjustment": "0x3A4",
+      "LeftShoulderTposeAdjustment.y": "0x3A8",
+      "LeftShoulderTposeAdjustment.z": "0x3AC",
+      "LeftToeBaseTposeAdjustment": "0x3D4",
+      "LeftToeBaseTposeAdjustment.y": "0x3D8",
+      "LeftToeBaseTposeAdjustment.z": "0x3DC",
+      "LeftWristTposeAdjustment": "0x404",
+      "LeftWristTposeAdjustment.y": "0x408",
+      "LeftWristTposeAdjustment.z": "0x40C",
+      "NeckTposeAdjustment": "0x434",
+      "NeckTposeAdjustment.y": "0x438",
+      "NeckTposeAdjustment.z": "0x43C",
+      "ChestRangeMax": "0x680",
+      "ChestRangeMax.y": "0x684",
+      "ChestRangeMax.z": "0x688",
+      "ChestRangeMin": "0x68C",
+      "ChestRangeMin.y": "0x690",
+      "ChestRangeMin.z": "0x694",
+      "HeadBaseRangeMax": "0x698",
+      "HeadBaseRangeMax.y": "0x69C",
+      "HeadBaseRangeMax.z": "0x6A0",
+      "HeadBaseRangeMin": "0x6A4",
+      "HeadBaseRangeMin.y": "0x6A8",
+      "HeadBaseRangeMin.z": "0x6AC",
+      "LeftAnkleRangeMax": "0x6B0",
+      "LeftAnkleRangeMax.y": "0x6B4",
+      "LeftAnkleRangeMax.z": "0x6B8",
+      "LeftAnkleRangeMin": "0x6BC",
+      "LeftAnkleRangeMin.y": "0x6C0",
+      "LeftAnkleRangeMin.z": "0x6C4",
+      "LeftClavicleRangeMax": "0x6C8",
+      "LeftClavicleRangeMax.y": "0x6CC",
+      "LeftClavicleRangeMax.z": "0x6D0",
+      "LeftClavicleRangeMin": "0x6D4",
+      "LeftClavicleRangeMin.y": "0x6D8",
+      "LeftClavicleRangeMin.z": "0x6DC",
+      "LeftElbowRangeMax": "0x6E0",
+      "LeftElbowRangeMax.y": "0x6E4",
+      "LeftElbowRangeMax.z": "0x6E8",
+      "LeftElbowRangeMin": "0x6EC",
+      "LeftElbowRangeMin.y": "0x6F0",
+      "LeftElbowRangeMin.z": "0x6F4",
+      "LeftHipRangeMax": "0x6F8",
+      "LeftHipRangeMax.y": "0x6FC",
+      "LeftHipRangeMax.z": "0x700",
+      "LeftHipRangeMin": "0x704",
+      "LeftHipRangeMin.y": "0x708",
+      "LeftHipRangeMin.z": "0x70C",
+      "LeftKneeRangeMax": "0x710",
+      "LeftKneeRangeMax.y": "0x714",
+      "LeftKneeRangeMax.z": "0x718",
+      "LeftKneeRangeMin": "0x71C",
+      "LeftKneeRangeMin.y": "0x720",
+      "LeftKneeRangeMin.z": "0x724",
+      "LeftShoulderRangeMax": "0x728",
+      "LeftShoulderRangeMax.y": "0x72C",
+      "LeftShoulderRangeMax.z": "0x730",
+      "LeftShoulderRangeMin": "0x734",
+      "LeftShoulderRangeMin.y": "0x738",
+      "LeftShoulderRangeMin.z": "0x73C",
+      "LeftToeBaseRangeMax": "0x740",
+      "LeftToeBaseRangeMax.y": "0x744",
+      "LeftToeBaseRangeMax.z": "0x748",
+      "LeftToeBaseRangeMin": "0x74C",
+      "LeftToeBaseRangeMin.y": "0x750",
+      "LeftToeBaseRangeMin.z": "0x754",
+      "LeftWristRangeMax": "0x758",
+      "LeftWristRangeMax.y": "0x75C",
+      "LeftWristRangeMax.z": "0x760",
+      "LeftWristRangeMin": "0x764",
+      "LeftWristRangeMin.y": "0x768",
+      "LeftWristRangeMin.z": "0x76C",
+      "NeckRangeMax": "0x770",
+      "NeckRangeMax.y": "0x774",
+      "NeckRangeMax.z": "0x778",
+      "NeckRangeMin": "0x77C",
+      "NeckRangeMin.y": "0x780",
+      "NeckRangeMin.z": "0x784",
+      "RightAnkleRangeMax": "0x788",
+      "RightAnkleRangeMax.y": "0x78C",
+      "RightAnkleRangeMax.z": "0x790",
+      "RightAnkleRangeMin": "0x794",
+      "RightAnkleRangeMin.y": "0x798",
+      "RightAnkleRangeMin.z": "0x79C"
+    },
+    "IKControl": {
+      "EndEffectorOffset": "0x11C",
+      "EndEffectorOffset.y": "0x120",
+      "EndEffectorOffset.z": "0x124",
+      "Offset": "0x14C",
+      "Offset.y": "0x150",
+      "Offset.z": "0x154"
+    },
+    "ImageHandleAdornment": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0",
+      "CFrame": "0x13C",
+      "CFrame.y": "0x140",
+      "CFrame.z": "0x144",
+      "SizeRelativeOffset": "0x148",
+      "SizeRelativeOffset.y": "0x14C",
+      "SizeRelativeOffset.z": "0x150"
+    },
+    "InputActionLabel": {
+      "BackgroundColor3": "0x540",
+      "BackgroundColor3.g": "0x544",
+      "BackgroundColor3.b": "0x548",
+      "BorderColor3": "0x54C",
+      "BorderColor3.g": "0x550",
+      "BorderColor3.b": "0x554",
+      "ImageColor3": "0xA00",
+      "ImageColor3.g": "0xA04",
+      "ImageColor3.b": "0xA08",
+      "TextColor3": "0xA0C",
+      "TextColor3.g": "0xA10",
+      "TextColor3.b": "0xA14"
+    },
+    "Lighting": {
+      "Ambient": "0xD0",
+      "Ambient.g": "0xD4",
+      "Ambient.b": "0xD8",
+      "ColorShift_Bottom": "0xDC",
+      "ColorShift_Bottom.g": "0xE0",
+      "ColorShift_Bottom.b": "0xE4",
+      "ColorShift_Top": "0xE8",
+      "ColorShift_Top.g": "0xEC",
+      "ColorShift_Top.b": "0xF0",
+      "FogColor": "0xF4",
+      "FogColor.g": "0xF8",
+      "FogColor.b": "0xFC",
+      "OutdoorAmbient": "0x100",
+      "OutdoorAmbient.g": "0x104",
+      "OutdoorAmbient.b": "0x108"
+    },
+    "LineHandleAdornment": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0",
+      "CFrame": "0x13C",
+      "CFrame.y": "0x140",
+      "CFrame.z": "0x144",
+      "SizeRelativeOffset": "0x148",
+      "SizeRelativeOffset.y": "0x14C",
+      "SizeRelativeOffset.z": "0x150"
+    },
+    "LinearVelocity": {
+      "MaxAxesForce": "0x238",
+      "MaxAxesForce.y": "0x23C",
+      "MaxAxesForce.z": "0x240",
+      "VectorVelocity": "0x244",
+      "VectorVelocity.y": "0x248",
+      "VectorVelocity.z": "0x24C"
+    },
+    "Pants": {
+      "Color3": "0x120",
+      "Color3.g": "0x124",
+      "Color3.b": "0x128"
+    },
+    "ParticleEmitter": {
+      "Acceleration": "0x1E0",
+      "Acceleration.y": "0x1E4",
+      "Acceleration.z": "0x1E8"
+    },
+    "PointLight": {
+      "Color": "0xC0",
+      "Color.g": "0xC4",
+      "Color.b": "0xC8"
+    },
+    "Pose": {
+      "CFrame": "0xF4",
+      "CFrame.y": "0xF8",
+      "CFrame.z": "0xFC"
+    },
+    "RocketPropulsion": {
+      "MaxTorque": "0x298",
+      "MaxTorque.y": "0x29C",
+      "MaxTorque.z": "0x2A0",
+      "TargetOffset": "0x2A4",
+      "TargetOffset.y": "0x2A8",
+      "TargetOffset.z": "0x2AC"
+    },
+    "ScrollingFrame": {
+      "BackgroundColor3": "0x540",
+      "BackgroundColor3.g": "0x544",
+      "BackgroundColor3.b": "0x548",
+      "BorderColor3": "0x54C",
+      "BorderColor3.g": "0x550",
+      "BorderColor3.b": "0x554",
+      "ScrollBarImageColor3": "0xA58",
+      "ScrollBarImageColor3.g": "0xA5C",
+      "ScrollBarImageColor3.b": "0xA60"
+    },
+    "SelectionBox": {
+      "Color3": "0xD8",
+      "Color3.g": "0xDC",
+      "Color3.b": "0xE0",
+      "SurfaceColor3": "0x108",
+      "SurfaceColor3.g": "0x10C",
+      "SurfaceColor3.b": "0x110"
+    },
+    "Shirt": {
+      "Color3": "0x120",
+      "Color3.g": "0x124",
+      "Color3.b": "0x128"
+    },
+    "ShirtGraphic": {
+      "Color3": "0xF0",
+      "Color3.g": "0xF4",
+      "Color3.b": "0xF8"
+    },
+    "Sky": {
+      "SkyboxOrientation": "0x238",
+      "SkyboxOrientation.y": "0x23C",
+      "SkyboxOrientation.z": "0x240"
+    },
+    "Smoke": {
+      "Color": "0xB8",
+      "Color.g": "0xBC",
+      "Color.b": "0xC0"
+    },
+    "SoundService": {
+      "ListenerCFrame": "0x144",
+      "ListenerCFrame.y": "0x148",
+      "ListenerCFrame.z": "0x14C"
+    },
+    "Sparkles": {
+      "SparkleColor": "0xB8",
+      "SparkleColor.g": "0xBC",
+      "SparkleColor.b": "0xC0"
+    },
+    "SpotLight": {
+      "Color": "0xC0",
+      "Color.g": "0xC4",
+      "Color.b": "0xC8"
+    },
+    "SurfaceAppearance": {
+      "Color": "0x1D8",
+      "Color.g": "0x1DC",
+      "Color.b": "0x1E0",
+      "EmissiveTint": "0x1E4",
+      "EmissiveTint.g": "0x1E8",
+      "EmissiveTint.b": "0x1EC"
+    },
+    "SurfaceLight": {
+      "Color": "0xC0",
+      "Color.g": "0xC4",
+      "Color.b": "0xC8"
+    },
+    "TextBox": {
+      "BackgroundColor3": "0x540",
+      "BackgroundColor3.g": "0x544",
+      "BackgroundColor3.b": "0x548",
+      "BorderColor3": "0x54C",
+      "BorderColor3.g": "0x550",
+      "BorderColor3.b": "0x554",
+      "PlaceholderColor3": "0xEC8",
+      "PlaceholderColor3.g": "0xECC",
+      "PlaceholderColor3.b": "0xED0",
+      "TextColor3": "0xED4",
+      "TextColor3.g": "0xED8",
+      "TextColor3.b": "0xEDC",
+      "TextStrokeColor3": "0xEE0",
+      "TextStrokeColor3.g": "0xEE4",
+      "TextStrokeColor3.b": "0xEE8"
+    },
+    "Tool": {
+      "GripPos": "0x4AC",
+      "GripPos.y": "0x4B0",
+      "GripPos.z": "0x4B4"
+    },
+    "UIStroke": {
+      "Color": "0xD0",
+      "Color.g": "0xD4",
+      "Color.b": "0xD8"
+    },
+    "VideoFrame": {
+      "BackgroundColor3": "0x540",
+      "BackgroundColor3.g": "0x544",
+      "BackgroundColor3.b": "0x548",
+      "BorderColor3": "0x54C",
+      "BorderColor3.g": "0x550",
+      "BorderColor3.b": "0x554"
+    },
+    "ViewportFrame": {
+      "BackgroundColor3": "0x540",
+      "BackgroundColor3.g": "0x544",
+      "BackgroundColor3.b": "0x548",
+      "BorderColor3": "0x54C",
+      "BorderColor3.g": "0x550",
+      "BorderColor3.b": "0x554",
+      "Ambient": "0x9D8",
+      "Ambient.g": "0x9DC",
+      "Ambient.b": "0x9E0",
+      "ImageColor3": "0x9E4",
+      "ImageColor3.g": "0x9E8",
+      "ImageColor3.b": "0x9EC",
+      "LightColor": "0x9F0",
+      "LightColor.g": "0x9F4",
+      "LightColor.b": "0x9F8",
+      "LightDirection": "0x9FC",
+      "LightDirection.y": "0xA00",
+      "LightDirection.z": "0xA04"
+    }
+  }
+}

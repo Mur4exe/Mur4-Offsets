@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mur4 Offsets (External) — Live-Verified Roblox Offsets</title>
+<meta name="description" content="Free, live-verified Roblox external offsets. Auto-updated on every Roblox patch. By: Mur4t">
+<style>
+:root{
+  --bg:#0b0c0f; --bg2:#17181c; --card:#16181d; --card2:#1b1d23; --line:#26282f;
+  --red:#e31b23; --red2:#ff4d54; --green:#00e08f; --text:#e8e9ec; --dim:#9aa0aa;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+#particles{position:fixed;inset:0;z-index:0;opacity:.55}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+
+/* ---------- HERO ---------- */
+header{padding:84px 0 46px;text-align:center;position:relative;z-index:1}
+.logo{font-size:14px;letter-spacing:6px;color:var(--red2);font-weight:700;animation:fadeDown .8s ease both}
+h1{font-size:clamp(34px,6vw,56px);margin:14px 0 8px;font-weight:900;animation:fadeDown .8s .1s ease both}
+.grad{background:linear-gradient(90deg,#fff,var(--red2),#fff);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+.typeline{color:var(--dim);font-size:17px;min-height:26px;margin-bottom:26px;animation:fadeDown .8s .2s ease both}
+.typeline .cursor{display:inline-block;width:9px;background:var(--red);margin-left:2px;animation:blink .9s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.btn{display:inline-block;padding:14px 34px;border-radius:12px;font-weight:800;font-size:16px;transition:.25s;animation:fadeDown .8s .3s ease both}
+.btn-discord{background:linear-gradient(135deg,#5865F2,#7a5cf5);color:#fff;box-shadow:0 6px 30px rgba(88,101,242,.35)}
+.btn-discord:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 10px 40px rgba(88,101,242,.55)}
+.badges{margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fadeDown .8s .4s ease both}
+.badge{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:99px;padding:7px 15px;font-size:13px;color:var(--dim);backdrop-filter:blur(6px)}
+.badge b{color:var(--green)}
+
+/* ---------- STATS ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:26px 0;position:relative;z-index:1}
+.stat{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center;transition:.3s;animation:pop .6s ease both}
+.stat:hover{transform:translateY(-4px);border-color:var(--red);box-shadow:0 10px 34px rgba(227,27,35,.15)}
+@keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.stat .n{font-size:30px;font-weight:900;color:var(--red2)}
+.stat .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-top:4px}
+
+/* ---------- SECTION TITLES ---------- */
+.sec{font-size:24px;font-weight:800;margin:44px 0 16px;display:flex;align-items:center;gap:10px;animation:fadeDown .7s ease both}
+.sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+/* ---------- CONTROLS ---------- */
+.controls{display:flex;gap:12px;margin:0 0 18px;flex-wrap:wrap;align-items:center;animation:fadeUp .7s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+select,input[type=text]{background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px 15px;font-size:14px;outline:none;transition:.25s}
+select:focus,input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,27,35,.15)}
+input[type=text]{flex:1;min-width:220px}
+
+/* ---------- CLASS CARDS ---------- */
+.cls{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:.25s;animation:fadeUp .5s ease both}
+.cls:hover{border-color:rgba(227,27,35,.55);transform:translateY(-2px)}
+.cls summary{cursor:pointer;padding:15px 18px;font-weight:700;display:flex;justify-content:space-between;align-items:center;list-style:none}
+.cls summary::-webkit-details-marker{display:none}
+.cls summary .cnt{font-size:12px;color:var(--dim);font-weight:400;background:rgba(255,255,255,.05);padding:3px 10px;border-radius:99px}
+.cls summary:hover{color:var(--red2)}
+.cls[open] summary{border-bottom:1px solid var(--line);color:var(--red2)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+tr{transition:background .15s}
+tbody tr:hover{background:rgba(227,27,35,.06)}
+td{padding:10px 18px;border-top:1px solid var(--line)}
+td:first-child{color:var(--dim)}
+td:last-child{font-family:Consolas,monospace;color:var(--green)}
+
+/* ---------- DOWNLOAD ---------- */
+.dls{display:flex;gap:12px;flex-wrap:wrap}
+.dl{flex:1;min-width:180px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;transition:.25s}
+.dl:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 10px 30px rgba(0,224,143,.12)}
+.dl .ico{font-size:28px}
+.dl .t{font-weight:800;margin:8px 0 4px}
+.dl .d{font-size:12px;color:var(--dim)}
+
+/* ---------- VERIFY + WIDGET ---------- */
+.grid2{display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:start}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.verify,.widget-box{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:22px;animation:fadeUp .7s ease both}
+.verify h3,.widget-box h3{margin-bottom:10px}
+.verify p{color:var(--dim);font-size:14px;line-height:1.7}
+.pill{display:inline-block;margin:4px 4px 0 0;padding:5px 11px;border-radius:99px;font-size:12px;font-weight:700}
+.pill.live{background:rgba(0,224,143,.13);color:var(--green)}
+.pill.stable{background:rgba(255,193,7,.12);color:#ffc107}
+.pill.dead{background:rgba(227,27,35,.15);color:var(--red2)}
+.widget-box iframe{border-radius:10px;width:100%}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ---------- ADMIN LINK / FOOTER ---------- */
+.admin{position:fixed;bottom:14px;right:16px;z-index:5;font-size:12px;color:#555;transition:.2s}
+.admin:hover{color:var(--red2)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 0 44px;text-align:center;color:var(--dim);font-size:13px}
+footer .brand{color:var(--text);font-weight:800}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="wrap">
+  <div class="logo">BY MUR4T</div>
+  <h1><span class="grad">Mur4 Offsets</span> <span style="color:var(--red)">(External)</span></h1>
+  <div class="typeline"><span id="typed"></span><span class="cursor">&nbsp;</span></div>
+  <a class="btn btn-discord" href="https://discord.gg/xQzrwQCSjg" target="_blank">JOIN THE DISCORD</a>
+  <div class="badges">
+    <span class="badge">⚡ Auto-updated every patch</span>
+    <span class="badge">🧪 <b>Live-verified</b> offsets</span>
+    <span class="badge">🚫 Zero paste</span>
+    <span class="badge">💯 100% free</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n" id="stTotal">0</div><div class="l">Offsets</div></div>
+    <div class="stat"><div class="n" id="stClasses">0</div><div class="l">Classes</div></div>
+    <div class="stat"><div class="n" id="stLive">246</div><div class="l">Live-verified</div></div>
+    <div class="stat"><div class="n" id="stVer">—</div><div class="l">Roblox Version</div></div>
+  </div>
+
+  <div class="sec reveal">📦 Offset Browser</div>
+  <div class="controls reveal">
+    <select id="verSel"></select>
+    <input type="text" id="q" placeholder="Search class or property… (e.g. WalkSpeed)">
+  </div>
+  <div id="list"></div>
+  <div class="status" id="status" style="color:var(--dim);font-size:14px;margin:14px 0"></div>
+
+  <div class="sec reveal">⬇️ Downloads</div>
+  <div class="dls reveal">
+    <a class="dl" href="offsets.json" download><div class="ico">🧾</div><div class="t">offsets.json</div><div class="d">Machine-readable · for tools & bots</div></a>
+    <a class="dl" href="Mur4_Offsets.txt" download><div class="ico">📄</div><div class="t">Mur4_Offsets.txt</div><div class="d">Human-readable namespace dump</div></a>
+    <a class="dl" href="Mur4_Offsets.h" download><div class="ico">⚙️</div><div class="t">Mur4_Offsets.h</div><div class="d">C++ header · drop into your project</div></a>
+  </div>
+
+  <div class="sec reveal">🧪 Verification & Community</div>
+  <div class="grid2 reveal">
+    <div class="verify">
+      <h3>How offsets are verified</h3>
+      <p>Unique sentinel values are written through Roblox properties inside a sandboxed lab, then the live client memory is scanned. Every found address is re-sampled over time and classified:</p>
+      <span class="pill live">LIVE — value tracks script phases</span>
+      <span class="pill stable">STABLE — sentinel value in place</span>
+      <span class="pill dead">DEAD — auto-filtered from releases</span>
+      <p style="margin-top:12px">Dead offsets never reach the published package. Typical run: <b style="color:var(--green)">246 LIVE / 136 STABLE / 0 DEAD</b>.</p>
+    </div>
+    <div class="widget-box">
+      <h3>💬 Our Discord</h3>
+      <iframe src="https://discord.com/widget?id=SERVER_ID&theme=dark" width="100%" height="420" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+    </div>
+  </div>
+</div>
+
+<a class="admin" href="admin.html" title="Admin panel">⚙</a>
+
+<footer>
+  <div class="brand">Mur4 Offsets · By: Mur4t</div>
+  <div style="margin-top:6px">For educational and research purposes only. Not affiliated with Roblox Corporation.</div>
+  <div style="margin-top:8px"><a href="https://discord.gg/xQzrwQCSjg" style="color:var(--red2)">discord.gg/xQzrwQCSjg</a></div>
+</footer>
+
+<script>
+/* ================= AYARLAR (tek dokanacak yer) =================
+   REPO_USER  : GitHub kullanici adin
+   REPO_NAME  : repo adi (mur4-offsets)
+   SERVER_ID  : Discord sunucu ID'n (Widget'dan al) — widget'i gizlemek icin bos birak
+================================================================= */
+const REPO_USER  = "";
+const REPO_NAME  = "mur4-offsets";
+const SERVER_ID  = ""; // örnek: "112233445566778899"
+
+// Discord widget
+if(SERVER_ID) document.querySelector(".widget-box iframe").src =
+  `https://discord.com/widget?id=${SERVER_ID}&theme=dark`;
+else document.querySelector(".widget-box").style.display = "none";
+
+// indirme linklerini repoya bagla (bos ise dosya adinda kalsin)
+if(REPO_USER){
+  const base = `https://github.com/${REPO_USER}/${REPO_NAME}/blob/main/`;
+  document.querySelectorAll(".dl").forEach(a=>{
+    a.href = base + a.getAttribute("href");
+    a.target = "_blank"; a.removeAttribute("download");
+  });
+}
+
+/* typing effect */
+const TypedMsgs = [
+  "Fresh offsets extracted live from the Roblox client.",
+  "Every address re-verified in memory before release.",
+  "100% free. Zero paste. Updated every patch."
+];
+(function typeLoop(){
+  const el = document.getElementById("typed");
+  let mi=0, ci=0, del=false;
+  (function tick(){
+    const m = TypedMsgs[mi];
+    el.textContent = m.slice(0, ci);
+    if(!del && ci < m.length){ ci++; setTimeout(tick, 34); }
+    else if(!del){ del=true; setTimeout(tick, 2100); }
+    else if(ci > 0){ ci--; setTimeout(tick, 12); }
+    else { del=false; mi=(mi+1)%TypedMsgs.length; setTimeout(tick, 350); }
+  })();
+})();
+
+/* particle background */
+(function(){
+  const c = document.getElementById("particles"), x = c.getContext("2d");
+  let W,H,ps=[];
+  function size(){W=c.width=innerWidth;H=c.height=innerHeight}
+  addEventListener("resize",size);size();
+  for(let i=0;i<70;i++)ps.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.6+.4});
+  (function loop(){
+    x.clearRect(0,0,W,H);
+    for(const p of ps){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle="rgba(227,27,35,.5)";x.fill();
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* scroll reveal */
+const io = new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("on")),{threshold:.08});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* count-up stats */
+function countUp(el,to){let s=0;const st=performance.now();
+  (function f(t){const p=Math.min(1,(t-st)/900);el.textContent=Math.round(to*(0.2+0.8*p*p));if(p<1)requestAnimationFrame(f)})(st);}
+
+/* ================= DATA ================= */
+const versions = ["", "version-c5aecda2245e4fae"];
+let DATA = null;
+
+async function loadVersion(v){
+  const file = v ? "offsets_" + v + ".json" : "offsets.json";
+  const r = await fetch(file); if(!r.ok) throw new Error(file);
+  return r.json();
+}
+function render(q){
+  q=(q||"").toLowerCase();
+  const list=document.getElementById("list"); list.innerHTML="";
+  let total=0,classes=0;
+  for(const [cls,props] of Object.entries(DATA.offsets)){
+    const en=Object.entries(props).filter(([p])=>!q||cls.toLowerCase().includes(q)||p.toLowerCase().includes(q));
+    if(!en.length)continue;
+    classes++;total+=en.length;
+    const d=document.createElement("details");d.className="cls";
+    d.innerHTML=`<summary><span>${cls}</span><span class="cnt">${en.length}</span></summary>
+      <table><tbody>${en.map(([p,o])=>`<tr><td>${p}</td><td>${o}</td></tr>`).join("")}</tbody></table>`;
+    list.appendChild(d);
+  }
+  countUp(document.getElementById("stTotal"),total);
+  document.getElementById("stClasses").textContent=classes;
+}
+
+(async()=>{
+  const sel=document.getElementById("verSel"),st=document.getElementById("status");
+  sel.innerHTML="";let any=false;
+  for(const v of versions){
+    try{const d=await loadVersion(v);
+      const o=document.createElement("option");o.value=v;
+      o.textContent=v?("Filtered — "+v):("Latest — "+(d.version||""));
+      o._data=d;sel.appendChild(o);any=true;if(!DATA)DATA=d;
+    }catch(e){}
+  }
+  if(!any){st.innerHTML='<span style="color:var(--red2)">offsets.json not found — upload dump files next to index.html.</span>';return;}
+  document.getElementById("stVer").textContent=(DATA.version||"?").replace("version-","").slice(0,8);
+  render("");
+  sel.onchange=()=>{DATA=sel.selectedOptions[0]._data;
+    document.getElementById("stVer").textContent=(DATA.version||"?").replace("version-","").slice(0,8);
+    document.getElementById("stLive").textContent=DATA.not_working?"":"";render("");};
+  document.getElementById("q").oninput=e=>render(e.target.value.trim());
+})();
+</script>
+</body>
+</html>
