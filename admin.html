@@ -254,8 +254,8 @@ async function uploadAll(){
     const jv=newVersions[0];
     try{
       const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({username:'Mur4 Offsets',embeds:[{title:'🚀 Sitede yeni offsetler!',
-          description:(jv?('**'+jv.tag+'** — '+jv.count+' offset\n'):'')+'Canlı offset tarayıcı güncellendi.',
+        body:JSON.stringify({username:'Mur4 Offsets',embeds:[{title:'🚀 New offsets on the website!',
+          description:(jv?('**'+jv.tag+'** — '+jv.count+' offsets\n'):'')+'Live offset browser updated.',
           color:0x00b06f,footer:{text:'By: Mur4t'}}]})});
       log(r.ok?'🔔 Discord duyurusu gönderildi':'⚠️ webhook HTTP '+r.status);
     }catch(e){log('⚠️ webhook: '+e.message)}
@@ -267,7 +267,7 @@ async function testHook(){
   const hook=$('hook').value.trim();if(!hook){msg('m2','Webhook URL boş.',false);return}
   try{
     const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({username:'Mur4 Offsets',content:'🔔 Test duyurusu — site paneli bağlı! ✅'})});
+      body:JSON.stringify({username:'Mur4 Offsets',content:'🔔 Test announce — site panel connected! ✅'})});
     msg('m2',r.ok?'Test duyurusu Discord\'a gitti!':'Webhook HTTP '+r.status,r.ok);
   }catch(e){msg('m2','Hata: '+e.message,false)}
 }
