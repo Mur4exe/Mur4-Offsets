@@ -1,9 +1,9 @@
 {
-  "name": "Mur4 Offsets (External)",
+  "name": "Mur4 External Offsets",
   "type": "external",
   "version": "version-c5aecda2245e4fae",
-  "dump_time": "2026-09-12 18:03:30",
-  "count": 577,
+  "dump_time": "2026-09-12 13:53:43",
+  "count": 627,
   "offsets": {
     "Accessory": {
       "AttachmentPos": "0xDC",
@@ -57,6 +57,11 @@
       "Decay.g": "0xC8",
       "Decay.b": "0xCC"
     },
+    "Attachment": {
+      "Position": "0xC4",
+      "Position.y": "0xC8",
+      "Position.z": "0xCC"
+    },
     "BillboardGui": {
       "ExtentsOffset": "0x768",
       "ExtentsOffset.y": "0x76C",
@@ -70,6 +75,17 @@
       "StudsOffsetWorldSpace": "0x78C",
       "StudsOffsetWorldSpace.y": "0x790",
       "StudsOffsetWorldSpace.z": "0x794"
+    },
+    "BlockMesh": {
+      "Offset": "0xB8",
+      "Offset.y": "0xBC",
+      "Offset.z": "0xC0",
+      "Scale": "0xC4",
+      "Scale.y": "0xC8",
+      "Scale.z": "0xCC",
+      "VertexColor": "0xD0",
+      "VertexColor.y": "0xD4",
+      "VertexColor.z": "0xD8"
     },
     "BodyAngularVelocity": {
       "angularvelocity": "0x288",
@@ -346,6 +362,17 @@
       "GripPos": "0x4AC",
       "GripPos.y": "0x4B0",
       "GripPos.z": "0x4B4"
+    },
+    "FlagStand": {
+      "CFrame": "0x36C",
+      "CFrame.y": "0x370",
+      "CFrame.z": "0x374",
+      "AssemblyLinearVelocity": "0x378",
+      "AssemblyLinearVelocity.y": "0x37C",
+      "AssemblyLinearVelocity.z": "0x380",
+      "AssemblyAngularVelocity": "0x384",
+      "AssemblyAngularVelocity.y": "0x388",
+      "AssemblyAngularVelocity.z": "0x38C"
     },
     "FloorWire": {
       "Color3": "0xD8",
@@ -649,6 +676,28 @@
       "SparkleColor.g": "0xBC",
       "SparkleColor.b": "0xC0"
     },
+    "SpawnLocation": {
+      "CFrame": "0x36C",
+      "CFrame.y": "0x370",
+      "CFrame.z": "0x374",
+      "AssemblyLinearVelocity": "0x378",
+      "AssemblyLinearVelocity.y": "0x37C",
+      "AssemblyLinearVelocity.z": "0x380",
+      "AssemblyAngularVelocity": "0x384",
+      "AssemblyAngularVelocity.y": "0x388",
+      "AssemblyAngularVelocity.z": "0x38C"
+    },
+    "SpecialMesh": {
+      "Offset": "0xB8",
+      "Offset.y": "0xBC",
+      "Offset.z": "0xC0",
+      "Scale": "0xC4",
+      "Scale.y": "0xC8",
+      "Scale.z": "0xCC",
+      "VertexColor": "0xD0",
+      "VertexColor.y": "0xD4",
+      "VertexColor.z": "0xD8"
+    },
     "SpotLight": {
       "Color": "0xC0",
       "Color.g": "0xC4",
@@ -684,6 +733,16 @@
       "TextStrokeColor3.g": "0xEE4",
       "TextStrokeColor3.b": "0xEE8"
     },
+    "Texture": {
+      "Color3": "0x250",
+      "Color3.g": "0x254",
+      "Color3.b": "0x258",
+      "EmissiveTint": "0x25C",
+      "EmissiveTint.g": "0x260",
+      "EmissiveTint.b": "0x264",
+      "StudsPerTileU": "0x2E8",
+      "StudsPerTileV": "0x2EC"
+    },
     "Tool": {
       "GripPos": "0x4AC",
       "GripPos.y": "0x4B0",
@@ -693,6 +752,11 @@
       "Color": "0xD0",
       "Color.g": "0xD4",
       "Color.b": "0xD8"
+    },
+    "Vector3Value": {
+      "Value": "0xB8",
+      "Value.y": "0xBC",
+      "Value.z": "0xC0"
     },
     "VideoFrame": {
       "BackgroundColor3": "0x540",
