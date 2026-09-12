@@ -136,9 +136,12 @@ footer .brand{color:var(--text);font-weight:800}
   </div>
 
   <div class="sec reveal">💬 <span data-i18n="secCommunity">Our Discord</span></div>
-  <div class="widget-box reveal" style="max-width:640px;margin:0 auto">
-    <div id="meCard" class="reveal" style="margin-bottom:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px;display:none"></div>
-    <iframe src="https://discord.com/widget?id=SERVER_ID&theme=dark" width="100%" height="420" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+  <div class="widget-box reveal" style="max-width:420px;margin:0 auto;text-align:center">
+    <div id="meCard" class="reveal" style="margin-bottom:0;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:18px;display:none"></div>
+    <div id="meFallback" style="color:var(--dim);font-size:13px;display:none">
+      <p style="margin-bottom:12px">Founder profile card is loading… (Lanyard)</p>
+      <a class="btn btn-discord" href="https://discord.gg/xQzrwQCSjg" style="animation:none;padding:10px 24px;font-size:14px" data-i18n="join">JOIN THE DISCORD</a>
+    </div>
   </div>
 </div>
 
@@ -157,9 +160,6 @@ const REPO_NAME  = "Mur4-Offsets";
 const SERVER_ID  = "1542950705768177694"; // Discord Ayarlar > Widget > Server ID (otomatik bulundu)
 const MY_DISCORD_ID = "910806118526234624"; // Lanyard sunucusuna katilmis olmali: discord.gg/lanyard
 
-if(SERVER_ID) document.querySelector(".widget-box iframe").src =
-  `https://discord.com/widget?id=${SERVER_ID}&theme=dark`;
-else document.querySelector(".widget-box").style.display = "none";
 if(REPO_USER){
   const base = `https://github.com/${REPO_USER}/${REPO_NAME}/blob/main/`;
   document.querySelectorAll(".dl").forEach(a=>{a.href=base+a.getAttribute("href");a.target="_blank";a.removeAttribute("download")});
@@ -179,26 +179,27 @@ if(REPO_USER){
 
 /* kurucunun discord profili (Lanyard - canli durum/aktivite) */
 (async()=>{
-  if(!MY_DISCORD_ID)return;
-  const box=document.getElementById("meCard");if(!box)return;
+  const box=document.getElementById("meCard"),fb=document.getElementById("meFallback");
+  if(!MY_DISCORD_ID){if(fb)fb.style.display="block";return}
   try{
     const r=await fetch("https://api.lanyard.rest/v1/users/"+MY_DISCORD_ID);
     const j=await r.json();
-    if(!j.success){box.style.display="none";return}
+    if(!j.success){if(fb)fb.style.display="block";return}
     const u=j.data.discord_user, st=j.data.discord_status;
-    const stMap={online:["🟢","Online"],idle:["🟡","Boşta"],dnd:["🔴","Meşgul"],offline:["⚫","Çevrimdışı"]};
-    const [dot,stTxt]=stMap[st]||stMap.offline;
+    const stMap={online:["#00e08f","Online"],idle:["#ffc107","Boşta"],dnd:["#ff4d54","Meşgul"],offline:["#666","Çevrimdışı"]};
+    const [col,stTxt]=stMap[st]||stMap.offline;
     const act=(j.data.activities||[]).find(a=>a.type===0);
     box.innerHTML=`
-      <div style="display:flex;align-items:center;gap:14px">
+      <div style="display:flex;align-items:center;gap:14px;text-align:left;justify-content:center">
         <img src="https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=80" style="width:64px;height:64px;border-radius:50%;border:2px solid var(--red)">
-        <div style="text-align:left">
+        <div>
           <div style="font-weight:800;font-size:16px">${u.global_name||u.username}</div>
-          <div style="color:var(--dim);font-size:13px">${dot} ${stTxt}</div>
+          <div style="color:var(--dim);font-size:13px"><span style="color:${col}">●</span> ${stTxt}</div>
           <div style="color:var(--red2);font-size:12px;margin-top:2px">${act?('🎮 '+act.name):'Discord\'da'}</div>
         </div>
       </div>`;
-  }catch(e){box.style.display="none"}
+    box.style.display="block";
+  }catch(e){if(fb)fb.style.display="block"}
 })();
 
 /* =====================================================
