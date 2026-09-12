@@ -355,7 +355,7 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 function countUp(el,to){let s=performance.now();(function f(t2){const p=Math.min(1,(t2-s)/900);el.textContent=Math.round(to*(0.2+0.8*p*p));if(p<1)requestAnimationFrame(f)})(s)}
 
 /* ===== DATA ===== */
-let MANIFEST=[],DATA=null;
+let MANIFEST=[],DATA=null,LAST_LIVE=246; // son verify sonucu (manifest yoksa gorunen deger)
 async function loadVersion(v){
   const file=v?"offsets_"+v+".json":"offsets.json";
   const r=await fetch(file+"?v="+Date.now());if(!r.ok)throw new Error(file);
@@ -379,11 +379,17 @@ function render(q){
 }
 function setVersionStats(d){
   document.getElementById("stVer").textContent=(d.version||"?").replace("version-","").slice(0,8);
-  // stLive'a dokunmuyoruz - sabit "246" kalir (not_working alani dump'ta yok)
+  // Live-verified sayisi: once manifest'teki dogrulama sonucu, yoksa son bildirilen deger
+  const m=(MANIFEST||[]).find(x=>x.tag===(d.version||""))||(MANIFEST||[])[0];
+  document.getElementById("stLive").textContent=(m&&typeof m.live==="number")?m.live:LAST_LIVE;
 }
 (async()=>{
   const sel=document.getElementById("verSel"),st=document.getElementById("status");
-  try{const r=await fetch("versions.json?v="+Date.now());if(r.ok)MANIFEST=await r.json()}catch(e){}
+  try{const r=await fetch("versions.json?v="+Date.now());if(r.ok){MANIFEST=await r.json();
+    const withLive=MANIFEST.find(m=>typeof m.live==="number");
+    if(withLive)LAST_LIVE=withLive.live;
+    document.getElementById("stLive").textContent=LAST_LIVE;
+  }}catch(e){}
   sel.innerHTML="";let any=false;
   try{DATA=await loadVersion("");
     const o=document.createElement("option");o.textContent="";o._data=DATA;o._v="";sel.appendChild(o);any=true;
