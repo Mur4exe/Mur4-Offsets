@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mur4 Offsets — Yönetim Paneli</title>
+<style>
+:root{
+  --bg:#0b0c0f; --card:#16181d; --card2:#1b1d23; --line:#26282f;
+  --red:#e31b23; --red2:#ff4d54; --green:#00e08f; --text:#e8e9ec; --dim:#9aa0aa;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:100%;max-width:680px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:32px;animation:pop .5s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+h1{font-size:26px;margin-bottom:4px}
+h1 span{color:var(--red2)}
+.sub{color:var(--dim);font-size:13px;margin-bottom:18px}
+label{display:block;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:14px 0 6px}
+input{width:100%;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px 14px;font-size:14px;outline:none;transition:.25s}
+input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,27,35,.15)}
+.row{display:flex;gap:10px}.row>*{flex:1}
+button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;transition:.25s;color:#fff}
+.btn-login{background:linear-gradient(135deg,var(--red),#8f1218)}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(227,27,35,.35)}
+.btn-up{background:linear-gradient(135deg,#0a7d52,#00b06f)}
+.btn-up:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,224,143,.3)}
+.btn-gh{background:linear-gradient(135deg,#3a3d46,#24262d);margin-top:10px}
+.btn-gh:hover{transform:translateY(-2px)}
+.msg{margin-top:14px;font-size:13px;padding:10px 14px;border-radius:10px;display:none}
+.msg.ok{display:block;background:rgba(0,224,143,.1);color:var(--green)}
+.msg.err{display:block;background:rgba(227,27,35,.12);color:var(--red2)}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--dim);transition:.25s;margin-top:6px;cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--red);background:rgba(227,27,35,.05);color:var(--text)}
+.files{margin-top:10px;font-size:13px}
+.file{display:flex;justify-content:space-between;background:#0e0f13;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin-top:6px}
+.file .ok{color:var(--green)}.file .wait{color:#ffc107}.file .fail{color:var(--red2)}
+.hidden{display:none}
+.log{background:#0e0f13;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:12px;font-family:Consolas,monospace;color:var(--dim);max-height:220px;overflow:auto;margin-top:14px;white-space:pre-wrap}
+.chk{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--dim)}
+.chk input{width:auto}
+.back{position:fixed;top:16px;left:18px;color:var(--dim);font-size:13px}
+.back:hover{color:var(--red2)}
+.hint{font-size:12px;color:#666;margin-top:8px;line-height:1.6}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← siteye dön</a>
 
+<div class="card">
+  <!-- GIRIS -->
+  <div id="login">
+    <h1>⚡ Mur4 Offsets — <span>Yönetim</span></h1>
+    <p class="sub">GitHub token'ınla giriş yap, siteye offset yükle.</p>
+    <label>GitHub Kullanıcı Adı</label>
+    <input id="ghUser" placeholder="Mur4exe">
+    <label>Repo Adı</label>
+    <input id="ghRepo" placeholder="Mur4-Offsets">
+    <label>Branch</label>
+    <input id="ghBranch" value="main">
+    <label>Kişisel Erişim Token'ı (şifren)</label>
+    <input id="ghPat" type="password" placeholder="github_pat_… (Contents: read & write)">
+    <div class="chk"><input type="checkbox" id="remember" checked><span>Beni bu cihazda hatırla (token yerel olarak saklanır)</span></div>
+    <p class="hint">Fine-grained token: sadece bu repo, <b>Contents: Read and write</b> izni. Token SADECE senin tarayıcında saklanır — GitHub dışında hiçbir yere gönderilmez.</p>
+    <button class="btn-login" onclick="login()">🔓 GİRİŞ YAP</button>
+    <div class="msg" id="m1"></div>
+  </div>
+
+  <!-- PANEL -->
+  <div id="panel" class="hidden">
+    <h1>⚡ Offset <span>Yükle</span></h1>
+    <p class="sub" id="who"></p>
+
+    <label>1) Dump dosyalarını bırak — offsets.json, sürümlü json, .txt, .h …</label>
+    <div class="drop" id="drop">📁 dosyaları buraya sürükle — ya da tıkla ve seç</div>
+    <input type="file" id="fileInput" multiple class="hidden">
+    <div class="files" id="files"></div>
+
+    <button class="btn-up" onclick="uploadAll()">🚀 SİTEYE GÖNDER (commit + sürüm listesi otomatik)</button>
+
+    <label>2) Discord Webhook (yükleme sonrası otomatik duyuru)</label>
+    <input id="hook">
+    <button class="btn-gh" onclick="testHook()">🔔 Test duyurusu gönder</button>
+
+    <div class="log" id="log"></div>
+    <button class="btn-gh" onclick="logout()">🚪 ÇIKIŞ YAP</button>
+  </div>
+  <div class="msg" id="m2"></div>
+</div>
+
+<script>
+const LS='mur4admin';
+// GUVENLIK: webhook kodun icine GOMULMEZ (repo herkese acik).
+// Bir kez asagidaki alana yapistirirsin, senin tarayicinda saklanir.
+let CFG=null, queue=[];
+
+function $(id){return document.getElementById(id)}
+function msg(id,txt,ok){const e=$(id);e.textContent=txt;e.className='msg '+(ok?'ok':'err');setTimeout(()=>{if(ok)e.className='msg'},6000)}
+function log(t){const l=$('log');l.style.display='block';l.textContent+=t+'\n';l.scrollTop=l.scrollHeight}
+
+/* formu hatirla */
+(function(){
+  try{const c=JSON.parse(localStorage.getItem(LS)||'{}');
+    if(c.user)$('ghUser').value=c.user;
+    if(c.repo)$('ghRepo').value=c.repo;
+    if(c.branch)$('ghBranch').value=c.branch||'main';
+  }catch(e){}
+  $('hook').value=localStorage.getItem('mur4hook')||'';
+  if(!$('hook').value)$('hook').placeholder='https://discord.com/api/webhooks/… (bir kez yapıştır, tarayıcında saklanır)';
+})();
+$('hook').addEventListener('blur',()=>{const v=$('hook').value.trim();if(v)localStorage.setItem('mur4hook',v)});
+
+/* ---- GIRIS ---- */
+async function login(){
+  const user=$('ghUser').value.trim(),repo=$('ghRepo').value.trim(),branch=$('ghBranch').value.trim()||'main',pat=$('ghPat').value.trim();
+  if(!user||!repo||!pat){msg('m1','Kullanıcı adı, repo ve token zorunlu.',false);return}
+  msg('m1','Token GitHub ile doğrulanıyor…',true);
+  try{
+    const r=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:{Authorization:'Bearer '+pat}});
+    if(r.status===401){msg('m1','Token geçersiz (401). Yeni token oluşturup tekrar yapıştır.',false);return}
+    if(r.status===404){msg('m1','Repo bulunamadı (404) — kullanıcı adı/repo adını kontrol et ('+user+'/'+repo+').',false);return}
+    if(!r.ok){msg('m1','GitHub hatası: '+r.status,false);return}
+    CFG={user,repo,branch,pat};
+    localStorage.setItem(LS,JSON.stringify({user,repo,branch,remember:$('remember').checked}));
+    if($('remember').checked) localStorage.setItem(LS+'_t',pat); else sessionStorage.setItem(LS+'_t',pat);
+    openPanel();msg('m1','Giriş başarılı!',true);
+  }catch(e){msg('m1','Ağ hatası: '+e.message,false)}
+}
+function openPanel(){
+  $('login').classList.add('hidden');$('panel').classList.remove('hidden');
+  $('who').textContent=`Giriş yapıldı: ${CFG.user} → ${CFG.repo} (${CFG.branch})`;
+}
+function getToken(){return localStorage.getItem(LS+'_t')||sessionStorage.getItem(LS+'_t')}
+function logout(){localStorage.removeItem(LS+'_t');sessionStorage.removeItem(LS+'_t');location.reload()}
+
+/* otomatik giris */
+(async function(){
+  const pat=getToken();
+  const c=JSON.parse(localStorage.getItem(LS)||'{}');
+  if(pat&&c.user&&c.repo){
+    CFG={user:c.user,repo:c.repo,branch:c.branch||'main',pat};
+    try{
+      const r=await fetch(`https://api.github.com/repos/${c.user}/${c.repo}`,{headers:{Authorization:'Bearer '+pat}});
+      if(r.ok)openPanel();
+    }catch(e){}
+  }
+})();
+
+/* ---- SURUKLE-BIRAK ---- */
+const drop=$('drop'),fi=$('fileInput');
+drop.onclick=()=>fi.click();
+drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};
+drop.ondragleave=()=>drop.classList.remove('over');
+drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');addFiles(e.dataTransfer.files)};
+fi.onchange=()=>{addFiles(fi.files);fi.value=''};
+function addFiles(list){for(const f of list)queue.push({name:f.name,file:f,status:'hazır',cls:'wait'});renderQueue()}
+function renderQueue(){$('files').innerHTML=queue.map(q=>`<div class="file"><span>${q.name}</span><span class="${q.cls}">${q.status}</span></div>`).join('')}
+
+/* ---- GITHUB ---- */
+async function ghGet(path){
+  const r=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`,
+    {headers:{Authorization:'Bearer '+CFG.pat}});
+  if(r.status===404)return null;
+  if(!r.ok)throw new Error('GET '+path+' → HTTP '+r.status);
+  return r.json();
+}
+async function ghPut(path,text,customMsg){
+  const meta=await ghGet(path);
+  const body={message:customMsg||('Mur4 Offsets güncelleme: '+path),branch:CFG.branch,sha:meta?meta.sha:null,
+    content:btoa(unescape(encodeURIComponent(text)))};
+  const pr=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${path}`,
+    {method:'PUT',headers:{Authorization:'Bearer '+CFG.pat,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!pr.ok){
+    const err=await pr.json().catch(()=>({}));
+    if(pr.status===409)throw new Error('409 — repo boş görünüyor. Önce GitHub sitesinde repoya bir README ekleyin (Add file > Create new file > README).');
+    throw new Error('HTTP '+pr.status+(err.message?' — '+err.message:''));
+  }
+}
+
+/* ---- YUKLEME ---- */
+async function uploadAll(){
+  CFG.pat=getToken();
+  if(!CFG.pat){logout();return}
+  if(!queue.length){msg('m2','Önce en az bir dosya bırak.',false);return}
+  $('log').textContent='';$('log').style.display='block';
+  let okCount=0;const newVersions=[];
+  let manifest=[];
+  try{
+    const mf=await ghGet('versions.json');
+    if(mf){const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));manifest=JSON.parse(txt)}
+    else log('ℹ️ versions.json yok — sıfırdan oluşturulacak');
+  }catch(e){log('ℹ️ versions.json okunamadı ('+e.message+') — sıfırdan oluşturulacak')}
+
+  for(const q of queue){
+    try{
+      log('⏳ '+q.name+' işleniyor…');
+      const text=await q.file.text();
+      if(q.name.endsWith('.json')){
+        let j;try{j=JSON.parse(text)}catch(e){throw new Error('geçersiz JSON içeriği!')}
+        const m=q.name.match(/^offsets_(version-.+)\.json$/);
+        if(m){
+          newVersions.push({tag:m[1],count:j.count||Object.values(j.offsets||{}).reduce((a,c)=>a+Object.keys(c).length,0),
+            dump_time:j.dump_time||'',not_working:(j.not_working||[]).length});
+        }
+      }
+      await ghPut(q.name,text);
+      q.status='✅ yüklendi';q.cls='ok';okCount++;
+      log('✅ '+q.name+' repoya yazıldı');
+    }catch(e){q.status='❌ '+e.message;q.cls='fail';log('❌ '+q.name+' → '+e.message)}
+    renderQueue();
+  }
+
+  if(newVersions.length){
+    for(const nv of newVersions){
+      const i=manifest.findIndex(m=>m.tag===nv.tag);
+      if(i>=0)manifest[i]=nv;else manifest.push(nv);
+    }
+    manifest.sort((a,b)=>(b.dump_time||'').localeCompare(a.dump_time||''));
+    try{
+      await ghPut('versions.json',JSON.stringify(manifest,null,2),'Mur4 Offsets: sürüm manifesti güncellendi');
+      log('✅ versions.json güncellendi ('+manifest.length+' sürüm) — site menüsü otomatik yenilendi');
+    }catch(e){log('❌ versions.json → '+e.message)}
+  }
+
+  msg('m2',okCount+' dosya gönderildi. Site 1-2 dk içinde yenilenir (Pages build). Tarayıcıda Ctrl+F5 yap.',true);
+
+  const hook=$('hook').value.trim();
+  if(hook&&okCount>0){
+    const jv=newVersions[0];
+    try{
+      const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({username:'Mur4 Offsets',embeds:[{title:'🚀 Sitede yeni offsetler!',
+          description:(jv?('**'+jv.tag+'** — '+jv.count+' offset\n'):'')+'Canlı offset tarayıcı güncellendi.',
+          color:0x00b06f,footer:{text:'By: Mur4t'}}]})});
+      log(r.ok?'🔔 Discord duyurusu gönderildi':'⚠️ webhook HTTP '+r.status);
+    }catch(e){log('⚠️ webhook: '+e.message)}
+  }
+}
+
+/* ---- WEBHOOK TEST ---- */
+async function testHook(){
+  const hook=$('hook').value.trim();if(!hook){msg('m2','Webhook URL boş.',false);return}
+  try{
+    const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:'Mur4 Offsets',content:'🔔 Test duyurusu — site paneli bağlı! ✅'})});
+    msg('m2',r.ok?'Test duyurusu Discord\'a gitti!':'Webhook HTTP '+r.status,r.ok);
+  }catch(e){msg('m2','Hata: '+e.message,false)}
+}
+</script>
+</body>
+</html>
