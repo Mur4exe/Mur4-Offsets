@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/6c879e5c-fa37-4c0d-bd7c-ea53be9d39de
+
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&height=180&color=0:e31b23,100:17181c&text=Mur4%20Offsets&fontSize=52&fontColor=ffffff&desc=External%20Offsets%20%E2%80%A2%20Auto-Updated%20%E2%80%A2%20Live-Verified&descSize=16&descAlignY=68&animation=fadeIn" width="100%" />
