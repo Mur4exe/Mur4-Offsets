@@ -17,10 +17,25 @@ a{color:inherit;text-decoration:none}
 #particles{position:fixed;inset:0;z-index:0;opacity:.55}
 .wrap{max-width:1000px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
 
-/* LANG SWITCHER */
-#langBox{position:fixed;top:14px;right:16px;z-index:50}
-#langSel{background:rgba(22,24,29,.9);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 10px;font-size:13px;outline:none;cursor:pointer;backdrop-filter:blur(8px)}
+/* LANG SWITCHER + NAVBAR */
+#topbar{position:sticky;top:0;z-index:50;background:rgba(11,12,15,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+#topbar .inner{max-width:1000px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px}
+#topbar .brand{font-weight:900;font-size:15px;letter-spacing:1px;white-space:nowrap}
+#topbar .brand span{color:var(--red2)}
+#tabs{display:flex;gap:4px;flex:1}
+#tabs button{background:none;border:0;color:var(--dim);font-size:14px;font-weight:700;padding:9px 16px;border-radius:10px;cursor:pointer;position:relative;transition:.25s;font-family:inherit}
+#tabs button:hover{color:var(--text);background:rgba(255,255,255,.05)}
+#tabs button.on{color:#fff}
+#tabs button.on::after{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:3px;border-radius:99px;background:linear-gradient(90deg,var(--red),var(--red2));animation:tabline .35s ease both}
+@keyframes tabline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#langSel{background:rgba(22,24,29,.9);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 10px;font-size:13px;outline:none;cursor:pointer}
 #langSel:focus{border-color:var(--red)}
+@media(max-width:640px){#topbar .inner{flex-wrap:wrap;gap:8px}#tabs{order:3;width:100%}}
+
+/* TAB PANELS */
+.tab{display:none}
+.tab.active{display:block;animation:tabIn .45s ease both}
+@keyframes tabIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
 header{padding:84px 0 46px;text-align:center;position:relative;z-index:1}
 .logo{font-size:14px;letter-spacing:6px;color:var(--red2);font-weight:700;animation:fadeDown .8s ease both}
@@ -96,9 +111,20 @@ footer .brand{color:var(--text);font-weight:800}
 <body>
 <canvas id="particles"></canvas>
 
-<div id="langBox"><select id="langSel" title="Language"></select></div>
+<nav id="topbar">
+  <div class="inner">
+    <div class="brand">Mur4 <span>Offsets</span></div>
+    <div id="tabs">
+      <button data-tab="home" class="on">🏠 <span data-i18n="tabHome">Home</span></button>
+      <button data-tab="offsets">📦 <span data-i18n="tabOffsets">Offset Browser</span></button>
+      <button data-tab="downloads">⬇️ <span data-i18n="tabDownloads">Downloads</span></button>
+    </div>
+    <select id="langSel" title="Language"></select>
+  </div>
+</nav>
 
-<header class="wrap">
+<div class="wrap tab active" id="tab-home">
+<header style="padding-top:60px">
   <div class="logo">BY MUR4T</div>
   <h1><span class="grad">Mur4 Offsets</span> <span style="color:var(--red)">(External)</span></h1>
   <div class="typeline"><span id="typed"></span><span class="cursor">&nbsp;</span></div>
@@ -111,9 +137,10 @@ footer .brand{color:var(--text);font-weight:800}
   </div>
   <div id="meCard" style="margin:28px auto 0;max-width:420px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:18px;display:none"></div>
 </header>
+</div>
 
-<div class="wrap">
-  <div class="stats">
+<div class="wrap tab" id="tab-offsets">
+  <div class="stats" style="margin-top:34px">
     <div class="stat"><div class="n" id="stTotal">0</div><div class="l" data-i18n="stOffsets">Offsets</div></div>
     <div class="stat"><div class="n" id="stClasses">0</div><div class="l" data-i18n="stClasses">Classes</div></div>
     <div class="stat"><div class="n" id="stLive">246</div><div class="l" data-i18n="stLive">Live-verified</div></div>
@@ -121,19 +148,23 @@ footer .brand{color:var(--text);font-weight:800}
     <div class="stat"><div class="n" id="stVer">—</div><div class="l" data-i18n="stVersion">Roblox Version</div></div>
   </div>
 
-  <div class="sec reveal">📦 <span data-i18n="secBrowser">Offset Browser</span></div>
-  <div class="controls reveal">
+  <div class="controls" style="margin-top:18px">
     <select id="verSel"></select>
     <input type="text" id="q" data-i18n-ph="searchPh" placeholder="Search class or property… (e.g. WalkSpeed)">
   </div>
   <div id="list"></div>
   <div id="status" style="color:var(--dim);font-size:14px;margin:14px 0"></div>
+</div>
 
-  <div class="sec reveal">⬇️ <span data-i18n="secDownloads">Downloads</span></div>
-  <div class="dls reveal">
+<div class="wrap tab" id="tab-downloads">
+  <div class="sec" style="margin-top:34px">⬇️ <span data-i18n="secDownloads">Downloads</span></div>
+  <div class="dls">
     <a class="dl" href="offsets.json" download><div class="ico">🧾</div><div class="t">offsets.json</div><div class="d" data-i18n="dlJson">Machine-readable · for tools & bots</div></a>
     <a class="dl" href="Mur4_Offsets.txt" download><div class="ico">📄</div><div class="t">Mur4_Offsets.txt</div><div class="d" data-i18n="dlTxt">Human-readable namespace dump</div></a>
     <a class="dl" href="Mur4_Offsets.h" download><div class="ico">⚙️</div><div class="t">Mur4_Offsets.h</div><div class="d" data-i18n="dlH">C++ header · drop into your project</div></a>
+  </div>
+  <div class="verify" style="margin-top:26px">
+    <h3>ℹ️ <span data-i18n="dlNote">All files match the currently live Roblox version and are live-tested before release.</span></h3>
   </div>
 </div>
 
@@ -152,10 +183,7 @@ const REPO_NAME  = "Mur4-Offsets";
 const SERVER_ID  = "1542950705768177694"; // Discord Ayarlar > Widget > Server ID (otomatik bulundu)
 const MY_DISCORD_ID = "910806118526234624"; // Lanyard sunucusuna katilmis olmali: discord.gg/lanyard
 
-if(REPO_USER){
-  const base = `https://github.com/${REPO_USER}/${REPO_NAME}/blob/main/`;
-  document.querySelectorAll(".dl").forEach(a=>{a.href=base+a.getAttribute("href");a.target="_blank";a.removeAttribute("download")});
-}
+// indirme butonlari DOGRUDAN INDIRIR (github'a yonlendirme yok) — dosyalar repoda yaninda durur
 
 /* online uye sayaci (widget aciksa kart gorunur, degilse kart hic yok) */
 (async()=>{
@@ -214,10 +242,12 @@ const EN = {
   verifyP2:"Dead offsets never reach the published package. Typical run: 246 LIVE / 136 STABLE / 0 DEAD.",
   footerEdu:"For educational and research purposes only. Not affiliated with Roblox Corporation.",
   notFound:"offsets.json not found — upload dump files via the admin panel.",
-  latest:"Latest", filtered:"Filtered", offsets:"offsets"
+  latest:"Latest", filtered:"Filtered", offsets:"offsets",
+  tabHome:"Home", tabOffsets:"Offset Browser", tabDownloads:"Downloads",
+  dlNote:"All files match the currently live Roblox version and are live-tested before release."
 };
 const I18N = {
-tr:{join:"DISCORD'A KATIL",badgeAuto:"Her güncellemede otomatik",badgeLive:"Canlı doğrulanmış",badgeLive2:"offsetler",badgeZero:"Sıfır paste",badgeFree:"%100 ücretsiz",stOffsets:"Offset",stClasses:"Sınıf",stLive:"Canlı doğrulanmış",stVersion:"Roblox Sürümü",stOnline:"Şu An Online",secBrowser:"Offset Tarayıcı",searchPh:"Sınıf veya özellik ara… (örn. WalkSpeed)",secDownloads:"İndirilenler",dlJson:"Makine okunur · araçlar ve botlar için",dlTxt:"İnsan okunur namespace dökümü",dlH:"C++ header · projene direkt ekle",secVerify:"Doğrulama ve Topluluk",verifyT:"Offsetler nasıl doğrulanıyor?",verifyP1:"Eşsiz sentinel değerleri sandbox laboratuvarında Roblox property'leri üzerinden yazılır, ardından canlı client belleği taranır. Bulunan her adres zaman içinde tekrar örneklenip sınıflandırılır:",pillLive:"CANLI — değer script fazlarını takip ediyor",pillStable:"SABİT — sentinel değer yerinde",pillDead:"ÖLÜ — sürümlerden otomatik ayıklanır",verifyP2:"Ölü offsetler asla yayınlana pakete girmez. Tipik koşu: 246 CANLI / 136 SABİT / 0 ÖLÜ.",footerEdu:"Yalnızca eğitim ve araştırma amaçlıdır. Roblox Corporation ile bağlantılı değildir.",notFound:"offsets.json bulunamadı — admin panelinden dump dosyalarını yükle.",latest:"Son",filtered:"Filtreli",offsets:"offset"},
+tr:{join:"DISCORD'A KATIL",badgeAuto:"Her güncellemede otomatik",badgeLive:"Canlı doğrulanmış",badgeLive2:"offsetler",badgeZero:"Sıfır paste",badgeFree:"%100 ücretsiz",stOffsets:"Offset",stClasses:"Sınıf",stLive:"Canlı doğrulanmış",stVersion:"Roblox Sürümü",stOnline:"Şu An Online",secBrowser:"Offset Tarayıcı",searchPh:"Sınıf veya özellik ara… (örn. WalkSpeed)",secDownloads:"İndirilenler",tabHome:"Ana Sayfa",tabOffsets:"Offset Tarayıcı",tabDownloads:"İndirilenler",dlNote:"Tüm dosyalar canlı Roblox sürümüyle eşleşir ve yayın öncesi test edilir.",dlJson:"Makine okunur · araçlar ve botlar için",dlTxt:"İnsan okunur namespace dökümü",dlH:"C++ header · projene direkt ekle",secVerify:"Doğrulama ve Topluluk",verifyT:"Offsetler nasıl doğrulanıyor?",verifyP1:"Eşsiz sentinel değerleri sandbox laboratuvarında Roblox property'leri üzerinden yazılır, ardından canlı client belleği taranır. Bulunan her adres zaman içinde tekrar örneklenip sınıflandırılır:",pillLive:"CANLI — değer script fazlarını takip ediyor",pillStable:"SABİT — sentinel değer yerinde",pillDead:"ÖLÜ — sürümlerden otomatik ayıklanır",verifyP2:"Ölü offsetler asla yayınlana pakete girmez. Tipik koşu: 246 CANLI / 136 SABİT / 0 ÖLÜ.",footerEdu:"Yalnızca eğitim ve araştırma amaçlıdır. Roblox Corporation ile bağlantılı değildir.",notFound:"offsets.json bulunamadı — admin panelinden dump dosyalarını yükle.",latest:"Son",filtered:"Filtreli",offsets:"offset"},
 es:{join:"ÚNETE AL DISCORD",badgeAuto:"Actualizado en cada parche",badgeLive:"Verificado en vivo",badgeZero:"Cero paste",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Clases",stLive:"Verificados en vivo",stVersion:"Versión de Roblox",secBrowser:"Explorador de Offsets",searchPh:"Buscar clase o propiedad… (ej. WalkSpeed)",secDownloads:"Descargas",dlJson:"Legible por máquinas · para herramientas y bots",dlTxt:"Volcado legible por humanos",dlH:"Cabecera C++ · pégala en tu proyecto",secVerify:"Verificación y Comunidad",verifyT:"Cómo se verifican los offsets",pillLive:"ACTIVO — el valor sigue las fases del script",pillStable:"ESTABLE — valor centinela en su lugar",pillDead:"MUERTO — filtrado automáticamente",footerEdu:"Solo con fines educativos y de investigación. No afiliado a Roblox Corporation.",latest:"Última",filtered:"Filtrada",offsets:"offsets"},
 pt:{join:"ENTRE NO DISCORD",badgeAuto:"Atualizado a cada patch",badgeLive:"Verificado ao vivo",badgeZero:"Zero paste",badgeFree:"100% grátis",stOffsets:"Offsets",stClasses:"Classes",stLive:"Verificados ao vivo",stVersion:"Versão do Roblox",secBrowser:"Navegador de Offsets",searchPh:"Buscar classe ou propriedade… (ex. WalkSpeed)",secDownloads:"Downloads",dlJson:"Legível por máquina · para ferramentas e bots",dlTxt:"Dump legível por humanos",dlH:"Cabeçalho C++ · coloque no seu projeto",secVerify:"Verificação e Comunidade",verifyT:"Como os offsets são verificados",pillLive:"ATIVO — valor acompanha as fases do script",pillStable:"ESTÁVEL — valor sentinela no lugar",pillDead:"MORTO — filtrado automaticamente",footerEdu:"Apenas para fins educacionais e de pesquisa. Não afiliado à Roblox Corporation.",latest:"Mais recente",filtered:"Filtrada",offsets:"offsets"},
 fr:{join:"REJOINDRE LE DISCORD",badgeAuto:"Mis à jour à chaque patch",badgeLive:"Vérifié en direct",badgeZero:"Zéro paste",badgeFree:"100% gratuit",stOffsets:"Offsets",stClasses:"Classes",stLive:"Vérifiés en direct",stVersion:"Version Roblox",secBrowser:"Navigateur d'Offsets",searchPh:"Rechercher une classe ou propriété… (ex. WalkSpeed)",secDownloads:"Téléchargements",dlJson:"Lisible par machine · pour outils et bots",dlTxt:"Dump lisible par humains",dlH:"En-tête C++ · à intégrer dans votre projet",secVerify:"Vérification et Communauté",verifyT:"Comment les offsets sont vérifiés",pillLive:"VIVANT — la valeur suit les phases du script",pillStable:"STABLE — valeur sentinelle en place",pillDead:"MORT — filtré automatiquement",footerEdu:"À des fins éducatives et de recherche uniquement. Non affilié à Roblox Corporation.",latest:"Dernière",filtered:"Filtrée",offsets:"offsets"},
@@ -285,6 +315,18 @@ I18N.ca = Object.assign({},I18N.es,{join:"UNEIX-TE AL DISCORD",latest:"Última",
 let LANG = localStorage.getItem("mur4lang") || "en";
 const t = k => (I18N[LANG] && I18N[LANG][k]) || EN[k] || k;
 const RTL = ["ar","fa","he","ur"].includes(LANG);
+
+/* ---- TAB SISTEMI ---- */
+function showTab(name,noHash){
+  document.querySelectorAll(".tab").forEach(el=>el.classList.remove("active"));
+  const panel=document.getElementById("tab-"+name);
+  if(panel){panel.classList.add("active");panel.style.animation="none";panel.offsetHeight;panel.style.animation=""}
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===name));
+  if(!noHash)history.replaceState(null,"","#"+name);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+addEventListener("hashchange",()=>{const h=location.hash.replace("#","");if(document.getElementById("tab-"+h))showTab(h,true)});
 
 function applyLang(){
   document.documentElement.lang = LANG;
@@ -403,6 +445,9 @@ function setVersionStats(d){
   fillSel();setVersionStats(DATA);render("");
   sel.onchange=()=>{DATA=sel.selectedOptions[0]._data;setVersionStats(DATA);render("")};
   document.getElementById("q").oninput=e=>render(e.target.value.trim());
+  // acilis: hash'te sekmeyi ac (#offsets / #downloads), yoksa ana sayfa
+  const h=location.hash.replace("#","");
+  if(document.getElementById("tab-"+h))showTab(h,true);
   applyLang();
 })();
 applyLang();
