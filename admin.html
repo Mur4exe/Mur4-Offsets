@@ -51,17 +51,13 @@ button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:12px;font-
   <!-- GIRIS -->
   <div id="login">
     <h1>⚡ Mur4 Offsets — <span>Yönetim</span></h1>
-    <p class="sub">GitHub token'ınla giriş yap, siteye offset yükle.</p>
-    <label>GitHub Kullanıcı Adı</label>
-    <input id="ghUser" placeholder="Mur4exe">
-    <label>Repo Adı</label>
-    <input id="ghRepo" placeholder="Mur4-Offsets">
-    <label>Branch</label>
-    <input id="ghBranch" value="main">
+    <p class="sub">Bu panel SADECE Mur4exe/Mur4-Offsets reposu içindir. Başka bir token bu repoya yazamaz.</p>
+    <label>Hedef Repo (kilitli)</label>
+    <input value="Mur4exe / Mur4-Offsets (main)" disabled style="opacity:.7">
     <label>Kişisel Erişim Token'ı (şifren)</label>
     <input id="ghPat" type="password" placeholder="github_pat_… (Contents: read & write)">
     <div class="chk"><input type="checkbox" id="remember" checked><span>Beni bu cihazda hatırla (token yerel olarak saklanır)</span></div>
-    <p class="hint">Fine-grained token: sadece bu repo, <b>Contents: Read and write</b> izni. Token SADECE senin tarayıcında saklanır — GitHub dışında hiçbir yere gönderilmez.</p>
+    <p class="hint">Fine-grained token: sadece bu repo, <b>Contents: Read and write</b> izni. Token SADECE senin tarayıcında saklanır — GitHub dışında hiçbir yere gönderilmez. Başkasının token'ı bu repoya erişemez (GitHub 403 döndürür).</p>
     <button class="btn-login" onclick="login()">🔓 GİRİŞ YAP</button>
     <div class="msg" id="m1"></div>
   </div>
@@ -111,17 +107,19 @@ function log(t){const l=$('log');l.style.display='block';l.textContent+=t+'\n';l
 $('hook').addEventListener('blur',()=>{const v=$('hook').value.trim();if(v)localStorage.setItem('mur4hook',v)});
 
 /* ---- GIRIS ---- */
+/* repo KILITLENIK: herkes icin ayni hedef (Mur4exe/Mur4-Offsets). Yetkisi olmayan giremez. */
+const FIXED_USER='Mur4exe',FIXED_REPO='Mur4-Offsets',FIXED_BRANCH='main';
 async function login(){
-  const user=$('ghUser').value.trim(),repo=$('ghRepo').value.trim(),branch=$('ghBranch').value.trim()||'main',pat=$('ghPat').value.trim();
-  if(!user||!repo||!pat){msg('m1','Kullanıcı adı, repo ve token zorunlu.',false);return}
+  const pat=$('ghPat').value.trim();
+  if(!pat){msg('m1','Token zorunlu.',false);return}
   msg('m1','Token GitHub ile doğrulanıyor…',true);
   try{
-    const r=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:{Authorization:'Bearer '+pat}});
+    const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{headers:{Authorization:'Bearer '+pat}});
     if(r.status===401){msg('m1','Token geçersiz (401). Yeni token oluşturup tekrar yapıştır.',false);return}
-    if(r.status===404){msg('m1','Repo bulunamadı (404) — kullanıcı adı/repo adını kontrol et ('+user+'/'+repo+').',false);return}
+    if(r.status===404||r.status===403){msg('m1','Bu token Mur4-Offsets reposuna erişemiyor ('+r.status+'). Fine-grained token\'da bu repo + Contents: read&write seçili olmalı.',false);return}
     if(!r.ok){msg('m1','GitHub hatası: '+r.status,false);return}
-    CFG={user,repo,branch,pat};
-    localStorage.setItem(LS,JSON.stringify({user,repo,branch,remember:$('remember').checked}));
+    CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
+    localStorage.setItem(LS,JSON.stringify({user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,remember:$('remember').checked}));
     if($('remember').checked) localStorage.setItem(LS+'_t',pat); else sessionStorage.setItem(LS+'_t',pat);
     openPanel();msg('m1','Giriş başarılı!',true);
   }catch(e){msg('m1','Ağ hatası: '+e.message,false)}
@@ -136,11 +134,10 @@ function logout(){localStorage.removeItem(LS+'_t');sessionStorage.removeItem(LS+
 /* otomatik giris */
 (async function(){
   const pat=getToken();
-  const c=JSON.parse(localStorage.getItem(LS)||'{}');
-  if(pat&&c.user&&c.repo){
-    CFG={user:c.user,repo:c.repo,branch:c.branch||'main',pat};
+  if(pat){
+    CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
     try{
-      const r=await fetch(`https://api.github.com/repos/${c.user}/${c.repo}`,{headers:{Authorization:'Bearer '+pat}});
+      const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{headers:{Authorization:'Bearer '+pat}});
       if(r.ok)openPanel();
     }catch(e){}
   }
