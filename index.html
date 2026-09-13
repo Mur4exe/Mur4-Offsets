@@ -125,6 +125,26 @@ td:last-child{font-family:Consolas,monospace;color:var(--green)}
 .me-act{font-size:12px;color:var(--red2);margin-top:2px}
 .me-go{font-size:11px;color:var(--dim);opacity:0;transform:translateX(-6px);transition:.25s;white-space:nowrap}
 #meCard:hover .me-go{opacity:1;transform:none;color:var(--red2)}
+
+/* ===== TEMA / TOAST / DIFF ===== */
+#themeBtn{background:none;border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer;color:var(--text);font-size:15px;transition:.25s}
+#themeBtn:hover{border-color:var(--red)}
+body.light{--bg:#f4f5f7;--bg2:#ffffff;--card:#ffffff;--card2:#eef0f3;--line:#d9dce1;--text:#15171b;--dim:#5a6069;--red2:#c0111a;--green:#0a9e64}
+body.light #topbar{background:rgba(255,255,255,.85)}
+body.light .badge{background:rgba(0,0,0,.04)}
+body.light #tabs button:hover{background:rgba(0,0,0,.05)}
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:#fff;font-weight:700;padding:11px 24px;border-radius:99px;transition:.3s;z-index:99;opacity:0;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+#list tbody tr{cursor:pointer;transition:background .15s}
+#diffToggle{background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:.25s;font-family:inherit}
+#diffToggle:hover{border-color:var(--red);color:var(--red2)}
+#diffBox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px;display:none;animation:tabIn .4s ease both}
+.diff-row{display:flex;justify-content:space-between;gap:10px;padding:7px 12px;border-radius:8px;font-size:13px;font-family:Consolas,monospace;margin-bottom:4px}
+.diff-row.add{background:rgba(0,224,143,.1);color:var(--green)}
+.diff-row.rem{background:rgba(227,27,35,.1);color:var(--red2)}
+.diff-row.chg{background:rgba(255,193,7,.1);color:#c08a00}
+#lastUpdate{color:var(--dim);font-size:13px;margin-top:10px}
+#lastUpdate b{color:var(--green)}
 .admin{position:fixed;bottom:14px;right:16px;z-index:5;font-size:12px;color:#555}
 .admin:hover{color:var(--red2)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 0 44px;text-align:center;color:var(--dim);font-size:13px}
@@ -141,7 +161,9 @@ footer .brand{color:var(--text);font-weight:800}
       <button data-tab="home" class="on">🏠 <span data-i18n="tabHome">Home</span></button>
       <button data-tab="offsets">📦 <span data-i18n="tabOffsets">Offset Browser</span></button>
       <button data-tab="downloads">⬇️ <span data-i18n="tabDownloads">Downloads</span></button>
+      <button data-tab="staff">👥 <span data-i18n="tabStaff">Staff</span></button>
     </div>
+    <button id="themeBtn" title="Theme">☀️</button>
     <select id="langSel" title="Language"></select>
   </div>
 </nav>
@@ -160,6 +182,26 @@ footer .brand{color:var(--text);font-weight:800}
   </div>
   <div id="meCard" style="margin:28px auto 0;max-width:420px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:18px;display:none"></div>
 </header>
+
+<div style="display:flex;justify-content:center;margin-top:-30px;position:relative;z-index:1" class="wrap">
+  <a id="heroAvatar" href="https://www.roblox.com/users/2218187665/profile" target="_blank"
+     style="display:none;position:relative;width:230px;height:260px" title="Roblox Profile">
+    <img id="heroAvatarImg" alt="Roblox Avatar"
+         style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 30px rgba(227,27,35,.35));animation:heroFloat 3.5s ease-in-out infinite">
+  </a>
+</div>
+<style>
+@keyframes heroFloat{0%,100%{transform:translateY(0) rotateY(-4deg)}50%{transform:translateY(-14px) rotateY(4deg)}}
+#heroAvatar:hover img{animation-play-state:paused;transform:scale(1.06)}
+#heroAvatar img{transition:transform .3s}
+.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.staff-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:22px;text-align:center;transition:.3s;position:relative;overflow:hidden}
+.staff-card:hover{transform:translateY(-4px);border-color:var(--red);box-shadow:0 14px 40px rgba(227,27,35,.18)}
+.staff-card .ava{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;border:3px solid var(--red);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:var(--red2);background:rgba(227,27,35,.08);overflow:hidden}
+.staff-card .ava img{width:100%;height:100%;object-fit:cover}
+.staff-rank{display:inline-block;margin-top:8px;padding:5px 16px;border-radius:99px;font-size:12px;font-weight:800;background:linear-gradient(135deg,var(--red),#8f1218);color:#fff;letter-spacing:1px}
+.staff-dc{margin-top:8px;font-size:12px;color:var(--dim)}
+</style>
 </div>
 
 <div class="wrap tab" id="tab-offsets">
@@ -177,14 +219,29 @@ footer .brand{color:var(--text);font-weight:800}
   </div>
   <div id="list"></div>
   <div id="status" style="color:var(--dim);font-size:14px;margin:14px 0"></div>
+  <button id="diffToggle">🔍 <span data-i18n="diffBtn">Compare versions</span></button>
+  <div id="diffBox">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <select id="diffA"></select>
+      <span style="color:var(--dim);font-weight:700">→</span>
+      <select id="diffB"></select>
+      <button id="diffRun" style="width:auto;margin:0;padding:10px 20px;border:0;border-radius:10px;background:linear-gradient(135deg,var(--red),#8f1218);color:#fff;font-weight:800;cursor:pointer;font-family:inherit" data-i18n="diffRun">Compare</button>
+    </div>
+    <div id="diffOut" style="margin-top:14px"></div>
+  </div>
   <div style="margin-top:18px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;color:var(--dim);font-size:13px">
     ℹ️ <span data-i18n="browserNote">Offsets are extracted from the live client and read-verified in memory (dead ones are filtered out) — write usage is expected to work but not guaranteed.</span>
   </div>
 </div>
 
+<div class="wrap tab" id="tab-staff">
+  <div class="sec" style="margin-top:34px">👥 <span data-i18n="staffTitle">Staff Team</span></div>
+  <p style="color:var(--dim);font-size:14px;margin:-6px 0 18px" data-i18n="staffSub">The people behind Mur4 Offsets.</p>
+  <div class="staff-grid" id="staffGrid"></div>
+</div>
+
 <div class="wrap tab" id="tab-downloads">
-  <div class="sec" style="margin-top:34px">⬇️ <span data-i18n="secDownloads">Downloads</span></div>
-  <div class="dls">
+  <div class="sec" style="margin-top:34px">⬇️ <span data-i18n="secDownloads">Downloads</span></div>  <div class="dls">
     <a class="dl" href="offsets.json" download><div class="ico">🧾</div><div class="t">offsets.json</div><div class="d" data-i18n="dlJson">Machine-readable · for tools & bots</div></a>
     <a class="dl" href="Mur4_Offsets.txt" download><div class="ico">📄</div><div class="t">Mur4_Offsets.txt</div><div class="d" data-i18n="dlTxt">Human-readable namespace dump</div></a>
     <a class="dl" href="Mur4_Offsets.h" download><div class="ico">⚙️</div><div class="t">Mur4_Offsets.h</div><div class="d" data-i18n="dlH">C++ header · drop into your project</div></a>
@@ -195,6 +252,7 @@ footer .brand{color:var(--text);font-weight:800}
 </div>
 
 <a class="admin" href="admin.html" title="Admin panel">⚙</a>
+<div id="toast"></div>
 
 <footer>
   <div class="brand">Mur4 Offsets · By: Mur4t</div>
@@ -316,11 +374,14 @@ const EN = {
   notFound:"offsets.json not found — upload dump files via the admin panel.",
   latest:"Latest", filtered:"Filtered", offsets:"offsets",
   tabHome:"Home", tabOffsets:"Offset Browser", tabDownloads:"Downloads",
+  copied:"Copied!", lastUp:"Updated", lastNow:"just now", uM:"min ago", uH:"h ago", uD:"d ago",
+  tabStaff:"Staff", staffTitle:"Staff Team", staffSub:"The people behind Mur4 Offsets.",
+  diffBtn:"Compare versions", diffRun:"Compare", diffAdded:"ADDED", diffRemoved:"REMOVED", diffChanged:"CHANGED", diffEmpty:"No differences between these versions.", diffSame:"same", diffSel:"Select two versions",
   dlNote:"All files are extracted from the live client and read-verified in memory (dead offsets filtered out) — write usage is expected to work but not guaranteed.",
   browserNote:"Offsets are extracted from the live client and read-verified in memory (dead ones are filtered out) — write usage is expected to work but not guaranteed."
 };
 const I18N = {
-tr:{join:"DISCORD'A KATIL",badgeAuto:"Her güncellemede otomatik",badgeLive:"Canlı doğrulanmış",badgeLive2:"offsetler",badgeZero:"Sıfır paste",badgeFree:"%100 ücretsiz",stOffsets:"Offset",stClasses:"Sınıf",stLive:"Canlı doğrulanmış",stVersion:"Roblox Sürümü",stOnline:"Şu An Online",secBrowser:"Offset Tarayıcı",searchPh:"Sınıf veya özellik ara… (örn. WalkSpeed)",secDownloads:"İndirilenler",tabHome:"Ana Sayfa",tabOffsets:"Offset Tarayıcı",tabDownloads:"İndirilenler",dlNote:"Tüm dosyalar canlı client'tan çıkarılır ve bellekte okuma doğrulamasından geçer (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",browserNote:"Offsetler canlı client'tan çıkarılıp bellekte okuma doğrulamasından geçirilir (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",dlJson:"Makine okunur · araçlar ve botlar için",dlTxt:"İnsan okunur namespace dökümü",dlH:"C++ header · projene direkt ekle",secVerify:"Doğrulama ve Topluluk",verifyT:"Offsetler nasıl doğrulanıyor?",verifyP1:"Eşsiz sentinel değerleri sandbox laboratuvarında Roblox property'leri üzerinden yazılır, ardından canlı client belleği taranır. Bulunan her adres zaman içinde tekrar örneklenip sınıflandırılır:",pillLive:"CANLI — değer script fazlarını takip ediyor",pillStable:"SABİT — sentinel değer yerinde",pillDead:"ÖLÜ — sürümlerden otomatik ayıklanır",verifyP2:"Ölü offsetler asla yayınlana pakete girmez. Tipik koşu: 246 CANLI / 136 SABİT / 0 ÖLÜ.",footerEdu:"Yalnızca eğitim ve araştırma amaçlıdır. Roblox Corporation ile bağlantılı değildir.",notFound:"offsets.json bulunamadı — admin panelinden dump dosyalarını yükle.",latest:"Son",filtered:"Filtreli",offsets:"offset"},
+tr:{join:"DISCORD'A KATIL",badgeAuto:"Her güncellemede otomatik",badgeLive:"Canlı doğrulanmış",badgeLive2:"offsetler",badgeZero:"Sıfır paste",badgeFree:"%100 ücretsiz",stOffsets:"Offset",stClasses:"Sınıf",stLive:"Canlı doğrulanmış",stVersion:"Roblox Sürümü",stOnline:"Şu An Online",secBrowser:"Offset Tarayıcı",searchPh:"Sınıf veya özellik ara… (örn. WalkSpeed)",secDownloads:"İndirilenler",tabHome:"Ana Sayfa",tabOffsets:"Offset Tarayıcı",tabDownloads:"İndirilenler",tabStaff:"Yetkili Kadrosu",staffTitle:"Yetkili Kadrosu",staffSub:"Mur4 Offsets'in arkasındaki ekip.",copied:"Kopyalandı!",lastUp:"Güncellendi",lastNow:"az önce",uM:"dk önce",uH:"sa önce",uD:"gün önce",diffBtn:"Sürümleri karşılaştır",diffRun:"Karşılaştır",diffAdded:"EKLENDİ",diffRemoved:"KALDIRILDI",diffChanged:"DEĞİŞTİ",diffEmpty:"Bu sürümler arasında fark yok.",diffSame:"aynı",diffSel:"İki sürüm seç",dlNote:"Tüm dosyalar canlı client'tan çıkarılır ve bellekte okuma doğrulamasından geçer (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",browserNote:"Offsetler canlı client'tan çıkarılıp bellekte okuma doğrulamasından geçirilir (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",dlJson:"Makine okunur · araçlar ve botlar için",dlTxt:"İnsan okunur namespace dökümü",dlH:"C++ header · projene direkt ekle",secVerify:"Doğrulama ve Topluluk",verifyT:"Offsetler nasıl doğrulanıyor?",verifyP1:"Eşsiz sentinel değerleri sandbox laboratuvarında Roblox property'leri üzerinden yazılır, ardından canlı client belleği taranır. Bulunan her adres zaman içinde tekrar örneklenip sınıflandırılır:",pillLive:"CANLI — değer script fazlarını takip ediyor",pillStable:"SABİT — sentinel değer yerinde",pillDead:"ÖLÜ — sürümlerden otomatik ayıklanır",verifyP2:"Ölü offsetler asla yayınlana pakete girmez. Tipik koşu: 246 CANLI / 136 SABİT / 0 ÖLÜ.",footerEdu:"Yalnızca eğitim ve araştırma amaçlıdır. Roblox Corporation ile bağlantılı değildir.",notFound:"offsets.json bulunamadı — admin panelinden dump dosyalarını yükle.",latest:"Son",filtered:"Filtreli",offsets:"offset"},
 es:{join:"ÚNETE AL DISCORD",badgeAuto:"Actualizado en cada parche",badgeLive:"Verificado en vivo",badgeZero:"Cero paste",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Clases",stLive:"Verificados en vivo",stVersion:"Versión de Roblox",secBrowser:"Explorador de Offsets",searchPh:"Buscar clase o propiedad… (ej. WalkSpeed)",secDownloads:"Descargas",dlJson:"Legible por máquinas · para herramientas y bots",dlTxt:"Volcado legible por humanos",dlH:"Cabecera C++ · pégala en tu proyecto",secVerify:"Verificación y Comunidad",verifyT:"Cómo se verifican los offsets",pillLive:"ACTIVO — el valor sigue las fases del script",pillStable:"ESTABLE — valor centinela en su lugar",pillDead:"MUERTO — filtrado automáticamente",footerEdu:"Solo con fines educativos y de investigación. No afiliado a Roblox Corporation.",latest:"Última",filtered:"Filtrada",offsets:"offsets"},
 pt:{join:"ENTRE NO DISCORD",badgeAuto:"Atualizado a cada patch",badgeLive:"Verificado ao vivo",badgeZero:"Zero paste",badgeFree:"100% grátis",stOffsets:"Offsets",stClasses:"Classes",stLive:"Verificados ao vivo",stVersion:"Versão do Roblox",secBrowser:"Navegador de Offsets",searchPh:"Buscar classe ou propriedade… (ex. WalkSpeed)",secDownloads:"Downloads",dlJson:"Legível por máquina · para ferramentas e bots",dlTxt:"Dump legível por humanos",dlH:"Cabeçalho C++ · coloque no seu projeto",secVerify:"Verificação e Comunidade",verifyT:"Como os offsets são verificados",pillLive:"ATIVO — valor acompanha as fases do script",pillStable:"ESTÁVEL — valor sentinela no lugar",pillDead:"MORTO — filtrado automaticamente",footerEdu:"Apenas para fins educacionais e de pesquisa. Não afiliado à Roblox Corporation.",latest:"Mais recente",filtered:"Filtrada",offsets:"offsets"},
 fr:{join:"REJOINDRE LE DISCORD",badgeAuto:"Mis à jour à chaque patch",badgeLive:"Vérifié en direct",badgeZero:"Zéro paste",badgeFree:"100% gratuit",stOffsets:"Offsets",stClasses:"Classes",stLive:"Vérifiés en direct",stVersion:"Version Roblox",secBrowser:"Navigateur d'Offsets",searchPh:"Rechercher une classe ou propriété… (ex. WalkSpeed)",secDownloads:"Téléchargements",dlJson:"Lisible par machine · pour outils et bots",dlTxt:"Dump lisible par humains",dlH:"En-tête C++ · à intégrer dans votre projet",secVerify:"Vérification et Communauté",verifyT:"Comment les offsets sont vérifiés",pillLive:"VIVANT — la valeur suit les phases du script",pillStable:"STABLE — valeur sentinelle en place",pillDead:"MORT — filtré automatiquement",footerEdu:"À des fins éducatives et de recherche uniquement. Non affilié à Roblox Corporation.",latest:"Dernière",filtered:"Filtrée",offsets:"offsets"},
@@ -401,6 +462,55 @@ function showTab(name,noHash){
 document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 addEventListener("hashchange",()=>{const h=location.hash.replace("#","");if(document.getElementById("tab-"+h))showTab(h,true)});
 
+/* ---- TEMA ---- */
+const themeBtn=document.getElementById("themeBtn");
+function applyTheme(){
+  const light=localStorage.getItem("mur4theme")==="light";
+  document.body.classList.toggle("light",light);
+  themeBtn.textContent=light?"🌙":"☀️";
+}
+themeBtn.onclick=()=>{
+  localStorage.setItem("mur4theme",localStorage.getItem("mur4theme")==="light"?"dark":"light");
+  applyTheme();
+};
+applyTheme();
+
+/* ---- TOAST + KOPYALAMA ---- */
+let toastTimer=null;
+function toast(msg){
+  const el=document.getElementById("toast");
+  el.textContent=msg;el.classList.add("on");
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove("on"),1600);
+}
+function copyText(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast(t("copied")),()=>fallbackCopy(txt));
+  }else fallbackCopy(txt);
+}
+function fallbackCopy(txt){
+  const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");toast(t("copied"))}catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ---- SON GUNCELLEME ---- */
+function relTime(dt){
+  const diff=(Date.now()-dt.getTime())/1000;
+  if(diff<90)return t("lastNow");
+  if(diff<5400)return Math.round(diff/60)+" "+t("uM");
+  if(diff<172800)return Math.round(diff/3600)+" "+t("uH");
+  return Math.round(diff/86400)+" "+t("uD");
+}
+function updateLastTime(){
+  const el=document.getElementById("lastUpdate");
+  if(!DATA||!DATA.dump_time){el.innerHTML="";return}
+  const dt=new Date(DATA.dump_time.replace(" ","T"));
+  if(isNaN(dt)){el.innerHTML="";return}
+  el.innerHTML="⏱ "+t("lastUp")+": <b>"+relTime(dt)+"</b> · "+DATA.dump_time;
+}
+
 function applyLang(){
   document.documentElement.lang = LANG;
   document.body.dir = RTL ? "rtl" : "ltr";
@@ -449,7 +559,66 @@ function startType(){
   })();
 }
 
-/* particles */
+/* ---- HERO ROBLOX KARAKTERI + STAFF ---- */
+function rbxAvatarImg(userId,w,h){
+  // 1) legacy endpoint (redirect ile cdn'e gider)  2) CORS proxy + thumbnails API  3) lokal avatar.png
+  return `https://www.roblox.com/avatar-thumbnail/image?userId=${userId}&width=${w}&height=${h}&format=png`;
+}
+(async function heroAvatar(){
+  const a=document.getElementById("heroAvatar"), img=document.getElementById("heroAvatarImg");
+  if(!a||!img)return;
+  const uid=2218187665;
+  img.src=rbxAvatarImg(uid,420,420);
+  img.onerror=async()=>{
+    // CORS proxy uzerinden thumbnails API dene
+    try{
+      const api=`https://thumbnails.roblox.com/v1/users/avatar?userId=${uid}&size=420x420&format=Png&isCircular=false`;
+      const r=await fetch("https://corsproxy.io/?"+encodeURIComponent(api));
+      const j=await r.json();
+      if(j.data&&j.data[0]&&j.data[0].state==="Completed"){img.src=j.data[0].imageUrl;img.onerror=null;return}
+    }catch(e){}
+    img.src="avatar.png"; // son cikis: repoya konmus render
+    img.onerror=()=>{a.style.display="none"};
+  };
+  a.style.display="block";
+})();
+
+(async function loadStaff(){
+  const grid=document.getElementById("staffGrid");if(!grid)return;
+  let staff=[];
+  try{
+    const r=await fetch("staff.json?v="+Date.now());
+    if(r.ok)staff=await r.json();
+  }catch(e){}
+  if(!staff.length){grid.innerHTML=`<div style="color:var(--dim)">staff.json not found — upload via admin panel.</div>`;return}
+  grid.innerHTML=staff.map(m=>{
+    const initial=(m.name||"?").trim()[0].toUpperCase();
+    let ava;
+    if(m.robloxUserId) ava=`<img src="${rbxAvatarImg(m.robloxUserId,150,150)}" alt="" onerror="this.parentNode.innerHTML='${initial}'">`;
+    else if(m.discordId) ava=`<img src="https://cdn.discordapp.com/embed/avatars/0.png" data-dcid="${m.discordId}" alt="" onerror="this.parentNode.innerHTML='${initial}'">`;
+    else ava=initial;
+    return `<div class="staff-card">
+      <div class="ava">${ava}</div>
+      <div style="font-weight:800;font-size:17px">${m.name||"?"}</div>
+      <div class="staff-rank">${m.rank||"Staff"}</div>
+      ${m.discordId?`<div class="staff-dc">💬 ${m.discordTag||"Discord"}</div>`:""}
+    </div>`;
+  }).join("");
+  // discordId'si olanlar icin Lanyard ile gercel avatar + durum
+  grid.querySelectorAll("[data-dcid]").forEach(img=>{
+    const id=img.dataset.dcid;
+    fetch("https://api.lanyard.rest/v1/users/"+id).then(r=>r.json()).then(j=>{
+      if(!j.success)return;
+      const u=j.data.discord_user;
+      if(u.avatar)img.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;
+      img.onerror=null;
+      const card=img.closest(".staff-card");
+      const dot=document.createElement("span");
+      dot.style.cssText=`position:absolute;top:14px;right:14px;width:14px;height:14px;border-radius:50%;border:2px solid var(--card);background:${{online:"#00e08f",idle:"#ffc107",dnd:"#ff4d54",offline:"#666"}[j.data.discord_status]||"#666"}`;
+      if(card)card.appendChild(dot);
+    }).catch(e=>{});
+  });
+})();
 (function(){
   const c=document.getElementById("particles"),x=c.getContext("2d");
   let W,H,ps=[];
@@ -487,7 +656,8 @@ function render(q){
     classes++;total+=en.length;
     const d=document.createElement("details");d.className="cls";
     d.innerHTML=`<summary><span>${cls}</span><span class="cnt">${en.length}</span></summary>
-      <table><tbody>${en.map(([p,o])=>`<tr><td>${p}</td><td>${o}</td></tr>`).join("")}</tbody></table>`;
+      <table><tbody>${en.map(([p,o])=>`<tr data-copy="${cls}.${p} = ${o}"><td>${p}</td><td>${o}</td></tr>`).join("")}</tbody></table>`;
+    d.querySelectorAll("tr").forEach(tr=>tr.onclick=()=>copyText(tr.dataset.copy));
     list.appendChild(d);
   }
   countUp(document.getElementById("stTotal"),total);
@@ -495,9 +665,44 @@ function render(q){
 }
 function setVersionStats(d){
   document.getElementById("stVer").textContent=(d.version||"?").replace("version-","").slice(0,8);
+  updateLastTime();
   // Live-verified sayisi: once manifest'teki dogrulama sonucu, yoksa son bildirilen deger
   const m=(MANIFEST||[]).find(x=>x.tag===(d.version||""))||(MANIFEST||[])[0];
   document.getElementById("stLive").textContent=(m&&typeof m.live==="number")?m.live:LAST_LIVE;
+}
+
+/* ---- SURUM KARSILASTIRMA (DIFF) ---- */
+let DIFF_LOADER={};
+function loadTag(v){
+  if(!DIFF_LOADER[v])DIFF_LOADER[v]=loadVersion(v);
+  return DIFF_LOADER[v];
+}
+function flatten(d){
+  const out={};
+  for(const [cls,props] of Object.entries(d.offsets||{}))
+    for(const [p,o] of Object.entries(props)) out[cls+"."+p]=o;
+  return out;
+}
+async function runDiff(){
+  const a=document.getElementById("diffA").value, b=document.getElementById("diffB").value;
+  const out=document.getElementById("diffOut");
+  if(a===b){out.innerHTML=`<div style="color:var(--dim)">${t("diffEmpty")}</div>`;return}
+  out.innerHTML=`<div style="color:var(--dim)">…</div>`;
+  try{
+    const [da,db]=await Promise.all([loadTag(a),loadTag(b)]);
+    const fa=flatten(da), fb=flatten(db);
+    const add=[],rem=[],chg=[];
+    for(const k of Object.keys(fb)) if(!(k in fa)) add.push(`<div class="diff-row add"><span>➕ ${k}</span><span>${fb[k]}</span></div>`);
+    for(const k of Object.keys(fa)) if(!(k in fb)) rem.push(`<div class="diff-row rem"><span>➖ ${k}</span><span>${fa[k]}</span></div>`);
+    for(const k of Object.keys(fb)) if(k in fa && fa[k]!==fb[k]) chg.push(`<div class="diff-row chg"><span>🔁 ${k}</span><span>${fa[k]} → ${fb[k]}</span></div>`);
+    const rows=[...add,...rem,...chg];
+    out.innerHTML = rows.length
+      ? `<div style="margin-bottom:10px;font-size:13px;color:var(--dim)">
+           <span style="color:var(--green)">+${add.length} ${t("diffAdded")}</span> ·
+           <span style="color:var(--red2)">−${rem.length} ${t("diffRemoved")}</span> ·
+           <span style="color:#c08a00">🔁${chg.length} ${t("diffChanged")}</span></div>` + rows.join("")
+      : `<div style="color:var(--dim)">${t("diffEmpty")}</div>`;
+  }catch(e){out.innerHTML=`<div style="color:var(--red2)">diff error: ${e.message}</div>`}
 }
 (async()=>{
   const sel=document.getElementById("verSel"),st=document.getElementById("status");
@@ -517,6 +722,22 @@ function setVersionStats(d){
   }
   if(!any){st.innerHTML='<span style="color:var(--red2)">'+t("notFound")+'</span>';return}
   fillSel();setVersionStats(DATA);render("");
+  // diff select'leri doldur: A = eski surumler, B = en yeni (varsayilan)
+  const dA=document.getElementById("diffA"),dB=document.getElementById("diffB");
+  dA.innerHTML="";dB.innerHTML="";
+  MANIFEST.forEach(m=>{
+    const o1=document.createElement("option"),o2=document.createElement("option");
+    o1.value=o2.value=m.tag;o1.textContent=o2.textContent=m.tag+(m.count?" ("+m.count+")":"");
+    dA.appendChild(o1);dB.appendChild(o2);
+  });
+  if(dB.options.length)dB.selectedIndex=0;
+  if(dA.options.length>1)dA.selectedIndex=1;
+  document.getElementById("diffToggle").onclick=()=>{
+    const b=document.getElementById("diffBox");
+    b.style.display=b.style.display==="block"?"none":"block";
+    if(b.style.display==="block"&&!dA.options.length)runDiff();
+  };
+  document.getElementById("diffRun").onclick=runDiff;
   sel.onchange=()=>{DATA=sel.selectedOptions[0]._data;setVersionStats(DATA);render("")};
   document.getElementById("q").oninput=e=>render(e.target.value.trim());
   // acilis: hash'te sekmeyi ac (#offsets / #downloads), yoksa ana sayfa
