@@ -225,17 +225,47 @@ const MY_DISCORD_ID = "910806118526234624"; // Lanyard sunucusuna katilmis olmal
 })();
 
 /* kurucunun discord profili (Lanyard - canli durum/aktivite) */
-(async()=>{
+let ME_DATA=null;
+/* durum etiketleri - 50 dil (online, idle, dnd, offline) */
+const STATUS_L10N = {
+en:["Online","Idle","Do Not Disturb","Offline"], tr:["Online","Boşta","Meşgul","Çevrimdışı"],
+es:["En línea","Inactivo","Ocupado","Desconectado"], pt:["Online","Ausente","Ocupado","Offline"],
+fr:["En ligne","Inactif","Occupé","Hors ligne"], de:["Online","Abwesend","Bitte nicht stören","Offline"],
+it:["Online","Inattivo","Non disturbare","Offline"], nl:["Online","Inactief","Niet storen","Offline"],
+pl:["Online","Bezczynny","Nie przeszkadzać","Offline"], ru:["В сети","Неактивен","Не беспокоить","Не в сети"],
+uk:["У мережі","Неактивний","Не турбувати","Не в мережі"], ar:["متصل","خامل","مشغول","غير متصل"],
+fa:["آنلاین","بی‌کار","مشغول","آفلاین"], he:["מחובר","לא פעיל","נא לא להפריע","לא מחובר"],
+hi:["ऑनलाइन","निष्क्रिय","व्यस्त","ऑफ़लाइन"], bn:["অনলাইন","অলস","ব্যস্ত","অফলাইন"],
+ur:["آن لائن","غیر فعال","مصروف","آف لائن"], id:["Daring","Menganggur","Jangan ganggu","Luring"],
+ms:["Dalam talian","Sediak","Jangan ganggu","Luar talian"], tl:["Online","Idle","Huwag istorbohin","Offline"],
+th:["ออนไลน์","ไม่อยู่","ห้ามรบกวน","ออฟไลน์"], vi:["Trực tuyến","Nhàn rỗi","Vui lòng không làm phiền","Ngoại tuyến"],
+zh:["在线","空闲","请勿打扰","离线"], ja:["オンライン","退席中","取り込み中","オフライン"],
+ko:["온라인","자리 비움","다른 용무 중","오프라인"], sv:["Online","Inaktiv","Stör ej","Offline"],
+no:["Pålogget","Inaktiv","Ikke forstyrr","Avlogget"], da:["Online","Inaktiv","Forstyr ikke","Offline"],
+fi:["Paikallaan","Poissa","Älä häiritse","Poissa"], cs:["Online","Nečinný","Nerušit","Offline"],
+sk:["Online","Nečinný","Nerušiť","Offline"], hu:["Elérhető","Távol","Ne zavarj","Kijelentkezve"],
+ro:["Online","Inactiv","Nu deranja","Deconectat"], bg:["На линия","Неактивен","Не безпокойте","Извън линия"],
+el:["Σε σύνδεση","Ανενεργός","Μην ενοχλείτε","Εκτός σύνδεσης"], hr:["Na mreži","Neaktivan","Ne ometati","Izvan mreže"],
+sr:["На мрежи","Неактиван","Не узнемиравај","Ван мреже"], lt:["Prisijungęs","Neveiklus","Netrukdyti","Atsijungęs"],
+lv:["Tiešsaistē","Dīkstāvē","Netraucēt","Bezsaistē"], et:["Võrgus","Jõude","Ära häiri","Väljas"],
+sq:["Në linjë","Plogësht","Mos shqetësoni","Jashtë linje"], ka:["ხაზზე","უმოქმედო","არ შემაწუხოთ","გასული"],
+az:["Onlayn","Fəaliyyətsiz","Narahat etməyin","Əlaqədə deyil"], kk:["Желіде","Бос тұр","Мазаламаңыз","Желіден шыққан"],
+uz:["Onlayn","Bo'sh","Bezovta qilmang","Tarmoqda emas"], sw:["Mtandaoni","Tulivu","Usinisumbue","Nje ya mtandao"],
+af:["Aanlyn","Ledig","Moenie storeer nie","Vanlyn"], be:["У сетцы","Неактыўны","Не турбаваць","Не ў сетцы"],
+sl:["Na voljo","Nedejaven","Ne motite","Brez povezave"], mk:["На линија","Неактивен","Не вознемирувајте","Надвор од мрежа"],
+ca:["En línia","Inactiu","Ocupat","Fora de línia"]
+};
+function renderMeCard(){
   const box=document.getElementById("meCard");
-  if(!MY_DISCORD_ID)return;
-  try{
-    const r=await fetch("https://api.lanyard.rest/v1/users/"+MY_DISCORD_ID);
-    const j=await r.json();
-    if(!j.success)return;
-    const u=j.data.discord_user, st=j.data.discord_status;
-    const stMap={online:["#00e08f","Online"],idle:["#ffc107","Boşta"],dnd:["#ff4d54","Meşgul"],offline:["#666","Çevrimdışı"]};
-    const [col,stTxt]=stMap[st]||stMap.offline;
-    const act=(j.data.activities||[]).find(a=>a.type===0);
+  if(!ME_DATA||!box)return;
+  const j=ME_DATA;
+  {
+    const u=j.discord_user, st=j.discord_status;
+    const stMap={online:0,idle:1,dnd:2,offline:3};
+    const labels=STATUS_L10N[LANG]||STATUS_L10N.en;
+    const colMap={online:"#00e08f",idle:"#ffc107",dnd:"#ff4d54",offline:"#666"};
+    const col=colMap[st]||colMap.offline, stTxt=labels[stMap[st]]||labels[3];
+    const act=(j.activities||[]).find(a=>a.type===0);
     const isTr=LANG==="tr";
     box.innerHTML=`
       <a href="https://discord.com/users/${u.id}" target="_blank" style="display:flex;align-items:center;gap:16px;text-decoration:none">
@@ -252,6 +282,16 @@ const MY_DISCORD_ID = "910806118526234624"; // Lanyard sunucusuna katilmis olmal
         <div class="me-go">${isTr?"profil için tıkla →":"view profile →"}</div>
       </a>`;
     box.style.display="block";
+  }
+}
+(async()=>{
+  if(!MY_DISCORD_ID)return;
+  try{
+    const r=await fetch("https://api.lanyard.rest/v1/users/"+MY_DISCORD_ID);
+    const j=await r.json();
+    if(!j.success)return;
+    ME_DATA=j.data;
+    renderMeCard();
   }catch(e){/* sessizce gizli kalir */}
 })();
 
@@ -370,6 +410,7 @@ function applyLang(){
                 : "Mur4 Offsets (External) — Live-Verified Roblox Offsets";
   const sel=document.getElementById("verSel");
   if(sel.selectedOptions[0]&&sel.selectedOptions[0]._data) fillSel();
+  renderMeCard(); // profil karti da dile gore yeniden cizilir
   startType();
 }
 function fillSel(){
