@@ -111,6 +111,20 @@ td:last-child{font-family:Consolas,monospace;color:var(--green)}
 
 .reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
 .reveal.on{opacity:1;transform:none}
+
+/* ===== FOUNDER PROFIL KARTI ===== */
+#meCard{transition:.3s;cursor:pointer}
+#meCard:hover{transform:translateY(-3px);border-color:var(--red)!important;box-shadow:0 14px 40px rgba(227,27,35,.22)!important}
+.me-ava{position:relative;flex-shrink:0}
+.me-ava img{width:70px;height:70px;border-radius:50%;border:3px solid var(--red);display:block}
+.me-dot{position:absolute;right:0;bottom:0;width:18px;height:18px;border-radius:50%;border:3px solid var(--bg);animation:mePulse 2s ease-out infinite}
+@keyframes mePulse{0%{box-shadow:0 0 0 0 rgba(227,27,35,.45)}70%{box-shadow:0 0 0 9px rgba(227,27,35,0)}100%{box-shadow:0 0 0 0 rgba(227,27,35,0)}}
+.me-role{font-size:10px;letter-spacing:3px;color:var(--dim);text-transform:uppercase}
+.me-name{font-weight:900;font-size:17px}
+.me-status{font-size:13px;font-weight:600}
+.me-act{font-size:12px;color:var(--red2);margin-top:2px}
+.me-go{font-size:11px;color:var(--dim);opacity:0;transform:translateX(-6px);transition:.25s;white-space:nowrap}
+#meCard:hover .me-go{opacity:1;transform:none;color:var(--red2)}
 .admin{position:fixed;bottom:14px;right:16px;z-index:5;font-size:12px;color:#555}
 .admin:hover{color:var(--red2)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 0 44px;text-align:center;color:var(--dim);font-size:13px}
@@ -222,15 +236,21 @@ const MY_DISCORD_ID = "910806118526234624"; // Lanyard sunucusuna katilmis olmal
     const stMap={online:["#00e08f","Online"],idle:["#ffc107","Boşta"],dnd:["#ff4d54","Meşgul"],offline:["#666","Çevrimdışı"]};
     const [col,stTxt]=stMap[st]||stMap.offline;
     const act=(j.data.activities||[]).find(a=>a.type===0);
+    const isTr=LANG==="tr";
     box.innerHTML=`
-      <div style="display:flex;align-items:center;gap:14px;text-align:left;justify-content:center">
-        <img src="https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=80" style="width:64px;height:64px;border-radius:50%;border:2px solid var(--red)">
-        <div>
-          <div style="font-weight:800;font-size:16px">${u.global_name||u.username}</div>
-          <div style="color:var(--dim);font-size:13px"><span style="color:${col}">●</span> ${stTxt}</div>
-          <div style="color:var(--red2);font-size:12px;margin-top:2px">${act?('🎮 '+act.name):'Discord\'da'}</div>
+      <a href="https://discord.com/users/${u.id}" target="_blank" style="display:flex;align-items:center;gap:16px;text-decoration:none">
+        <div class="me-ava">
+          <img src="https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128" alt="">
+          <span class="me-dot" style="background:${col}"></span>
         </div>
-      </div>`;
+        <div style="flex:1;text-align:left;min-width:0">
+          <div class="me-role">${isTr?"KURUCU":"FOUNDER"}</div>
+          <div class="me-name">${u.global_name||u.username}</div>
+          <div class="me-status" style="color:${col}">● ${stTxt}</div>
+          ${act?`<div class="me-act">🎮 ${act.name}</div>`:""}
+        </div>
+        <div class="me-go">${isTr?"profil için tıkla →":"view profile →"}</div>
+      </a>`;
     box.style.display="block";
   }catch(e){/* sessizce gizli kalir */}
 })();
