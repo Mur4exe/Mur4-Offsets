@@ -152,7 +152,7 @@ async function loadStaffToPanel(){
     const mf=await ghGet('staff.json');
     if(mf){const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));staffList=JSON.parse(txt);staffRender();return}
   }catch(e){}
-  if(!staffList.length)staffAdd({name:"Mur4t",rank:"Kurucu / Founder",robloxUserId:"2218187665",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+  if(!staffList.length)staffAdd({name:"Mur4t",rank:"Kurucu / Founder",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
 }
 /* otomatik giris */
 (async function(){
@@ -297,7 +297,7 @@ function staffRowStyle(){
 }
 staffRowStyle();
 function staffAdd(preset){
-  staffList.push(preset||{name:"",rank:"Yetkili",robloxUserId:"",discordId:"",discordTag:""});
+  staffList.push(preset||{name:"",rank:"Yetkili",discordId:"",discordTag:""});
   staffRender();
 }
 function staffDel(i){staffList.splice(i,1);staffRender()}
@@ -313,8 +313,7 @@ function staffRender(){
         <div class="st-full"><span class="st-lab">İsim</span><input placeholder="örn. Mur4t" value="${m.name||''}" oninput="staffList[${i}].name=this.value"></div>
         <div><span class="st-lab">Rütbe</span><input placeholder="Kurucu, Admin, Mod..." value="${m.rank||''}" oninput="staffList[${i}].rank=this.value"></div>
         <div><span class="st-lab">Discord etiketi</span><input placeholder="örn. mur4t" value="${m.discordTag||''}" oninput="staffList[${i}].discordTag=this.value"></div>
-        <div><span class="st-lab">Roblox UserId (avatar için)</span><input placeholder="2218187665" value="${m.robloxUserId||''}" oninput="staffList[${i}].robloxUserId=this.value.replace(/[^0-9]/g,'')"></div>
-        <div><span class="st-lab">Discord ID (canlı durum için)</span><input placeholder="910806118526234624" value="${m.discordId||''}" oninput="staffList[${i}].discordId=this.value.replace(/[^0-9]/g,'')"></div>
+        <div class="st-full"><span class="st-lab">Discord ID (canlı avatar + durum için)</span><input placeholder="910806118526234624" value="${m.discordId||''}" oninput="staffList[${i}].discordId=this.value.replace(/[^0-9]/g,'')"></div>
       </div>
     </div>`).join("");
 }
@@ -330,7 +329,7 @@ async function staffPush(){
   }catch(e){msg('m2','Hata: '+e.message,false);log('❌ staff.json → '+e.message)}
 }
 (async function(){ // token yoksa seed yine de hazir olsun
-  if(!getToken())staffAdd({name:"Mur4t",rank:"Kurucu / Founder",robloxUserId:"2218187665",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+  if(!getToken())staffAdd({name:"Mur4t",rank:"Kurucu / Founder",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
 })();
 
 /* ---- WEBHOOK TEST ---- */
