@@ -182,18 +182,7 @@ footer .brand{color:var(--text);font-weight:800}
   </div>
   <div id="meCard" style="margin:28px auto 0;max-width:420px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:18px;display:none"></div>
 </header>
-
-<div style="display:flex;justify-content:center;margin-top:-30px;position:relative;z-index:1" class="wrap">
-  <a id="heroAvatar" href="https://www.roblox.com/users/2218187665/profile" target="_blank"
-     style="display:none;position:relative;width:230px;height:260px" title="Roblox Profile">
-    <img id="heroAvatarImg" alt="Roblox Avatar"
-         style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 30px rgba(227,27,35,.35));animation:heroFloat 3.5s ease-in-out infinite">
-  </a>
-</div>
 <style>
-@keyframes heroFloat{0%,100%{transform:translateY(0) rotateY(-4deg)}50%{transform:translateY(-14px) rotateY(4deg)}}
-#heroAvatar:hover img{animation-play-state:paused;transform:scale(1.06)}
-#heroAvatar img{transition:transform .3s}
 .staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
 .staff-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:22px;text-align:center;transition:.3s;position:relative;overflow:hidden}
 .staff-card:hover{transform:translateY(-4px);border-color:var(--red);box-shadow:0 14px 40px rgba(227,27,35,.18)}
@@ -217,9 +206,8 @@ footer .brand{color:var(--text);font-weight:800}
     <select id="verSel"></select>
     <input type="text" id="q" data-i18n-ph="searchPh" placeholder="Search class or property… (e.g. WalkSpeed)">
   </div>
-  <div id="list"></div>
-  <div id="status" style="color:var(--dim);font-size:14px;margin:14px 0"></div>
-  <button id="diffToggle">🔍 <span data-i18n="diffBtn">Compare versions</span></button>
+  <div id="lastUpdate"></div>
+  <button id="diffToggle" style="margin:6px 0 14px">🔍 <span data-i18n="diffBtn">Compare versions</span></button>
   <div id="diffBox">
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <select id="diffA"></select>
@@ -229,6 +217,8 @@ footer .brand{color:var(--text);font-weight:800}
     </div>
     <div id="diffOut" style="margin-top:14px"></div>
   </div>
+  <div id="list"></div>
+  <div id="status" style="color:var(--dim);font-size:14px;margin:14px 0"></div>
   <div style="margin-top:18px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;color:var(--dim);font-size:13px">
     ℹ️ <span data-i18n="browserNote">Offsets are extracted from the live client and read-verified in memory (dead ones are filtered out) — write usage is expected to work but not guaranteed.</span>
   </div>
@@ -559,29 +549,10 @@ function startType(){
   })();
 }
 
-/* ---- HERO ROBLOX KARAKTERI + STAFF ---- */
+/* ---- STAFF ---- */
 function rbxAvatarImg(userId,w,h){
-  // 1) legacy endpoint (redirect ile cdn'e gider)  2) CORS proxy + thumbnails API  3) lokal avatar.png
   return `https://www.roblox.com/avatar-thumbnail/image?userId=${userId}&width=${w}&height=${h}&format=png`;
 }
-(async function heroAvatar(){
-  const a=document.getElementById("heroAvatar"), img=document.getElementById("heroAvatarImg");
-  if(!a||!img)return;
-  const uid=2218187665;
-  img.src=rbxAvatarImg(uid,420,420);
-  img.onerror=async()=>{
-    // CORS proxy uzerinden thumbnails API dene
-    try{
-      const api=`https://thumbnails.roblox.com/v1/users/avatar?userId=${uid}&size=420x420&format=Png&isCircular=false`;
-      const r=await fetch("https://corsproxy.io/?"+encodeURIComponent(api));
-      const j=await r.json();
-      if(j.data&&j.data[0]&&j.data[0].state==="Completed"){img.src=j.data[0].imageUrl;img.onerror=null;return}
-    }catch(e){}
-    img.src="avatar.png"; // son cikis: repoya konmus render
-    img.onerror=()=>{a.style.display="none"};
-  };
-  a.style.display="block";
-})();
 
 (async function loadStaff(){
   const grid=document.getElementById("staffGrid");if(!grid)return;
