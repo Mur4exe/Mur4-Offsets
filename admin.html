@@ -136,6 +136,7 @@ async function login(){
     localStorage.setItem(LS,JSON.stringify({user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,remember:$('remember').checked}));
     if($('remember').checked) localStorage.setItem(LS+'_t',pat); else sessionStorage.setItem(LS+'_t',pat);
     openPanel();msg('m1','Giriş başarılı!',true);
+    loadStaffToPanel();
   }catch(e){msg('m1','Ağ hatası: '+e.message,false)}
 }
 function openPanel(){
@@ -145,6 +146,14 @@ function openPanel(){
 function getToken(){return localStorage.getItem(LS+'_t')||sessionStorage.getItem(LS+'_t')}
 function logout(){localStorage.removeItem(LS+'_t');sessionStorage.removeItem(LS+'_t');location.reload()}
 
+async function loadStaffToPanel(){
+  // repodan cek, yoksa kurucu ile baslat
+  try{
+    const mf=await ghGet('staff.json');
+    if(mf){const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));staffList=JSON.parse(txt);staffRender();return}
+  }catch(e){}
+  if(!staffList.length)staffAdd({name:"Mur4t",rank:"Kurucu / Founder",robloxUserId:"2218187665",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+}
 /* otomatik giris */
 (async function(){
   const pat=getToken();
@@ -156,6 +165,7 @@ function logout(){localStorage.removeItem(LS+'_t');sessionStorage.removeItem(LS+
         if(j.permissions&&j.permissions.push){
           CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
           openPanel();
+          loadStaffToPanel();
         }
       }
     }catch(e){}
@@ -274,9 +284,15 @@ async function uploadAll(){
 let staffList=[];
 function staffRowStyle(){
   const s=document.createElement('style');s.textContent=`
-    .st-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#0e0f13;border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px;position:relative}
-    .st-row input{padding:9px 11px;font-size:13px}
-    .st-del{position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;border:0;font-weight:900;cursor:pointer;padding:0;margin:0;line-height:1}
+    .st-card{background:#121318;border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;margin-top:14px;position:relative;animation:pop .3s ease both}
+    .st-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+    .st-head .t{font-size:12px;font-weight:800;letter-spacing:2px;color:var(--red2)}
+    .st-del{background:rgba(227,27,35,.1);border:1px solid rgba(227,27,35,.4);color:var(--red2);height:28px;border-radius:8px;cursor:pointer;padding:0 12px;margin:0;font-size:11px;font-weight:700;transition:.2s;width:auto}
+    .st-del:hover{background:var(--red);color:#fff}
+    .st-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .st-full{grid-column:1/-1}
+    .st-lab{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;display:block}
+    .st-row input{padding:10px 12px;font-size:13px}
   `;document.head.appendChild(s);
 }
 staffRowStyle();
@@ -288,13 +304,18 @@ function staffDel(i){staffList.splice(i,1);staffRender()}
 function staffRender(){
   const w=document.getElementById('staffRows');if(!w)return;
   w.innerHTML=staffList.map((m,i)=>`
-    <div class="st-row">
-      <button class="st-del" onclick="staffDel(${i})">✕</button>
-      <input placeholder="İsim" value="${m.name||''}" oninput="staffList[${i}].name=this.value">
-      <input placeholder="Rütbe (örn. Kurucu, Admin)" value="${m.rank||''}" oninput="staffList[${i}].rank=this.value">
-      <input placeholder="Roblox UserId (avatar için, opsiyonel)" value="${m.robloxUserId||''}" oninput="staffList[${i}].robloxUserId=this.value.replace(/[^0-9]/g,'')">
-      <input placeholder="Discord ID (canlı avatar için, opsiyonel)" value="${m.discordId||''}" oninput="staffList[${i}].discordId=this.value.replace(/[^0-9]/g,'')">
-      <input placeholder="Discord etiketi (örn. mur4t)" value="${m.discordTag||''}" oninput="staffList[${i}].discordTag=this.value">
+    <div class="st-card">
+      <div class="st-head">
+        <span class="t">👤 KİŞİ ${i+1}</span>
+        <button class="st-del" onclick="staffDel(${i})">✕ SİL</button>
+      </div>
+      <div class="st-grid">
+        <div class="st-full"><span class="st-lab">İsim</span><input placeholder="örn. Mur4t" value="${m.name||''}" oninput="staffList[${i}].name=this.value"></div>
+        <div><span class="st-lab">Rütbe</span><input placeholder="Kurucu, Admin, Mod..." value="${m.rank||''}" oninput="staffList[${i}].rank=this.value"></div>
+        <div><span class="st-lab">Discord etiketi</span><input placeholder="örn. mur4t" value="${m.discordTag||''}" oninput="staffList[${i}].discordTag=this.value"></div>
+        <div><span class="st-lab">Roblox UserId (avatar için)</span><input placeholder="2218187665" value="${m.robloxUserId||''}" oninput="staffList[${i}].robloxUserId=this.value.replace(/[^0-9]/g,'')"></div>
+        <div><span class="st-lab">Discord ID (canlı durum için)</span><input placeholder="910806118526234624" value="${m.discordId||''}" oninput="staffList[${i}].discordId=this.value.replace(/[^0-9]/g,'')"></div>
+      </div>
     </div>`).join("");
 }
 async function staffPush(){
@@ -308,17 +329,8 @@ async function staffPush(){
     log('✅ staff.json yazildi ('+staffList.length+' kisi)');
   }catch(e){msg('m2','Hata: '+e.message,false);log('❌ staff.json → '+e.message)}
 }
-(async function(){ // mevcut kadroyu repodan cek
-  try{
-    const c=JSON.parse(localStorage.getItem(LS)||'{}');
-    const pat=getToken();
-    if(!pat||!c.user)return;
-    CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
-    const mf=await ghGet('staff.json');
-    if(mf){const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));staffList=JSON.parse(txt);staffRender();return}
-  }catch(e){}
-  // bos baslangic: kurucu
-  staffAdd({name:"Mur4t",rank:"Kurucu / Founder",robloxUserId:"2218187665",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+(async function(){ // token yoksa seed yine de hazir olsun
+  if(!getToken())staffAdd({name:"Mur4t",rank:"Kurucu / Founder",robloxUserId:"2218187665",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
 })();
 
 /* ---- WEBHOOK TEST ---- */
