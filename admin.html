@@ -79,6 +79,13 @@ button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:12px;font-
     <input id="hook">
     <button class="btn-gh" onclick="testHook()">🔔 Test duyurusu gönder</button>
 
+    <label>3) Kadro Yönetimi (staff.json — site "Yetkili Kadrosu" sekmesi)</label>
+    <div id="staffRows"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn-gh" style="margin-top:0" onclick="staffAdd()">➕ Kişi ekle</button>
+      <button class="btn-gh" style="margin-top:0" onclick="staffPush()">🚀 KADROYU GÖNDER</button>
+    </div>
+
     <div class="log" id="log"></div>
     <button class="btn-gh" onclick="logout()">🚪 ÇIKIŞ YAP</button>
   </div>
@@ -262,6 +269,57 @@ async function uploadAll(){
     }catch(e){log('⚠️ webhook: '+e.message)}
   }
 }
+
+/* ---- KADRO YONETIMI ---- */
+let staffList=[];
+function staffRowStyle(){
+  const s=document.createElement('style');s.textContent=`
+    .st-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#0e0f13;border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px;position:relative}
+    .st-row input{padding:9px 11px;font-size:13px}
+    .st-del{position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;border:0;font-weight:900;cursor:pointer;padding:0;margin:0;line-height:1}
+  `;document.head.appendChild(s);
+}
+staffRowStyle();
+function staffAdd(preset){
+  staffList.push(preset||{name:"",rank:"Yetkili",robloxUserId:"",discordId:"",discordTag:""});
+  staffRender();
+}
+function staffDel(i){staffList.splice(i,1);staffRender()}
+function staffRender(){
+  const w=document.getElementById('staffRows');if(!w)return;
+  w.innerHTML=staffList.map((m,i)=>`
+    <div class="st-row">
+      <button class="st-del" onclick="staffDel(${i})">✕</button>
+      <input placeholder="İsim" value="${m.name||''}" oninput="staffList[${i}].name=this.value">
+      <input placeholder="Rütbe (örn. Kurucu, Admin)" value="${m.rank||''}" oninput="staffList[${i}].rank=this.value">
+      <input placeholder="Roblox UserId (avatar için, opsiyonel)" value="${m.robloxUserId||''}" oninput="staffList[${i}].robloxUserId=this.value.replace(/[^0-9]/g,'')">
+      <input placeholder="Discord ID (canlı avatar için, opsiyonel)" value="${m.discordId||''}" oninput="staffList[${i}].discordId=this.value.replace(/[^0-9]/g,'')">
+      <input placeholder="Discord etiketi (örn. mur4t)" value="${m.discordTag||''}" oninput="staffList[${i}].discordTag=this.value">
+    </div>`).join("");
+}
+async function staffPush(){
+  CFG.pat=getToken();
+  if(!CFG.pat){logout();return}
+  staffList=staffList.filter(m=>(m.name||'').trim());
+  if(!staffList.length){msg('m2','En az bir kişi gerekli.',false);return}
+  try{
+    await ghPut('staff.json',JSON.stringify(staffList,null,2),'Mur4 Offsets: kadro güncellendi');
+    msg('m2','Kadro gönderildi! Site 1-2 dk içinde güncellenir.',true);
+    log('✅ staff.json yazildi ('+staffList.length+' kisi)');
+  }catch(e){msg('m2','Hata: '+e.message,false);log('❌ staff.json → '+e.message)}
+}
+(async function(){ // mevcut kadroyu repodan cek
+  try{
+    const c=JSON.parse(localStorage.getItem(LS)||'{}');
+    const pat=getToken();
+    if(!pat||!c.user)return;
+    CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
+    const mf=await ghGet('staff.json');
+    if(mf){const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));staffList=JSON.parse(txt);staffRender();return}
+  }catch(e){}
+  // bos baslangic: kurucu
+  staffAdd({name:"Mur4t",rank:"Kurucu / Founder",robloxUserId:"2218187665",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+})();
 
 /* ---- WEBHOOK TEST ---- */
 async function testHook(){
