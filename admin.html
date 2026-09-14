@@ -130,8 +130,21 @@ button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:12px;font-
         <button class="btn-gh" style="margin-top:12px;background:linear-gradient(135deg,#0a7d52,#00b06f);color:#fff" onclick="addNewAnnouncement()">➕ Bu Duyuruyu Listeye Ekle</button>
       </div>
 
+      <!-- DUYURU SİLME ALANI -->
+      <div class="an-new-box" style="border-color:rgba(227,27,35,.35);background:rgba(227,27,35,.04);margin-top:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <span style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--red2)">🗑️ HIZLI DUYURU SİL</span>
+          <button style="width:auto;margin:0;padding:5px 12px;font-size:11px;font-weight:700;border:1px solid rgba(227,27,35,.3);background:none;color:var(--red2);border-radius:6px;cursor:pointer" onclick="clearAllAnnouncements()">Tümünü Temizle</button>
+        </div>
+        <p class="hint" style="margin:0 0 10px;color:var(--dim)">Siteden kaldırmak istediğiniz duyuruyu listeden seçip silebilirsiniz:</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <select id="quickDelSelect" style="flex:1;min-width:220px;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font-size:13px;outline:none"></select>
+          <button style="width:auto;margin:0;padding:11px 20px;border:0;border-radius:10px;background:linear-gradient(135deg,#e31b23,#991b1b);color:#fff;font-weight:800;font-size:13px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px" onclick="quickDeleteAnnouncement()">🗑️ Seçilen Duyuruyu Sil</button>
+        </div>
+      </div>
+
       <!-- MEVCUT VE GECMIS DUYURULAR -->
-      <div style="margin-top:20px">
+      <div style="margin-top:22px">
         <span class="an-lab" style="margin:0 0 8px;font-size:11px">📋 YAYINDAKİ DUYURULAR LİSTESİ (ESKİLER KORUNUR)</span>
         <div id="annRows"></div>
       </div>
@@ -414,8 +427,8 @@ function annRowStyle(){
     .an-card{background:#121318;border:1px solid var(--line);border-left:3px solid var(--card-border,#e31b23);border-radius:14px;padding:16px;margin-top:12px;animation:pop .3s ease both;position:relative}
     .an-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
     .an-head .t{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--dim)}
-    .an-del{background:rgba(227,27,35,.1);border:1px solid rgba(227,27,35,.4);color:var(--red2);height:28px;border-radius:8px;cursor:pointer;padding:0 12px;margin:0;font-size:11px;font-weight:700;transition:.2s;width:auto}
-    .an-del:hover{background:var(--red);color:#fff}
+    .an-del{background:rgba(227,27,35,.14);border:1px solid rgba(227,27,35,.5);color:var(--red2);height:30px;border-radius:8px;cursor:pointer;padding:0 12px;margin:0;font-size:11px;font-weight:800;transition:.2s;width:auto;display:inline-flex;align-items:center;gap:5px}
+    .an-del:hover{background:var(--red);color:#fff;box-shadow:0 4px 14px rgba(227,27,35,.4);transform:translateY(-1px)}
     .an-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
     @media(max-width:600px){.an-grid{grid-template-columns:1fr}}
     .an-lab{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;display:block}
@@ -518,35 +531,83 @@ function addNewAnnouncement(){
 }
 
 function annDel(i){
-  const tag=annList[i]?(annList[i].tag||'Bu duyuruyu'):'Bu duyuruyu';
-  if(confirm(`"${tag}" silinecek. Emin misiniz?`)){
-    annList.splice(i,1);
-    annRender();
+  if(i<0 || i>=annList.length) return;
+  const item = annList[i];
+  const title = `"${item.tag || 'Duyuru'}" (#${i+1})`;
+  if(!confirm(`${title} başlıklı duyuruyu silmek istediğinize emin misiniz?`)){
+    return;
   }
+  annList.splice(i, 1);
+  annRender();
+  msg('m2', `🗑️ ${title} duyurusu listeden silindi! Değişiklikleri yayına almak için "DUYURULARI GÖNDER" butonuna basın.`, true);
+}
+
+function quickDeleteAnnouncement(){
+  const sel = document.getElementById('quickDelSelect');
+  if(!sel || sel.value === "" || sel.value === undefined){
+    msg('m2', 'Lütfen silinecek duyuruyu seçin.', false);
+    return;
+  }
+  const idx = parseInt(sel.value, 10);
+  if(isNaN(idx) || idx < 0 || idx >= annList.length){
+    msg('m2', 'Geçersiz duyuru seçimi.', false);
+    return;
+  }
+  annDel(idx);
+}
+
+function clearAllAnnouncements(){
+  if(!annList.length){
+    msg('m2', 'Zaten kayıtlı duyuru bulunmuyor.', false);
+    return;
+  }
+  if(!confirm('⚠️ DİKKAT: Listedeki TÜM duyuruları silmek istediğinize emin misiniz?')){
+    return;
+  }
+  annList = [];
+  annRender();
+  msg('m2', '🗑️ Tüm duyurular silindi! Siteden de temizlenmesi için "DUYURULARI GÖNDER" butonuna basın.', true);
+}
+
+function updateQuickDelSelect(){
+  const sel = document.getElementById('quickDelSelect');
+  if(!sel) return;
+  if(!annList.length){
+    sel.innerHTML = '<option value="">(Silinecek duyuru bulunmuyor)</option>';
+    return;
+  }
+  sel.innerHTML = annList.map((a, i) => {
+    const snippet = (a.text || '').replace(/\s+/g, ' ').slice(0, 42);
+    return `<option value="${i}">#${i+1} [${escapeHtml(a.tag || 'Duyuru')}] - ${escapeHtml(a.date || '')}: ${escapeHtml(snippet)}...</option>`;
+  }).join('');
 }
 
 function annRender(){
-  const w=document.getElementById('annRows');
-  if(!w)return;
-  const badge=document.getElementById('annCountBadge');
-  if(badge)badge.textContent=`${annList.length} Duyuru`;
+  const w = document.getElementById('annRows');
+  if(!w) return;
+  const badge = document.getElementById('annCountBadge');
+  if(badge) badge.textContent = `${annList.length} Duyuru`;
+  updateQuickDelSelect();
 
   if(!annList.length){
-    w.innerHTML=`<div style="color:var(--dim);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;font-size:13px">Henüz yayında duyuru yok. Yukarıdaki formdan yeni bir duyuru oluşturup ekleyebilirsiniz.</div>`;
+    w.innerHTML = `<div style="color:var(--dim);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;font-size:13px">Henüz yayında duyuru yok. Yukarıdaki formdan yeni bir duyuru oluşturup ekleyebilirsiniz.</div>`;
     return;
   }
 
-  w.innerHTML=annList.map((a,i)=>{
-    const col=ANN_COLORS.includes(a.color)?a.color:'red';
-    const hex=ANN_COLOR_HEX[col]||'#e31b23';
+  w.innerHTML = annList.map((a, i) => {
+    const col = ANN_COLORS.includes(a.color) ? a.color : 'red';
+    const hex = ANN_COLOR_HEX[col] || '#e31b23';
     return `
       <div class="an-card an-row" style="--card-border:${hex}">
         <div class="an-head">
           <div style="display:flex;align-items:center;gap:10px">
-            <span class="an-ptag ${col}"><span class="an-pdot"></span><span>${escapeHtml(a.tag||'TAG')}</span></span>
-            <span style="font-size:11px;color:var(--dim)">#${i+1} · ${escapeHtml(a.date||'')}</span>
+            <span class="an-ptag ${col}"><span class="an-pdot"></span><span>${escapeHtml(a.tag || 'TAG')}</span></span>
+            <span style="font-size:11px;color:var(--dim)">#${i+1} · ${escapeHtml(a.date || '')}</span>
           </div>
-          <button class="an-del" onclick="annDel(${i})">✕ SİL</button>
+          <button class="an-del" onclick="annDel(${i})" title="Bu duyuruyu sil">
+            <svg class="icn" style="width:12px;height:12px" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            SİL
+          </button>
         </div>
         <div class="an-grid">
           <div>
