@@ -7,230 +7,1084 @@
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <style>
 :root{
-  --bg:#0b0c0f; --card:#16181d; --card2:#1b1d23; --line:#26282f;
-  --red:#e31b23; --red2:#ff4d54; --green:#00e08f; --text:#e8e9ec; --dim:#9aa0aa;
+  --bg:#0b0c0f;
+  --card:#16181d;
+  --card2:#1b1d23;
+  --card-hover:#20232b;
+  --line:#26282f;
+  --line-hi:#383c48;
+  --red:#e31b23;
+  --red2:#ff4d54;
+  --green:#00e08f;
+  --blue:#5865F2;
+  --yellow:#f59e0b;
+  --purple:#a855f7;
+  --cyan:#06b6d4;
+  --text:#e8e9ec;
+  --dim:#9aa0aa;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.card{width:100%;max-width:680px;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:32px;animation:pop .5s ease both}
-@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-h1{font-size:26px;margin-bottom:4px}
-h1 span{color:var(--red2)}
-.sub{color:var(--dim);font-size:13px;margin-bottom:18px}
-label{display:block;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:14px 0 6px}
-input{width:100%;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px 14px;font-size:14px;outline:none;transition:.25s}
-input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,27,35,.15)}
-.row{display:flex;gap:10px}.row>*{flex:1}
-button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;transition:.25s;color:#fff}
-.btn-login{background:linear-gradient(135deg,var(--red),#8f1218)}
-.btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(227,27,35,.35)}
-.btn-up{background:linear-gradient(135deg,#0a7d52,#00b06f)}
-.btn-up:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,224,143,.3)}
-.btn-gh{background:linear-gradient(135deg,#3a3d46,#24262d);margin-top:10px}
-.btn-gh:hover{transform:translateY(-2px)}
-.msg{margin-top:14px;font-size:13px;padding:10px 14px;border-radius:10px;display:none}
-.msg.ok{display:block;background:rgba(0,224,143,.1);color:var(--green)}
-.msg.err{display:block;background:rgba(227,27,35,.12);color:var(--red2)}
-.drop{border:2px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--dim);transition:.25s;margin-top:6px;cursor:pointer}
-.drop:hover,.drop.over{border-color:var(--red);background:rgba(227,27,35,.05);color:var(--text)}
-.files{margin-top:10px;font-size:13px}
-.file{display:flex;justify-content:space-between;background:#0e0f13;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin-top:6px}
-.file .ok{color:var(--green)}.file .wait{color:#ffc107}.file .fail{color:var(--red2)}
-.hidden{display:none}
-.log{background:#0e0f13;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:12px;font-family:Consolas,monospace;color:var(--dim);max-height:220px;overflow:auto;margin-top:14px;white-space:pre-wrap}
-.chk{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--dim)}
-.chk input{width:auto}
-.back{position:fixed;top:16px;left:18px;color:var(--dim);font-size:13px}
-.back:hover{color:var(--red2)}
-.hint{font-size:12px;color:#666;margin-top:8px;line-height:1.6}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* SVG Icon Helper */
+.icn{
+  width:16px;
+  height:16px;
+  display:inline-block;
+  vertical-align:middle;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  flex-shrink:0;
+}
+.icn-lg{width:20px;height:20px}
+.icn-xl{width:32px;height:32px}
+
+/* Giris Alani (Centered Card) */
+#loginWrap{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.login-card{
+  width:100%;
+  max-width:500px;
+  background:linear-gradient(165deg,var(--card2),var(--card));
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:36px 32px;
+  box-shadow:0 24px 60px rgba(0,0,0,.6);
+  animation:pop .45s ease both;
+}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+
+.login-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:20px;
+}
+.login-logo{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--red),#8f1218);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:22px;
+  color:#fff;
+  box-shadow:0 0 20px rgba(227,27,35,.45);
+}
+.login-title{font-size:22px;font-weight:800;letter-spacing:.5px;line-height:1.2}
+.login-title span{color:var(--red2)}
+.login-sub{font-size:12px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  color:var(--dim);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin:16px 0 6px;
+  font-weight:700;
+}
+input,select,textarea{
+  width:100%;
+  background:#0e0f13;
+  border:1px solid var(--line);
+  color:var(--text);
+  border-radius:10px;
+  padding:12px 14px;
+  font-size:13.5px;
+  outline:none;
+  transition:.25s;
+  font-family:inherit;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(227,27,35,.15);
+}
+input:disabled{opacity:.6;cursor:not-allowed;background:#13151a}
+
+.chk{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:14px;
+  font-size:13px;
+  color:var(--dim);
+  cursor:pointer;
+  user-select:none;
+}
+.chk input{width:auto;margin:0;cursor:pointer}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:13px 20px;
+  border:0;
+  border-radius:12px;
+  font-weight:800;
+  font-size:14px;
+  cursor:pointer;
+  transition:.25s;
+  color:#fff;
+  text-decoration:none;
+  user-select:none;
+}
+.btn-block{width:100%;margin-top:18px}
+.btn-red{background:linear-gradient(135deg,var(--red),#991b1b)}
+.btn-red:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(227,27,35,.4)}
+.btn-green{background:linear-gradient(135deg,#0a7d52,#00b06f)}
+.btn-green:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,224,143,.3)}
+.btn-dark{background:linear-gradient(135deg,#24262d,#1a1b20);border:1px solid var(--line)}
+.btn-dark:hover{border-color:var(--line-hi);transform:translateY(-2px);background:#22252c}
+.btn-sm{padding:8px 14px;font-size:12px;border-radius:8px}
+
+.msg{
+  margin-top:14px;
+  font-size:13px;
+  padding:12px 16px;
+  border-radius:10px;
+  display:none;
+  align-items:center;
+  gap:8px;
+  line-height:1.4;
+}
+.msg.ok{display:flex;background:rgba(0,224,143,.1);color:var(--green);border:1px solid rgba(0,224,143,.25)}
+.msg.err{display:flex;background:rgba(227,27,35,.12);color:var(--red2);border:1px solid rgba(227,27,35,.3)}
+
+.hint{font-size:12px;color:var(--dim);margin-top:10px;line-height:1.6}
+
+/* =========================================
+   DASHBOARD (POST-LOGIN)
+========================================= */
+#admHeader{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(11,12,15,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  display:none;
+}
+.adm-header-wrap{
+  max-width:1440px;
+  margin:0 auto;
+  padding:10px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.adm-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:inherit;
+}
+.adm-brand-logo{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--red),#8f1218);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:18px;
+  color:#fff;
+  box-shadow:0 0 16px rgba(227,27,35,.4);
+}
+.adm-brand-text{font-size:15px;font-weight:800;letter-spacing:.5px;line-height:1.2}
+.adm-brand-text span{color:var(--red2)}
+.adm-brand-badge{
+  font-size:10px;
+  color:var(--green);
+  background:rgba(0,224,143,.1);
+  border:1px solid rgba(0,224,143,.3);
+  padding:2px 7px;
+  border-radius:99px;
+  letter-spacing:.5px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+
+/* SITEDEKI GIBI SEKMELER */
+#admTabs{
+  display:flex;
+  gap:4px;
+  background:#101216;
+  padding:4px;
+  border-radius:12px;
+  border:1px solid var(--line);
+}
+#admTabs button{
+  background:none;
+  border:0;
+  color:var(--dim);
+  font-size:13.5px;
+  font-weight:700;
+  padding:8px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  position:relative;
+  transition:.25s;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:inherit;
+}
+#admTabs button:hover{
+  color:var(--text);
+  background:rgba(255,255,255,.04);
+}
+#admTabs button.on{
+  color:#fff;
+  background:var(--card);
+}
+#admTabs button.on::after{
+  content:"";
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:3px;
+  height:3px;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--red),var(--red2));
+  animation:tabline .35s ease both;
+}
+@keyframes tabline{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+
+.tab-badge{
+  background:rgba(227,27,35,.2);
+  color:var(--red2);
+  border:1px solid rgba(227,27,35,.35);
+  padding:1px 6px;
+  border-radius:99px;
+  font-size:10.5px;
+  font-weight:800;
+}
+
+.adm-header-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.adm-btn-site{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--dim);
+  padding:7px 13px;
+  border-radius:9px;
+  font-size:12.5px;
+  font-weight:700;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:.2s;
+}
+.adm-btn-site:hover{
+  color:var(--text);
+  border-color:var(--line-hi);
+  background:rgba(255,255,255,.04);
+}
+.adm-btn-logout{
+  background:rgba(227,27,35,.12);
+  border:1px solid rgba(227,27,35,.3);
+  color:var(--red2);
+  padding:7px 13px;
+  border-radius:9px;
+  font-size:12.5px;
+  font-weight:700;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:.2s;
+}
+.adm-btn-logout:hover{
+  background:var(--red);
+  color:#fff;
+}
+
+/* ANA PANEL ALANI (GENIS VE FERAH) */
+#admMain{
+  display:none;
+  flex:1;
+  max-width:1380px;
+  width:100%;
+  margin:0 auto;
+  padding:24px 24px 60px;
+}
+.adm-banner{
+  background:linear-gradient(135deg,rgba(22,24,29,.95),rgba(27,29,35,.95));
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px 20px;
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.adm-banner-left{display:flex;align-items:center;gap:12px}
+.adm-banner-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--dim);
+}
+.adm-banner-title{font-size:13px;font-weight:700;color:var(--text)}
+.adm-banner-sub{font-size:12px;color:var(--dim)}
+
+/* Tab Icerik Panelleri */
+.adm-panel{display:none}
+.adm-panel.active{display:block;animation:pop .35s ease both}
+
+/* KART VE BLOK STİLLERİ */
+.adm-card{
+  background:linear-gradient(160deg,var(--card2),var(--card));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px;
+  position:relative;
+}
+.adm-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+  gap:12px;
+  flex-wrap:wrap;
+}
+.adm-card-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13.5px;
+  font-weight:800;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  color:var(--text);
+}
+.adm-card-title .icn{color:var(--red2)}
+
+/* 2 SUTUNLU DUYURU YONETIM DUZENI */
+.ann-dashboard-grid{
+  display:grid;
+  grid-template-columns:1fr 1.15fr;
+  gap:22px;
+  align-items:start;
+}
+@media(max-width:980px){
+  .ann-dashboard-grid{grid-template-columns:1fr}
+}
+
+.an-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.an-full{grid-column:1/-1}
+
+/* Glow Animasyonlari */
+@keyframes dotPulse{0%,100%{transform:scale(0.8);opacity:.7}50%{transform:scale(1.35);opacity:1}}
+@keyframes glowRed{0%,100%{box-shadow:0 0 12px 2px rgba(227,27,35,.5),0 0 24px 4px rgba(227,27,35,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(255,77,84,.85),0 0 38px 8px rgba(227,27,35,.45);transform:scale(1.025)}}
+@keyframes glowGreen{0%,100%{box-shadow:0 0 12px 2px rgba(0,224,143,.5),0 0 24px 4px rgba(0,224,143,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(0,224,143,.85),0 0 38px 8px rgba(0,224,143,.45);transform:scale(1.025)}}
+@keyframes glowBlue{0%,100%{box-shadow:0 0 12px 2px rgba(88,101,242,.5),0 0 24px 4px rgba(88,101,242,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(88,101,242,.85),0 0 38px 8px rgba(88,101,242,.45);transform:scale(1.025)}}
+@keyframes glowYellow{0%,100%{box-shadow:0 0 12px 2px rgba(245,158,11,.5),0 0 24px 4px rgba(245,158,11,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(251,191,36,.85),0 0 38px 8px rgba(245,158,11,.45);transform:scale(1.025)}}
+@keyframes glowPurple{0%,100%{box-shadow:0 0 12px 2px rgba(168,85,247,.5),0 0 24px 4px rgba(168,85,247,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(192,132,252,.85),0 0 38px 8px rgba(168,85,247,.45);transform:scale(1.025)}}
+@keyframes glowCyan{0%,100%{box-shadow:0 0 12px 2px rgba(6,182,212,.5),0 0 24px 4px rgba(6,182,212,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(34,211,238,.85),0 0 38px 8px rgba(6,182,212,.45);transform:scale(1.025)}}
+
+.an-ptag{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 16px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(6px);
+  text-shadow:0 1px 3px rgba(0,0,0,.7);
+  user-select:none;
+}
+.an-pdot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#fff;
+  display:inline-block;
+  box-shadow:0 0 6px #fff;
+  animation:dotPulse 1.6s ease-in-out infinite;
+}
+.an-ptag.red{background:linear-gradient(135deg,#e31b23,#991b1b);border-color:rgba(255,120,120,.45);animation:glowRed 2.3s ease-in-out infinite}
+.an-ptag.green{background:linear-gradient(135deg,#059669,#00b06f);border-color:rgba(100,255,180,.45);animation:glowGreen 2.3s ease-in-out infinite}
+.an-ptag.blue{background:linear-gradient(135deg,#2563eb,#4f46e5);border-color:rgba(140,170,255,.45);animation:glowBlue 2.3s ease-in-out infinite}
+.an-ptag.yellow{background:linear-gradient(135deg,#d97706,#b45309);border-color:rgba(255,220,100,.45);animation:glowYellow 2.3s ease-in-out infinite}
+.an-ptag.purple{background:linear-gradient(135deg,#7c3aed,#9333ea);border-color:rgba(210,140,255,.45);animation:glowPurple 2.3s ease-in-out infinite}
+.an-ptag.cyan{background:linear-gradient(135deg,#0891b2,#0284c7);border-color:rgba(100,240,255,.45);animation:glowCyan 2.3s ease-in-out infinite}
+
+.an-preview-card{
+  background:linear-gradient(160deg,#1b1d23,#16181d);
+  border:1px dashed rgba(255,255,255,.15);
+  border-radius:12px;
+  padding:16px;
+  margin-top:6px;
+  transition:.3s;
+}
+
+/* Yayindaki Duyurular Karti */
+.an-card{
+  background:#121318;
+  border:1px solid var(--line);
+  border-left:3px solid var(--card-border,#e31b23);
+  border-radius:14px;
+  padding:16px;
+  margin-top:14px;
+  animation:pop .3s ease both;
+  transition:.25s;
+}
+.an-card:hover{
+  border-color:var(--line-hi);
+  background:#15171e;
+}
+.an-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+  gap:10px;
+}
+.an-del-btn{
+  background:rgba(227,27,35,.12);
+  border:1px solid rgba(227,27,35,.45);
+  color:var(--red2);
+  height:30px;
+  border-radius:8px;
+  cursor:pointer;
+  padding:0 12px;
+  font-size:11.5px;
+  font-weight:800;
+  transition:.2s;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-family:inherit;
+}
+.an-del-btn:hover{
+  background:var(--red);
+  color:#fff;
+  box-shadow:0 4px 14px rgba(227,27,35,.4);
+  transform:translateY(-1px);
+}
+
+/* HIZLI DUYURU SILME KUTUSU */
+.an-del-box{
+  background:rgba(227,27,35,.04);
+  border:1px solid rgba(227,27,35,.25);
+  border-radius:14px;
+  padding:16px;
+  margin-top:18px;
+}
+
+/* DROPZONE */
+.drop{
+  border:2px dashed var(--line);
+  border-radius:16px;
+  padding:36px 20px;
+  text-align:center;
+  color:var(--dim);
+  transition:.25s;
+  cursor:pointer;
+  background:#0e0f13;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.drop:hover,.drop.over{
+  border-color:var(--red);
+  background:rgba(227,27,35,.04);
+  color:var(--text);
+}
+.files{margin-top:14px}
+.file{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#0e0f13;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px 14px;
+  margin-top:8px;
+  font-size:13px;
+}
+.file .ok{color:var(--green);font-weight:700}
+.file .wait{color:var(--yellow);font-weight:700}
+.file .fail{color:var(--red2);font-weight:700}
+
+/* KADRO GRID */
+.staff-grid-wrap{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:16px;
+  margin-top:16px;
+}
+.st-card{
+  background:#121318;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px;
+  position:relative;
+  transition:.25s;
+}
+.st-card:hover{border-color:var(--line-hi);background:#15171e}
+.st-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.st-head-title{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:var(--red2);
+}
+
+/* LOG TERMINAL */
+.log{
+  background:#090a0d;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  font-size:12px;
+  font-family:Consolas,Menlo,monospace;
+  color:#b0b6c2;
+  max-height:280px;
+  overflow:auto;
+  margin-top:14px;
+  white-space:pre-wrap;
+  line-height:1.6;
+}
+
+.hidden{display:none !important}
+
+@media(max-width:768px){
+  #admTabs button span{display:none}
+  #admTabs button{padding:8px 12px}
+  .adm-header-wrap{padding:10px 14px}
+  #admMain{padding:16px 14px 40px}
+  .login-card{padding:26px 20px}
+}
 </style>
 </head>
 <body>
-<a class="back" href="index.html">← siteye dön</a>
 
-<div class="card">
-  <!-- GIRIS -->
-  <div id="login">
-    <h1>⚡ Mur4 Offsets — <span>Yönetim</span></h1>
-    <p class="sub">Bu panel SADECE Mur4exe/Mur4-Offsets reposu içindir. Başka bir token bu repoya yazamaz.</p>
-    <label>Hedef Repo (kilitli)</label>
-    <input value="Mur4exe / Mur4-Offsets (main)" disabled style="opacity:.7">
-    <label>Kişisel Erişim Token'ı (şifren)</label>
+<!-- 1) GIRIS EKRANI (SEKMELERSIZ, MERKEZLİ) -->
+<div id="loginWrap">
+  <div class="login-card">
+    <div class="login-head">
+      <div class="login-logo">M</div>
+      <div>
+        <div class="login-title">MUR4 <span>OFFSETS</span></div>
+        <div class="login-sub">YÖNETİM PANELİ</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--dim);margin-bottom:18px;line-height:1.5">
+      Bu panel sadece <b>Mur4exe/Mur4-Offsets-Roblox-Website</b> reposu yetkilileri içindir. Giriş için GitHub kişisel erişim token'ınızı kullanın.
+    </p>
+
+    <label>
+      <svg class="icn" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Hedef Repository (Kilitli)
+    </label>
+    <input value="Mur4exe / Mur4-Offsets-Roblox-Website (main)" disabled>
+
+    <label>
+      <svg class="icn" viewBox="0 0 24 24"><path d="m21 2-2 2m-1.5 1.5L14 9l-1.5-1.5L10 10l1.5 1.5-6.5 6.5A2.12 2.12 0 0 0 5 21a2.12 2.12 0 0 0 3 0l6.5-6.5L16 16l2.5-2.5L17 12l3.5-3.5a2.12 2.12 0 0 0 0-3L21 2z"/></svg>
+      Kişisel Erişim Token'ı (PAT)
+    </label>
     <input id="ghPat" type="password" placeholder="github_pat_… (Contents: read & write)">
-    <div class="chk"><input type="checkbox" id="remember" checked><span>Beni bu cihazda hatırla (token yerel olarak saklanır)</span></div>
-    <p class="hint">Fine-grained token: sadece bu repo, <b>Contents: Read and write</b> izni. Token SADECE senin tarayıcında saklanır — GitHub dışında hiçbir yere gönderilmez. Başkasının token'ı bu repoya erişemez (GitHub 403 döndürür).</p>
-    <button class="btn-login" onclick="login()">🔓 GİRİŞ YAP</button>
+
+    <div class="chk">
+      <input type="checkbox" id="remember" checked>
+      <span>Beni bu cihazda hatırla (token yerel tarayıcıda saklanır)</span>
+    </div>
+
+    <p class="hint">
+      Fine-grained token: sadece bu repo, <b>Contents: Read and write</b> izni. Token sadece tarayıcınızda saklanır ve GitHub dışında hiçbir yere iletilmez.
+    </p>
+
+    <button class="btn btn-block btn-red" onclick="login()">
+      <svg class="icn" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+      GİRİŞ YAP
+    </button>
+
     <div class="msg" id="m1"></div>
-  </div>
 
-  <!-- PANEL -->
-  <div id="panel" class="hidden">
-    <h1>⚡ Offset <span>Yükle</span></h1>
-    <p class="sub" id="who"></p>
-
-    <label>1) Dump dosyalarını bırak — offsets.json, sürümlü json, .txt, .h …</label>
-    <div class="drop" id="drop">📁 dosyaları buraya sürükle — ya da tıkla ve seç</div>
-    <input type="file" id="fileInput" multiple class="hidden">
-    <div class="files" id="files"></div>
-
-    <button class="btn-up" onclick="uploadAll()">🚀 SİTEYE GÖNDER (commit + sürüm listesi otomatik)</button>
-
-    <label>2) Discord Webhook (yükleme sonrası otomatik duyuru)</label>
-    <input id="hook">
-    <button class="btn-gh" onclick="testHook()">🔔 Test duyurusu gönder</button>
-
-    <label>3) Kadro Yönetimi (staff.json — site "Yetkili Kadrosu" sekmesi)</label>
-    <div id="staffRows"></div>
-    <div class="row" style="margin-top:10px">
-      <button class="btn-gh" style="margin-top:0" onclick="staffAdd()">➕ Kişi ekle</button>
-      <button class="btn-gh" style="margin-top:0" onclick="staffPush()">🚀 KADROYU GÖNDER</button>
+    <div style="margin-top:20px;text-align:center">
+      <a href="index.html" class="adm-btn-site" style="display:inline-flex">
+        <svg class="icn" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Siteye Dön
+      </a>
     </div>
-
-    <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line)">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-        <label style="margin:0;font-size:13px;color:var(--text);font-weight:800;letter-spacing:1px">4) DUYURU YÖNETİMİ</label>
-        <span style="font-size:11px;color:var(--dim);background:rgba(255,255,255,.05);padding:3px 10px;border-radius:99px" id="annCountBadge">0 Duyuru</span>
-      </div>
-      <p class="hint" style="margin-top:2px;margin-bottom:12px">Yeni duyuru eklediğinizde <b>eski duyurular korunur ve silinmez</b>. Yeni duyuru listenin en başına eklenir ve sitede canlı neon glow efektiyle görünür.</p>
-
-      <!-- YENI DUYURU EKLEME KARTI -->
-      <div class="an-new-box">
-        <div style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--red2);margin-bottom:12px">✨ YENİ DUYURU OLUŞTUR</div>
-        <div class="an-grid">
-          <div>
-            <span class="an-lab">Tag Metni (Örn: Teknik Aksaklık)</span>
-            <input id="newAnnTag" placeholder="Teknik Aksaklık" value="Teknik Aksaklık" oninput="updateNewAnnPreview()">
-          </div>
-          <div>
-            <span class="an-lab">Tag Rengi / Glow</span>
-            <select id="newAnnColor" onchange="updateNewAnnPreview()">
-              <option value="red" selected>🔴 Kırmızı (Teknik Aksaklık / Acil)</option>
-              <option value="yellow">🟡 Sarı (Bakım / Uyarı)</option>
-              <option value="green">🟢 Yeşil (Güncelleme / Çözüldü)</option>
-              <option value="blue">🔵 Mavi (Bilgilendirme / Duyuru)</option>
-              <option value="purple">🟣 Mor (Özel / Yenilik)</option>
-              <option value="cyan">🔷 Camgöbeği (Sistem / Bildirim)</option>
-            </select>
-          </div>
-          <div>
-            <span class="an-lab">Tarih</span>
-            <input id="newAnnDate" oninput="updateNewAnnPreview()">
-          </div>
-          <div style="grid-column:1/-1">
-            <span class="an-lab">Duyuru Açıklaması (Tag'in altında görünecek metin)</span>
-            <textarea id="newAnnText" placeholder="Duyuru açıklaması buraya yazılacak…" oninput="updateNewAnnPreview()" style="width:100%;min-height:80px;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font-size:13px;outline:none"></textarea>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <span class="an-lab">CANLI GLOW ÖNİZLEME:</span>
-          <div class="an-preview-card" id="newAnnPreview"></div>
-        </div>
-
-        <button class="btn-gh" style="margin-top:12px;background:linear-gradient(135deg,#0a7d52,#00b06f);color:#fff" onclick="addNewAnnouncement()">➕ Bu Duyuruyu Listeye Ekle</button>
-      </div>
-
-      <!-- DUYURU SİLME ALANI -->
-      <div class="an-new-box" style="border-color:rgba(227,27,35,.35);background:rgba(227,27,35,.04);margin-top:16px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <span style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--red2)">🗑️ HIZLI DUYURU SİL</span>
-          <button style="width:auto;margin:0;padding:5px 12px;font-size:11px;font-weight:700;border:1px solid rgba(227,27,35,.3);background:none;color:var(--red2);border-radius:6px;cursor:pointer" onclick="clearAllAnnouncements()">Tümünü Temizle</button>
-        </div>
-        <p class="hint" style="margin:0 0 10px;color:var(--dim)">Siteden kaldırmak istediğiniz duyuruyu listeden seçip silebilirsiniz:</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <select id="quickDelSelect" style="flex:1;min-width:220px;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font-size:13px;outline:none"></select>
-          <button style="width:auto;margin:0;padding:11px 20px;border:0;border-radius:10px;background:linear-gradient(135deg,#e31b23,#991b1b);color:#fff;font-weight:800;font-size:13px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px" onclick="quickDeleteAnnouncement()">🗑️ Seçilen Duyuruyu Sil</button>
-        </div>
-      </div>
-
-      <!-- MEVCUT VE GECMIS DUYURULAR -->
-      <div style="margin-top:22px">
-        <span class="an-lab" style="margin:0 0 8px;font-size:11px">📋 YAYINDAKİ DUYURULAR LİSTESİ (ESKİLER KORUNUR)</span>
-        <div id="annRows"></div>
-      </div>
-
-      <div class="row" style="margin-top:14px">
-        <button class="btn-up" style="margin-top:0" onclick="annPush()">🚀 DUYURULARI GÖNDER (announcements.json)</button>
-        <button class="btn-gh" style="margin-top:0;max-width:160px" onclick="downloadAnnouncementsJson()">💾 JSON İndir</button>
-      </div>
-    </div>
-
-    <div class="log" id="log"></div>
-    <button class="btn-gh" onclick="logout()">🚪 ÇIKIŞ YAP</button>
   </div>
-  <div class="msg" id="m2"></div>
 </div>
+
+<!-- 2) GIRIS YAPILDIKTAN SONRA GORUNEN UST BAR (SEKMELERLE BIRLIKTE) -->
+<header id="admHeader">
+  <div class="adm-header-wrap">
+    <!-- SOL: LOGO VE BASLIK -->
+    <a href="index.html" class="adm-brand">
+      <div class="adm-brand-logo">M</div>
+      <div>
+        <div class="adm-brand-text">MUR4 <span>ADMIN</span></div>
+        <div class="adm-brand-badge">
+          <svg class="icn" style="width:10px;height:10px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="whoBranch">main</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ORTA: SITEDEKI GIBI SEKMELER (SADECE GIRISTEN SONRA AKTIF, SIFIR EMOJI) -->
+    <nav id="admTabs">
+      <button id="adm-btn-announcements" class="on" onclick="showAdmTab('announcements')">
+        <svg class="icn" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+        <span>Duyurular</span>
+        <span class="tab-badge" id="annBadgeTop">0</span>
+      </button>
+
+      <button id="adm-btn-offsets" onclick="showAdmTab('offsets')">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span>Offset Yükle</span>
+      </button>
+
+      <button id="adm-btn-staff" onclick="showAdmTab('staff')">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Yetkili Kadrosu</span>
+      </button>
+
+      <button id="adm-btn-settings" onclick="showAdmTab('settings')">
+        <svg class="icn" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+        <span>Ayarlar & Loglar</span>
+      </button>
+    </nav>
+
+    <!-- SAG: SITE LINKI VE CIKIS -->
+    <div class="adm-header-actions">
+      <a href="index.html" class="adm-btn-site" target="_blank" title="Siteyi yeni sekmede aç">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span>Siteye Git</span>
+      </a>
+      <button class="adm-btn-logout" onclick="logout()" title="Oturumu Kapat">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Çıkış Yap</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- 3) ANA PANEL GOVDESI -->
+<main id="admMain">
+  <!-- DURUM BILDIRIMLERI -->
+  <div class="adm-banner">
+    <div class="adm-banner-left">
+      <div class="adm-banner-icon">
+        <svg class="icn" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div>
+        <div class="adm-banner-title" id="whoRepo">Mur4exe / Mur4-Offsets-Roblox-Website</div>
+        <div class="adm-banner-sub">GitHub REST API v3 bağlantısı aktif ve hazır.</div>
+      </div>
+    </div>
+    <div id="admStatusChip" style="font-size:12px;color:var(--dim)"></div>
+  </div>
+
+  <div class="msg" id="m2" style="margin-bottom:18px"></div>
+
+  <!-- SEKME 1: DUYURU YONETIMI (2 SUTUNLU GENIS EKRAN) -->
+  <section id="adm-panel-announcements" class="adm-panel active">
+    <div class="ann-dashboard-grid">
+      <!-- SOL SUTUN: YENI DUYURU EKLEME + HIZLI SILME -->
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <!-- KART: YENI DUYURU FORMU -->
+        <div class="adm-card">
+          <div class="adm-card-head">
+            <div class="adm-card-title">
+              <svg class="icn" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Yeni Duyuru Oluştur
+            </div>
+            <span style="font-size:11px;color:var(--green);background:rgba(0,224,143,.1);border:1px solid rgba(0,224,143,.3);padding:2px 8px;border-radius:99px">Canlı Glow</span>
+          </div>
+
+          <div class="an-grid">
+            <div>
+              <label>Tag Metni</label>
+              <input id="newAnnTag" placeholder="Teknik Aksaklık" value="Teknik Aksaklık" oninput="updateNewAnnPreview()">
+            </div>
+            <div>
+              <label>Tag Rengi / Glow Efekti</label>
+              <select id="newAnnColor" onchange="updateNewAnnPreview()">
+                <option value="red" selected>Kırmızı — Teknik Aksaklık / Acil</option>
+                <option value="yellow">Sarı — Bakım / Uyarı</option>
+                <option value="green">Yeşil — Güncelleme / Çözüldü</option>
+                <option value="blue">Mavi — Bilgilendirme / Duyuru</option>
+                <option value="purple">Mor — Özel / Yenilik</option>
+                <option value="cyan">Camgöbeği — Sistem / Bildirim</option>
+              </select>
+            </div>
+            <div class="an-full">
+              <label>Tarih</label>
+              <input id="newAnnDate" oninput="updateNewAnnPreview()">
+            </div>
+            <div class="an-full">
+              <label>Duyuru Açıklaması (Tag'in Altında Görünecek Metin)</label>
+              <textarea id="newAnnText" placeholder="Duyuru içeriği buraya yazılacak..." oninput="updateNewAnnPreview()" style="min-height:90px"></textarea>
+            </div>
+          </div>
+
+          <div style="margin-top:16px">
+            <label style="margin-bottom:8px">CANLI ANİMASYONLU ÖNİZLEME</label>
+            <div class="an-preview-card" id="newAnnPreview"></div>
+          </div>
+
+          <button class="btn btn-green btn-block" onclick="addNewAnnouncement()">
+            <svg class="icn" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Bu Duyuruyu Listeye Ekle
+          </button>
+        </div>
+
+        <!-- KART: HIZLI DUYURU SILME -->
+        <div class="an-del-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:800;letter-spacing:1px;color:var(--red2);display:inline-flex;align-items:center;gap:6px">
+              <svg class="icn" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              HIZLI DUYURU SİL
+            </span>
+            <button style="width:auto;margin:0;padding:4px 10px;font-size:11px;font-weight:700;border:1px solid rgba(227,27,35,.35);background:none;color:var(--red2);border-radius:6px;cursor:pointer" onclick="clearAllAnnouncements()">
+              Tümünü Temizle
+            </button>
+          </div>
+          <p class="hint" style="margin:0 0 10px;color:var(--dim)">Listeden kaldırmak istediğiniz duyuruyu seçip tek tıkla silebilirsiniz:</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <select id="quickDelSelect" style="flex:1;min-width:200px"></select>
+            <button class="btn btn-red btn-sm" onclick="quickDeleteAnnouncement()">
+              <svg class="icn" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Seçileni Sil
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAG SUTUN: YAYINDAKI DUYURULAR LISTESI VE KAYDETME -->
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <div class="adm-card-title">
+            <svg class="icn" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Yayındaki Duyurular Listesi
+            <span style="font-size:11px;color:var(--dim);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:99px" id="annCountBadge">0 Duyuru</span>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-dark btn-sm" onclick="downloadAnnouncementsJson()" title="announcements.json yedeğini indir">
+              <svg class="icn" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              JSON İndir
+            </button>
+            <button class="btn btn-red btn-sm" onclick="annPush()">
+              <svg class="icn" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Yayına Gönder
+            </button>
+          </div>
+        </div>
+
+        <p class="hint" style="margin-top:0;margin-bottom:12px">
+          Yeni duyuru eklendiğinde <b>eski duyurular korunur ve asla kaybolmaz</b>. Siteden tamamen kaldırmak istediğiniz duyurunun yanındaki "Sil" butonuna basıp ardından "Yayına Gönder" butonuna basmanız yeterlidir.
+        </p>
+
+        <div id="annRows" style="max-height:680px;overflow-y:auto;padding-right:4px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEKME 2: OFFSET YUKLEME -->
+  <section id="adm-panel-offsets" class="adm-panel">
+    <div class="adm-card">
+      <div class="adm-card-head">
+        <div class="adm-card-title">
+          <svg class="icn" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Roblox Dump & Offset Dosyalarını Yükle
+        </div>
+      </div>
+
+      <label>Dump Dosyalarını Bırak (offsets.json, offsets_version-xxx.json, .txt, .h, verify_stats.json)</label>
+      <div class="drop" id="drop">
+        <svg class="icn icn-xl" style="color:var(--dim)" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <div style="font-weight:700;color:var(--text)">Dosyaları buraya sürükleyip bırakın</div>
+        <div style="font-size:12px;color:var(--dim)">veya bilgisayarınızdan seçmek için tıklayın</div>
+      </div>
+      <input type="file" id="fileInput" multiple class="hidden">
+      <div class="files" id="files"></div>
+
+      <button class="btn btn-green btn-block" style="margin-top:16px" onclick="uploadAll()">
+        <svg class="icn" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        SİTEYE GÖNDER (Otomatik GitHub Commit + versions.json Manifest)
+      </button>
+
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--dim);line-height:1.6">
+        <b>Otomatik İşlem Rehberi:</b><br>
+        • Yüklenen <code>offsets_version-xxx.json</code> dosyaları repoya kaydedilir ve <code>versions.json</code> manifestine otomatik eklenir.<br>
+        • <code>verify_stats.json</code> yüklendiğinde sürümün LIVE, SABIT ve ÖLÜ offset analizleri sisteme işlenir.<br>
+        • Webhook yapılandırılmışsa yükleme tamamlandığında Discord kanalına bildirim iletilir.
+      </div>
+    </div>
+  </section>
+
+  <!-- SEKME 3: YETKILI KADROSU -->
+  <section id="adm-panel-staff" class="adm-panel">
+    <div class="adm-card">
+      <div class="adm-card-head">
+        <div class="adm-card-title">
+          <svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Yetkili Kadrosu Yönetimi (staff.json)
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-dark btn-sm" onclick="staffAdd()">
+            <svg class="icn" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Kişi Ekle
+          </button>
+          <button class="btn btn-red btn-sm" onclick="staffPush()">
+            <svg class="icn" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Kadroyu Gönder
+          </button>
+        </div>
+      </div>
+
+      <p class="hint" style="margin-top:0">
+        Bu alandaki yetkililer ana sitedeki "Yetkili Kadrosu" sekmesinde canlı Discord durumu, avatarı ve rütbesiyle listelenir.
+      </p>
+
+      <div class="staff-grid-wrap" id="staffRows"></div>
+    </div>
+  </section>
+
+  <!-- SEKME 4: AYARLAR VE LOGLAR -->
+  <section id="adm-panel-settings" class="adm-panel">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <div class="adm-card-title">
+            <svg class="icn" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Discord Webhook Yapılandırması
+          </div>
+        </div>
+
+        <label>Discord Webhook URL</label>
+        <input id="hook" placeholder="https://discord.com/api/webhooks/…">
+        <p class="hint">Yükleme yapıldığında veya duyuru paylaşıldığında Discord sunucunuza anında gömülü mesaj (embed) gider. URL sadece tarayıcınızda saklanır.</p>
+
+        <button class="btn btn-dark btn-block" style="margin-top:14px" onclick="testHook()">
+          <svg class="icn" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Test Duyurusu Gönder
+        </button>
+      </div>
+
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <div class="adm-card-title">
+            <svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            Sistem ve Güvenlik Bilgisi
+          </div>
+        </div>
+
+        <div style="font-size:13px;color:var(--dim);line-height:1.7">
+          <div style="margin-bottom:8px"><b>Hedef Depo:</b> <span style="color:var(--text)">Mur4exe/Mur4-Offsets-Roblox-Website</span></div>
+          <div style="margin-bottom:8px"><b>Hedef Dal:</b> <span style="color:var(--text)">main</span></div>
+          <div style="margin-bottom:8px"><b>Depolama:</b> <span style="color:var(--text)">Tarayıcı LocalStorage (Şifreli / Yerel)</span></div>
+          <div style="margin-bottom:8px"><b>İzin Seviyesi:</b> <span style="color:var(--green)">Contents: Read & Write Doğrulandı</span></div>
+        </div>
+
+        <button class="btn btn-dark btn-block" style="margin-top:20px" onclick="logout()">
+          <svg class="icn" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Oturumu Kapat ve Token'ı Temizle
+        </button>
+      </div>
+
+      <div class="adm-card" style="grid-column:1/-1">
+        <div class="adm-card-head">
+          <div class="adm-card-title">
+            <svg class="icn" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            Canlı İşlem ve GitHub API Logları
+          </div>
+          <button class="btn btn-dark btn-sm" onclick="$('log').textContent=''">Logları Temizle</button>
+        </div>
+        <div class="log" id="log">[SİSTEM] Yönetim paneli hazırlandı.</div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <script>
 const LS='mur4admin';
-// GUVENLIK: webhook kodun icine GOMULMEZ (repo herkese acik).
-// Bir kez asagidaki alana yapistirirsin, senin tarayicinda saklanir.
 let CFG=null, queue=[];
 
 function $(id){return document.getElementById(id)}
-function msg(id,txt,ok){const e=$(id);e.textContent=txt;e.className='msg '+(ok?'ok':'err');setTimeout(()=>{if(ok)e.className='msg'},6000)}
-function log(t){const l=$('log');l.style.display='block';l.textContent+=t+'\n';l.scrollTop=l.scrollHeight}
+function msg(id,txt,ok){
+  const e=$(id);
+  if(!e)return;
+  e.textContent=txt;
+  e.className='msg '+(ok?'ok':'err');
+  setTimeout(()=>{if(ok)e.className='msg'},7000);
+}
+function log(t){
+  const l=$('log');
+  if(!l)return;
+  l.textContent+='['+new Date().toLocaleTimeString()+'] '+t+'\n';
+  l.scrollTop=l.scrollHeight;
+}
 
-/* formu hatirla */
+/* Webhook yerel saklama */
 (function(){
-  try{const c=JSON.parse(localStorage.getItem(LS)||'{}');
-    if(c.user)$('ghUser').value=c.user;
-    if(c.repo)$('ghRepo').value=c.repo;
-    if(c.branch)$('ghBranch').value=c.branch||'main';
-  }catch(e){}
-  $('hook').value=localStorage.getItem('mur4hook')||'';
-  if(!$('hook').value)$('hook').placeholder='https://discord.com/api/webhooks/… (bir kez yapıştır, tarayıcında saklanır)';
+  const h=localStorage.getItem('mur4hook')||'';
+  if($('hook'))$('hook').value=h;
 })();
-$('hook').addEventListener('blur',()=>{const v=$('hook').value.trim();if(v)localStorage.setItem('mur4hook',v)});
+if($('hook')){
+  $('hook').addEventListener('blur',()=>{
+    const v=$('hook').value.trim();
+    if(v)localStorage.setItem('mur4hook',v);
+  });
+}
 
-/* ---- GIRIS ---- */
-/* repo KILITLENIK: herkes icin ayni hedef (Mur4exe/Mur4-Offsets). Yetkisi olmayan giremez. */
+/* ---- TAB GECISLERI (SITEDEKI GIBI) ---- */
+function showAdmTab(tabName){
+  // Sekme butonlarinin durumunu guncelle
+  const tabBtns=['announcements','offsets','staff','settings'];
+  tabBtns.forEach(t=>{
+    const b=$('adm-btn-'+t);
+    const p=$('adm-panel-'+t);
+    if(b){
+      if(t===tabName) b.classList.add('on');
+      else b.classList.remove('on');
+    }
+    if(p){
+      if(t===tabName) p.classList.add('active');
+      else p.classList.remove('active');
+    }
+  });
+}
+
+/* ---- GIRIS & OTURUM ---- */
 const FIXED_USER='Mur4exe',FIXED_REPO='Mur4-Offsets-Roblox-Website',FIXED_BRANCH='main';
+
 async function login(){
   const pat=$('ghPat').value.trim();
-  if(!pat){msg('m1','Token zorunlu.',false);return}
+  if(!pat){msg('m1','Kişisel erişim token\'ı zorunludur.',false);return}
   msg('m1','Token GitHub ile doğrulanıyor…',true);
   try{
-    const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{headers:{Authorization:'Bearer '+pat}});
-    if(r.status===401){msg('m1','Token geçersiz (401). Yeni token oluşturup tekrar yapıştır.',false);return}
-    if(!r.ok){msg('m1','GitHub hatası: '+r.status,false);return}
-    const j=await r.json();
-    // KRITIK: yazma izni kontrolu — public repoyu OKUMAK herkesin hakkı,
-    // ama push yetkisi olmayan token bu panele GIREMEZ bile
-    if(!j.permissions||!j.permissions.push){
-      msg('m1','❌ Bu token MUR4-Offsets reposuna YAZMA iznine sahip değil. Giriş reddedildi. (Sadece Mur4exe\'nin kendi token\'ı kabul edilir)',false);
+    const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{
+      headers:{Authorization:'Bearer '+pat}
+    });
+    if(r.status===401){
+      msg('m1','Token geçersiz (401). Lütfen yeni bir Fine-grained veya Classic token oluşturup deneyin.',false);
       return;
     }
+    if(!r.ok){
+      msg('m1','GitHub API hatası: HTTP '+r.status,false);
+      return;
+    }
+    const j=await r.json();
+    if(!j.permissions||!j.permissions.push){
+      msg('m1','Bu token repoya YAZMA yetkisine sahip değil. Giriş reddedildi.',false);
+      return;
+    }
+
     CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
-    localStorage.setItem(LS,JSON.stringify({user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,remember:$('remember').checked}));
-    if($('remember').checked) localStorage.setItem(LS+'_t',pat); else sessionStorage.setItem(LS+'_t',pat);
-    openPanel();msg('m1','Giriş başarılı!',true);
+    if($('remember').checked){
+      localStorage.setItem(LS+'_t',pat);
+    }else{
+      sessionStorage.setItem(LS+'_t',pat);
+    }
+    openPanel();
+    msg('m2','Giriş başarılı! Yönetim paneline hoş geldiniz.',true);
     loadStaffToPanel();
     loadAnnouncementsToPanel();
     initNewAnnForm();
-  }catch(e){msg('m1','Ağ hatası: '+e.message,false)}
+  }catch(e){
+    msg('m1','Bağlantı hatası: '+e.message,false);
+  }
 }
-function openPanel(){
-  $('login').classList.add('hidden');$('panel').classList.remove('hidden');
-  $('who').textContent=`Giriş yapıldı: ${CFG.user} → ${CFG.repo} (${CFG.branch})`;
-}
-function getToken(){return localStorage.getItem(LS+'_t')||sessionStorage.getItem(LS+'_t')}
-function logout(){localStorage.removeItem(LS+'_t');sessionStorage.removeItem(LS+'_t');location.reload()}
 
-async function loadStaffToPanel(){
-  // repodan cek, yoksa kurucu ile baslat
-  try{
-    const mf=await ghGet('staff.json');
-    if(mf){const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));staffList=JSON.parse(txt);staffRender();return}
-  }catch(e){}
-  if(!staffList.length)staffAdd({name:"Mur4t",rank:"Kurucu / Founder",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+function openPanel(){
+  $('loginWrap').classList.add('hidden');
+  $('admHeader').style.display='block';
+  $('admMain').style.display='block';
+  $('whoRepo').textContent=`${CFG.user} / ${CFG.repo}`;
+  $('whoBranch').textContent=CFG.branch;
+  $('admStatusChip').textContent=`Yetkili Oturumu: ${CFG.user}`;
+  showAdmTab('announcements');
 }
-/* otomatik giris */
+
+function getToken(){
+  return localStorage.getItem(LS+'_t')||sessionStorage.getItem(LS+'_t');
+}
+
+function logout(){
+  localStorage.removeItem(LS+'_t');
+  sessionStorage.removeItem(LS+'_t');
+  location.reload();
+}
+
+/* Otomatik Giris Kontrolu */
 (async function(){
   const pat=getToken();
   if(pat){
     try{
-      const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{headers:{Authorization:'Bearer '+pat}});
+      const r=await fetch(`https://api.github.com/repos/${FIXED_USER}/${FIXED_REPO}`,{
+        headers:{Authorization:'Bearer '+pat}
+      });
       if(r.ok){
         const j=await r.json();
         if(j.permissions&&j.permissions.push){
@@ -239,77 +1093,118 @@ async function loadStaffToPanel(){
           loadStaffToPanel();
           loadAnnouncementsToPanel();
           initNewAnnForm();
+          return;
         }
       }
     }catch(e){}
   }
+  // Token yoksa bile on hazirlik yap
+  initNewAnnForm();
 })();
 
-/* ---- SURUKLE-BIRAK ---- */
-const drop=$('drop'),fi=$('fileInput');
-drop.onclick=()=>fi.click();
-drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};
-drop.ondragleave=()=>drop.classList.remove('over');
-drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');addFiles(e.dataTransfer.files)};
-fi.onchange=()=>{addFiles(fi.files);fi.value=''};
-function addFiles(list){for(const f of list)queue.push({name:f.name,file:f,status:'hazır',cls:'wait'});renderQueue()}
-function renderQueue(){$('files').innerHTML=queue.map(q=>`<div class="file"><span>${q.name}</span><span class="${q.cls}">${q.status}</span></div>`).join('')}
-
-/* ---- GITHUB ---- */
+/* ---- GITHUB REST API ---- */
 async function ghGet(path){
-  const r=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`,
-    {headers:{Authorization:'Bearer '+CFG.pat}});
+  const r=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`,{
+    headers:{Authorization:'Bearer '+CFG.pat}
+  });
   if(r.status===404)return null;
   if(!r.ok)throw new Error('GET '+path+' → HTTP '+r.status);
   return r.json();
 }
+
 async function ghPut(path,text,customMsg){
   const meta=await ghGet(path);
-  const body={message:customMsg||('Mur4 Offsets güncelleme: '+path),branch:CFG.branch,sha:meta?meta.sha:null,
-    content:btoa(unescape(encodeURIComponent(text)))};
-  const pr=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${path}`,
-    {method:'PUT',headers:{Authorization:'Bearer '+CFG.pat,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const body={
+    message:customMsg||('Mur4 Offsets güncelleme: '+path),
+    branch:CFG.branch,
+    sha:meta?meta.sha:null,
+    content:btoa(unescape(encodeURIComponent(text)))
+  };
+  const pr=await fetch(`https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/${path}`,{
+    method:'PUT',
+    headers:{Authorization:'Bearer '+CFG.pat,'Content-Type':'application/json'},
+    body:JSON.stringify(body)
+  });
   if(!pr.ok){
     const err=await pr.json().catch(()=>({}));
-    if(pr.status===409)throw new Error('409 — repo boş görünüyor. Önce GitHub sitesinde repoya bir README ekleyin (Add file > Create new file > README).');
+    if(pr.status===409)throw new Error('409 — Repo boş görünüyor. Önce repoda bir README veya dosya oluşturun.');
     throw new Error('HTTP '+pr.status+(err.message?' — '+err.message:''));
   }
 }
 
-/* ---- YUKLEME ---- */
+/* ---- SURUKLE-BIRAK (OFFSETLER) ---- */
+const drop=$('drop'),fi=$('fileInput');
+if(drop&&fi){
+  drop.onclick=()=>fi.click();
+  drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};
+  drop.ondragleave=()=>drop.classList.remove('over');
+  drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');addFiles(e.dataTransfer.files)};
+  fi.onchange=()=>{addFiles(fi.files);fi.value=''};
+}
+function addFiles(list){
+  for(const f of list)queue.push({name:f.name,file:f,status:'hazır',cls:'wait'});
+  renderQueue();
+}
+function renderQueue(){
+  $('files').innerHTML=queue.map(q=>`
+    <div class="file">
+      <span style="font-weight:600">${q.name}</span>
+      <span class="${q.cls}">${q.status}</span>
+    </div>
+  `).join('');
+}
+
 async function uploadAll(){
   CFG.pat=getToken();
   if(!CFG.pat){logout();return}
-  if(!queue.length){msg('m2','Önce en az bir dosya bırak.',false);return}
-  $('log').textContent='';$('log').style.display='block';
+  if(!queue.length){msg('m2','Lütfen önce en az bir dosya bırakın.',false);return}
+  $('log').textContent='';
   let okCount=0;const newVersions=[];let statsFor=null,statsData=null;
   let manifest=[];
+
   try{
     const mf=await ghGet('versions.json');
-    if(mf){const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));manifest=JSON.parse(txt)}
-    else log('ℹ️ versions.json yok — sıfırdan oluşturulacak');
-  }catch(e){log('ℹ️ versions.json okunamadı ('+e.message+') — sıfırdan oluşturulacak')}
+    if(mf){
+      const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));
+      manifest=JSON.parse(txt);
+    }else{
+      log('[BİLGİ] versions.json bulunamadı — sıfırdan oluşturulacak');
+    }
+  }catch(e){
+    log('[BİLGİ] versions.json okunamadı ('+e.message+') — sıfırdan oluşturulacak');
+  }
 
   for(const q of queue){
     try{
-      log('⏳ '+q.name+' işleniyor…');
+      log('[İŞLEM] '+q.name+' repoya yazılıyor…');
       const text=await q.file.text();
       if(q.name.endsWith('.json')){
-        let j;try{j=JSON.parse(text)}catch(e){throw new Error('geçersiz JSON içeriği!')}
+        let j;
+        try{j=JSON.parse(text)}catch(e){throw new Error('Geçersiz JSON dosyası!')}
         const m=q.name.match(/^offsets_(version-.+)\.json$/);
         if(m){
-          newVersions.push({tag:m[1],count:j.count||Object.values(j.offsets||{}).reduce((a,c)=>a+Object.keys(c).length,0),
-            dump_time:j.dump_time||'',not_working:(j.not_working||[]).length});
+          newVersions.push({
+            tag:m[1],
+            count:j.count||Object.values(j.offsets||{}).reduce((a,c)=>a+Object.keys(c).length,0),
+            dump_time:j.dump_time||'',
+            not_working:(j.not_working||[]).length
+          });
         }
         if(q.name==='verify_stats.json'&&j.version){
-          // dogrulama istatistiklerini manifest'e isle
-          statsFor=j.version;statsData=j;
+          statsFor=j.version;
+          statsData=j;
         }
       }
       await ghPut(q.name,text);
-      q.status='✅ yüklendi';q.cls='ok';okCount++;
-      log('✅ '+q.name+' repoya yazıldı');
-    }catch(e){q.status='❌ '+e.message;q.cls='fail';log('❌ '+q.name+' → '+e.message)}
+      q.status='yüklendi';
+      q.cls='ok';
+      okCount++;
+      log('[BAŞARILI] '+q.name+' repoya yazıldı');
+    }catch(e){
+      q.status='hata: '+e.message;
+      q.cls='fail';
+      log('[HATA] '+q.name+' → '+e.message);
+    }
     renderQueue();
   }
 
@@ -321,95 +1216,135 @@ async function uploadAll(){
     manifest.sort((a,b)=>(b.dump_time||'').localeCompare(a.dump_time||''));
     try{
       await ghPut('versions.json',JSON.stringify(manifest,null,2),'Mur4 Offsets: sürüm manifesti güncellendi');
-      log('✅ versions.json güncellendi ('+manifest.length+' sürüm) — site menüsü otomatik yenilendi');
-    }catch(e){log('❌ versions.json → '+e.message)}
+      log('[BAŞARILI] versions.json güncellendi ('+manifest.length+' sürüm)');
+    }catch(e){
+      log('[HATA] versions.json → '+e.message);
+    }
   }
 
-  // verify istatistiklerini manifest'in ilgili sürümüne işle
   if(statsFor&&statsData){
     let i=manifest.findIndex(m=>m.tag===statsFor);
-    if(i<0){manifest.push({tag:statsFor,count:statsData.total,dump_time:statsData.dump_time});i=manifest.length-1}
+    if(i<0){
+      manifest.push({tag:statsFor,count:statsData.total,dump_time:statsData.dump_time});
+      i=manifest.length-1;
+    }
     manifest[i].live=statsData.live;
     manifest[i].stable=statsData.stable;
     manifest[i].dead=statsData.dead;
     try{
       await ghPut('versions.json',JSON.stringify(manifest,null,2),'Mur4 Offsets: verify istatistikleri eklendi');
-      log(`✅ verify istatistikleri işlendi: ${statsFor} → LIVE=${statsData.live} SABIT=${statsData.stable} OLU=${statsData.dead}`);
-    }catch(e){log('❌ verify istatistikleri → '+e.message)}
+      log('[BAŞARILI] Doğrulama istatistikleri işlendi: '+statsFor);
+    }catch(e){
+      log('[HATA] verify istatistikleri → '+e.message);
+    }
   }
 
-  msg('m2',okCount+' dosya gönderildi. Site 1-2 dk içinde yenilenir (Pages build). Tarayıcıda Ctrl+F5 yap.',true);
+  msg('m2',okCount+' dosya başarıyla gönderildi! Site 1-2 dakika içinde güncellenecektir.',true);
 
   const hook=$('hook').value.trim();
   if(hook&&okCount>0){
     const jv=newVersions[0];
     try{
-      const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({username:'Mur4 Offsets',embeds:[{title:'🚀 New offsets on the website!',
-          description:(jv?('**'+jv.tag+'** — '+jv.count+' offsets\n'):'')+'Live offset browser updated.',
-          color:0x00b06f,footer:{text:'By: Mur4t'}}]})});
-      log(r.ok?'🔔 Discord duyurusu gönderildi':'⚠️ webhook HTTP '+r.status);
-    }catch(e){log('⚠️ webhook: '+e.message)}
+      const r=await fetch(hook,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          username:'Mur4 Offsets',
+          embeds:[{
+            title:'Yeni Roblox Offset Güncellemesi!',
+            description:(jv?('**'+jv.tag+'** — '+jv.count+' offsets\n'):'')+'Web sitesi veritabanı güncellendi.',
+            color:0x00e08f,
+            footer:{text:'Mur4 Offsets Automation'}
+          }]
+        })
+      });
+      log(r.ok?'[BİLGİ] Discord webhook duyurusu iletildi':'[UYARI] Webhook HTTP '+r.status);
+    }catch(e){
+      log('[UYARI] Webhook iletim hatası: '+e.message);
+    }
   }
 }
 
 /* ---- KADRO YONETIMI ---- */
 let staffList=[];
-function staffRowStyle(){
-  const s=document.createElement('style');s.textContent=`
-    .st-card{background:#121318;border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;margin-top:14px;position:relative;animation:pop .3s ease both}
-    .st-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-    .st-head .t{font-size:12px;font-weight:800;letter-spacing:2px;color:var(--red2)}
-    .st-del{background:rgba(227,27,35,.1);border:1px solid rgba(227,27,35,.4);color:var(--red2);height:28px;border-radius:8px;cursor:pointer;padding:0 12px;margin:0;font-size:11px;font-weight:700;transition:.2s;width:auto}
-    .st-del:hover{background:var(--red);color:#fff}
-    .st-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .st-full{grid-column:1/-1}
-    .st-lab{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;display:block}
-    .st-row input{padding:10px 12px;font-size:13px}
-  `;document.head.appendChild(s);
-}
-staffRowStyle();
+
 function staffAdd(preset){
   staffList.push(preset||{name:"",rank:"Yetkili",discordId:"",discordTag:""});
   staffRender();
 }
-function staffDel(i){staffList.splice(i,1);staffRender()}
+
+function staffDel(i){
+  staffList.splice(i,1);
+  staffRender();
+}
+
 function staffRender(){
-  const w=document.getElementById('staffRows');if(!w)return;
+  const w=$('staffRows');
+  if(!w)return;
+  if(!staffList.length){
+    w.innerHTML='<div style="grid-column:1/-1;color:var(--dim);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;font-size:13px">Kadro listesi boş. "Kişi Ekle" butonu ile yeni yetkili ekleyebilirsiniz.</div>';
+    return;
+  }
   w.innerHTML=staffList.map((m,i)=>`
     <div class="st-card">
       <div class="st-head">
-        <span class="t">👤 KİŞİ ${i+1}</span>
-        <button class="st-del" onclick="staffDel(${i})">✕ SİL</button>
+        <span class="st-head-title">
+          <svg class="icn" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          YETKİLİ #${i+1}
+        </span>
+        <button class="an-del-btn" onclick="staffDel(${i})">
+          <svg class="icn" style="width:12px;height:12px" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Sil
+        </button>
       </div>
-      <div class="st-grid">
-        <div class="st-full"><span class="st-lab">İsim</span><input placeholder="örn. Mur4t" value="${m.name||''}" oninput="staffList[${i}].name=this.value"></div>
-        <div><span class="st-lab">Rütbe</span><input placeholder="Kurucu, Admin, Mod..." value="${m.rank||''}" oninput="staffList[${i}].rank=this.value"></div>
-        <div><span class="st-lab">Discord etiketi</span><input placeholder="örn. mur4t" value="${m.discordTag||''}" oninput="staffList[${i}].discordTag=this.value"></div>
-        <div class="st-full"><span class="st-lab">Discord ID (canlı avatar + durum için)</span><input placeholder="910806118526234624" value="${m.discordId||''}" oninput="staffList[${i}].discordId=this.value.replace(/[^0-9]/g,'')"></div>
+      <div>
+        <label>İsim / Takma Ad</label>
+        <input placeholder="örn. Mur4t" value="${escapeHtml(m.name||'')}" oninput="staffList[${i}].name=this.value">
+
+        <label>Rütbe / Görev</label>
+        <input placeholder="Kurucu, Admin, Moderator..." value="${escapeHtml(m.rank||'')}" oninput="staffList[${i}].rank=this.value">
+
+        <label>Discord Kullanıcı Adı / Etiketi</label>
+        <input placeholder="örn. mur4t" value="${escapeHtml(m.discordTag||'')}" oninput="staffList[${i}].discordTag=this.value">
+
+        <label>Discord ID (Canlı Avatar ve Durum İçin)</label>
+        <input placeholder="910806118526234624" value="${escapeHtml(m.discordId||'')}" oninput="staffList[${i}].discordId=this.value.replace(/[^0-9]/g,'')">
       </div>
-    </div>`).join("");
+    </div>
+  `).join("");
 }
+
+async function loadStaffToPanel(){
+  try{
+    const mf=await ghGet('staff.json');
+    if(mf){
+      const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));
+      staffList=JSON.parse(txt);
+      staffRender();
+      return;
+    }
+  }catch(e){}
+  if(!staffList.length){
+    staffAdd({name:"Mur4t",rank:"Kurucu / Founder",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+  }
+}
+
 async function staffPush(){
   CFG.pat=getToken();
   if(!CFG.pat){logout();return}
   staffList=staffList.filter(m=>(m.name||'').trim());
-  if(!staffList.length){msg('m2','En az bir kişi gerekli.',false);return}
+  if(!staffList.length){msg('m2','Lütfen en az bir yetkili girin.',false);return}
   try{
     await ghPut('staff.json',JSON.stringify(staffList,null,2),'Mur4 Offsets: kadro güncellendi');
-    msg('m2','Kadro gönderildi! Site 1-2 dk içinde güncellenir.',true);
-    log('✅ staff.json yazildi ('+staffList.length+' kisi)');
-  }catch(e){msg('m2','Hata: '+e.message,false);log('❌ staff.json → '+e.message)}
-}
-(async function(){ // token yoksa seed yine de hazir olsun
-  if(!getToken()){
-    staffAdd({name:"Mur4t",rank:"Kurucu / Founder",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
-    loadAnnouncementsToPanel();
-    initNewAnnForm();
+    msg('m2','Yetkili kadrosu başarıyla GitHub\'a gönderildi! Site 1-2 dk içinde yenilenecektir.',true);
+    log('[BAŞARILI] staff.json kaydedildi ('+staffList.length+' kişi)');
+  }catch(e){
+    msg('m2','Hata: '+e.message,false);
+    log('[HATA] staff.json → '+e.message);
   }
-})();
+}
 
-/* ---- DUYURU YÖNETİMİ ---- */
+/* ---- DUYURU YONETIMI (YENI DUYURULAR + ESKILERI KORUMA + SILME) ---- */
 function escapeHtml(str){
   return (str||'').replace(/[&<>'"]/g, tag => ({
     '&': '&amp;',
@@ -421,41 +1356,6 @@ function escapeHtml(str){
 }
 
 let annList=[];
-function annRowStyle(){
-  const s=document.createElement('style');s.textContent=`
-    .an-new-box{background:#101217;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;margin-top:10px}
-    .an-card{background:#121318;border:1px solid var(--line);border-left:3px solid var(--card-border,#e31b23);border-radius:14px;padding:16px;margin-top:12px;animation:pop .3s ease both;position:relative}
-    .an-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-    .an-head .t{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--dim)}
-    .an-del{background:rgba(227,27,35,.14);border:1px solid rgba(227,27,35,.5);color:var(--red2);height:30px;border-radius:8px;cursor:pointer;padding:0 12px;margin:0;font-size:11px;font-weight:800;transition:.2s;width:auto;display:inline-flex;align-items:center;gap:5px}
-    .an-del:hover{background:var(--red);color:#fff;box-shadow:0 4px 14px rgba(227,27,35,.4);transform:translateY(-1px)}
-    .an-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-    @media(max-width:600px){.an-grid{grid-template-columns:1fr}}
-    .an-lab{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;display:block}
-    .an-grid input,.an-grid select,.an-grid textarea{padding:10px 12px;font-size:13px;width:100%;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;outline:none;transition:.2s}
-    .an-grid input:focus,.an-grid select:focus,.an-grid textarea:focus{border-color:var(--red)}
-    .an-preview-card{background:linear-gradient(160deg,#1b1d23,#16181d);border:1px dashed rgba(255,255,255,.15);border-radius:12px;padding:16px;margin-top:6px;transition:.3s}
-    .an-ptag{display:inline-flex;align-items:center;gap:7px;padding:6px 16px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);text-shadow:0 1px 3px rgba(0,0,0,.7);user-select:none}
-    .an-pdot{width:7px;height:7px;border-radius:50%;background:#fff;display:inline-block;box-shadow:0 0 6px #fff;animation:dotPulse 1.6s ease-in-out infinite}
-    @keyframes dotPulse{0%,100%{transform:scale(0.8);opacity:.7}50%{transform:scale(1.35);opacity:1}}
-
-    @keyframes glowRed{0%,100%{box-shadow:0 0 12px 2px rgba(227,27,35,.5),0 0 24px 4px rgba(227,27,35,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(255,77,84,.85),0 0 38px 8px rgba(227,27,35,.45);transform:scale(1.025)}}
-    @keyframes glowGreen{0%,100%{box-shadow:0 0 12px 2px rgba(0,224,143,.5),0 0 24px 4px rgba(0,224,143,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(0,224,143,.85),0 0 38px 8px rgba(0,224,143,.45);transform:scale(1.025)}}
-    @keyframes glowBlue{0%,100%{box-shadow:0 0 12px 2px rgba(88,101,242,.5),0 0 24px 4px rgba(88,101,242,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(88,101,242,.85),0 0 38px 8px rgba(88,101,242,.45);transform:scale(1.025)}}
-    @keyframes glowYellow{0%,100%{box-shadow:0 0 12px 2px rgba(245,158,11,.5),0 0 24px 4px rgba(245,158,11,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(251,191,36,.85),0 0 38px 8px rgba(245,158,11,.45);transform:scale(1.025)}}
-    @keyframes glowPurple{0%,100%{box-shadow:0 0 12px 2px rgba(168,85,247,.5),0 0 24px 4px rgba(168,85,247,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(192,132,252,.85),0 0 38px 8px rgba(168,85,247,.45);transform:scale(1.025)}}
-    @keyframes glowCyan{0%,100%{box-shadow:0 0 12px 2px rgba(6,182,212,.5),0 0 24px 4px rgba(6,182,212,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(34,211,238,.85),0 0 38px 8px rgba(6,182,212,.45);transform:scale(1.025)}}
-
-    .an-ptag.red{background:linear-gradient(135deg,#e31b23,#991b1b);border-color:rgba(255,120,120,.45);animation:glowRed 2.3s ease-in-out infinite}
-    .an-ptag.green{background:linear-gradient(135deg,#059669,#00b06f);border-color:rgba(100,255,180,.45);animation:glowGreen 2.3s ease-in-out infinite}
-    .an-ptag.blue{background:linear-gradient(135deg,#2563eb,#4f46e5);border-color:rgba(140,170,255,.45);animation:glowBlue 2.3s ease-in-out infinite}
-    .an-ptag.yellow{background:linear-gradient(135deg,#d97706,#b45309);border-color:rgba(255,220,100,.45);animation:glowYellow 2.3s ease-in-out infinite}
-    .an-ptag.purple{background:linear-gradient(135deg,#7c3aed,#9333ea);border-color:rgba(210,140,255,.45);animation:glowPurple 2.3s ease-in-out infinite}
-    .an-ptag.cyan{background:linear-gradient(135deg,#0891b2,#0284c7);border-color:rgba(100,240,255,.45);animation:glowCyan 2.3s ease-in-out infinite}
-  `;document.head.appendChild(s);
-}
-annRowStyle();
-
 const ANN_COLORS=['red','yellow','green','blue','purple','cyan'];
 const ANN_COLOR_HEX={
   red:'#e31b23',
@@ -466,12 +1366,12 @@ const ANN_COLOR_HEX={
   cyan:'#06b6d4'
 };
 const ANN_COLOR_NAMES={
-  red:'🔴 Kırmızı (Teknik Aksaklık / Acil)',
-  yellow:'🟡 Sarı (Bakım / Uyarı)',
-  green:'🟢 Yeşil (Güncelleme / Çözüldü)',
-  blue:'🔵 Mavi (Bilgilendirme / Duyuru)',
-  purple:'🟣 Mor (Özel / Yenilik)',
-  cyan:'🔷 Camgöbeği (Sistem / Bildirim)'
+  red:'Kırmızı (Teknik Aksaklık / Acil)',
+  yellow:'Sarı (Bakım / Uyarı)',
+  green:'Yeşil (Güncelleme / Çözüldü)',
+  blue:'Mavi (Bilgilendirme / Duyuru)',
+  purple:'Mor (Özel / Yenilik)',
+  cyan:'Camgöbeği (Sistem / Bildirim)'
 };
 
 function initNewAnnForm(){
@@ -486,7 +1386,7 @@ function updateNewAnnPreview(){
   const tag=($('newAnnTag')?$('newAnnTag').value:'').trim()||'TEKNİK AKSAKLIK';
   const color=($('newAnnColor')?$('newAnnColor').value:'red')||'red';
   const date=($('newAnnDate')?$('newAnnDate').value:'').trim()||new Date().toLocaleDateString('tr-TR');
-  const text=($('newAnnText')?$('newAnnText').value:'').trim()||'Duyuru açıklaması burada canlı görünecek…';
+  const text=($('newAnnText')?$('newAnnText').value:'').trim()||'Duyuru açıklaması burada canlı neon parıltısıyla görünecek…';
   const hex=ANN_COLOR_HEX[color]||'#e31b23';
 
   const preview=$('newAnnPreview');
@@ -495,9 +1395,12 @@ function updateNewAnnPreview(){
   preview.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
       <span class="an-ptag ${color}"><span class="an-pdot"></span><span>${escapeHtml(tag)}</span></span>
-      <span style="font-size:12px;color:var(--dim)">📅 ${escapeHtml(date)}</span>
+      <span style="font-size:12px;color:var(--dim);display:inline-flex;align-items:center;gap:4px">
+        <svg class="icn" style="width:13px;height:13px" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        ${escapeHtml(date)}
+      </span>
     </div>
-    <div style="font-size:14px;color:var(--text);line-height:1.6">${escapeHtml(text).replace(/\n/g,'<br>')}</div>
+    <div style="font-size:13.5px;color:var(--text);line-height:1.6">${escapeHtml(text).replace(/\n/g,'<br>')}</div>
   `;
 }
 
@@ -508,11 +1411,11 @@ function addNewAnnouncement(){
   const text=($('newAnnText')?$('newAnnText').value:'').trim();
 
   if(!tag&&!text){
-    msg('m2','Lütfen tag veya duyuru açıklaması girin.',false);
+    msg('m2','Lütfen bir tag metni veya duyuru açıklaması girin.',false);
     return;
   }
 
-  // Yeni duyuru listenin EN BAŞINA eklenir (böylece eski duyurular silinmez, korunur)
+  // YENİ DUYURU EN BAŞA EKLENİR (Eski duyurular korunur ve silinmez)
   annList.unshift({
     tag:tag||'Duyuru',
     color:color,
@@ -520,14 +1423,13 @@ function addNewAnnouncement(){
     text:text
   });
 
-  // Formu sonraki duyuruya hazırla
   if($('newAnnTag'))$('newAnnTag').value='';
   if($('newAnnText'))$('newAnnText').value='';
   if($('newAnnDate'))$('newAnnDate').value=new Date().toLocaleDateString('tr-TR');
   updateNewAnnPreview();
 
   annRender();
-  msg('m2','✅ Duyuru listeye eklendi! Değişiklikleri yayına almak için "DUYURULARI GÖNDER" butonuna basın.',true);
+  msg('m2','Duyuru listeye eklendi! Sitede canlı görünmesi için "Yayına Gönder" butonuna basın.',true);
 }
 
 function annDel(i){
@@ -539,13 +1441,13 @@ function annDel(i){
   }
   annList.splice(i, 1);
   annRender();
-  msg('m2', `🗑️ ${title} duyurusu listeden silindi! Değişiklikleri yayına almak için "DUYURULARI GÖNDER" butonuna basın.`, true);
+  msg('m2', `${title} duyurusu listeden kaldırıldı. Değişikliği tamamlamak için "Yayına Gönder" butonuna basın.`, true);
 }
 
 function quickDeleteAnnouncement(){
-  const sel = document.getElementById('quickDelSelect');
+  const sel = $('quickDelSelect');
   if(!sel || sel.value === "" || sel.value === undefined){
-    msg('m2', 'Lütfen silinecek duyuruyu seçin.', false);
+    msg('m2', 'Lütfen silinecek bir duyuru seçin.', false);
     return;
   }
   const idx = parseInt(sel.value, 10);
@@ -561,36 +1463,38 @@ function clearAllAnnouncements(){
     msg('m2', 'Zaten kayıtlı duyuru bulunmuyor.', false);
     return;
   }
-  if(!confirm('⚠️ DİKKAT: Listedeki TÜM duyuruları silmek istediğinize emin misiniz?')){
+  if(!confirm('DİKKAT: Listedeki TÜM duyuruları silmek istediğinize emin misiniz?')){
     return;
   }
   annList = [];
   annRender();
-  msg('m2', '🗑️ Tüm duyurular silindi! Siteden de temizlenmesi için "DUYURULARI GÖNDER" butonuna basın.', true);
+  msg('m2', 'Tüm duyurular listeden temizlendi. Siteden de kaldırılması için "Yayına Gönder" butonuna basın.', true);
 }
 
 function updateQuickDelSelect(){
-  const sel = document.getElementById('quickDelSelect');
+  const sel = $('quickDelSelect');
   if(!sel) return;
   if(!annList.length){
     sel.innerHTML = '<option value="">(Silinecek duyuru bulunmuyor)</option>';
     return;
   }
   sel.innerHTML = annList.map((a, i) => {
-    const snippet = (a.text || '').replace(/\s+/g, ' ').slice(0, 42);
-    return `<option value="${i}">#${i+1} [${escapeHtml(a.tag || 'Duyuru')}] - ${escapeHtml(a.date || '')}: ${escapeHtml(snippet)}...</option>`;
+    const snippet = (a.text || '').replace(/\s+/g, ' ').slice(0, 45);
+    return `<option value="${i}">#${i+1} [${escapeHtml(a.tag || 'Duyuru')}] · ${escapeHtml(a.date || '')}: ${escapeHtml(snippet)}...</option>`;
   }).join('');
 }
 
 function annRender(){
-  const w = document.getElementById('annRows');
-  if(!w) return;
-  const badge = document.getElementById('annCountBadge');
-  if(badge) badge.textContent = `${annList.length} Duyuru`;
+  const w = $('annRows');
+  const countBadge = $('annCountBadge');
+  const badgeTop = $('annBadgeTop');
+  if(countBadge) countBadge.textContent = `${annList.length} Duyuru`;
+  if(badgeTop) badgeTop.textContent = annList.length;
   updateQuickDelSelect();
 
+  if(!w) return;
   if(!annList.length){
-    w.innerHTML = `<div style="color:var(--dim);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;font-size:13px">Henüz yayında duyuru yok. Yukarıdaki formdan yeni bir duyuru oluşturup ekleyebilirsiniz.</div>`;
+    w.innerHTML = `<div style="color:var(--dim);text-align:center;padding:36px 20px;border:1px dashed var(--line);border-radius:12px;font-size:13px">Henüz yayında duyuru yok. Sol taraftaki formdan yeni bir duyuru oluşturup ekleyebilirsiniz.</div>`;
     return;
   }
 
@@ -598,35 +1502,36 @@ function annRender(){
     const col = ANN_COLORS.includes(a.color) ? a.color : 'red';
     const hex = ANN_COLOR_HEX[col] || '#e31b23';
     return `
-      <div class="an-card an-row" style="--card-border:${hex}">
-        <div class="an-head">
-          <div style="display:flex;align-items:center;gap:10px">
+      <div class="an-card" style="--card-border:${hex}">
+        <div class="an-card-top">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
             <span class="an-ptag ${col}"><span class="an-pdot"></span><span>${escapeHtml(a.tag || 'TAG')}</span></span>
-            <span style="font-size:11px;color:var(--dim)">#${i+1} · ${escapeHtml(a.date || '')}</span>
+            <span style="font-size:11.5px;color:var(--dim)">#${i+1} · ${escapeHtml(a.date || '')}</span>
           </div>
-          <button class="an-del" onclick="annDel(${i})" title="Bu duyuruyu sil">
+          <button class="an-del-btn" onclick="annDel(${i})" title="Bu duyuruyu sil">
             <svg class="icn" style="width:12px;height:12px" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-            SİL
+            Sil
           </button>
         </div>
+
         <div class="an-grid">
           <div>
-            <span class="an-lab">Tag (örn. Teknik Aksaklık)</span>
-            <input placeholder="Teknik Aksaklık" value="${escapeHtml(a.tag||'')}" oninput="annList[${i}].tag=this.value;annRenderCard(${i})">
+            <label>Tag Metni</label>
+            <input placeholder="Teknik Aksaklık" value="${escapeHtml(a.tag||'')}" oninput="annList[${i}].tag=this.value;annRenderCard()">
           </div>
           <div>
-            <span class="an-lab">Renk</span>
-            <select onchange="annList[${i}].color=this.value;annRenderCard(${i})">
+            <label>Tag Rengi / Glow</label>
+            <select onchange="annList[${i}].color=this.value;annRenderCard()">
               ${ANN_COLORS.map(c=>`<option value="${c}" ${a.color===c?'selected':''}>${ANN_COLOR_NAMES[c]}</option>`).join('')}
             </select>
           </div>
-          <div>
-            <span class="an-lab">Tarih</span>
+          <div class="an-full">
+            <label>Tarih</label>
             <input value="${escapeHtml(a.date||'')}" oninput="annList[${i}].date=this.value">
           </div>
-          <div style="grid-column:1/-1">
-            <span class="an-lab">Duyuru Açıklaması</span>
-            <textarea oninput="annList[${i}].text=this.value" style="width:100%;min-height:65px;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 10px;font-size:13px;outline:none">${escapeHtml(a.text||'')}</textarea>
+          <div class="an-full">
+            <label>Duyuru Açıklaması</label>
+            <textarea oninput="annList[${i}].text=this.value" style="min-height:65px">${escapeHtml(a.text||'')}</textarea>
           </div>
         </div>
       </div>
@@ -658,7 +1563,7 @@ async function loadAnnouncementsToPanel(){
       return;
     }
   }catch(e){
-    log('ℹ️ announcements.json bilgisi: '+e.message);
+    log('[BİLGİ] announcements.json: '+e.message);
   }
 
   if(!annList.length){
@@ -678,17 +1583,17 @@ async function annPush(){
   CFG.pat=getToken();
   if(!CFG.pat){logout();return}
   const valid=annList.filter(a=>(a.tag||'').trim()||(a.text||'').trim());
-  if(!valid.length){msg('m2','En az bir duyuru gerekli.',false);return}
+  if(!valid.length){msg('m2','Lütfen en az bir duyuru ekleyin.',false);return}
 
   try{
     const jsonStr=JSON.stringify(valid,null,2);
     await ghPut('announcements.json',jsonStr,'Mur4 Offsets: duyurular güncellendi');
-    msg('m2','✅ Duyurular GitHub\'a gönderildi! ('+valid.length+' duyuru aktif). Site 1-2 dk içinde güncellenir.',true);
-    log('✅ announcements.json yazıldı ('+valid.length+' duyuru kaydedildi — eskiler korundu)');
+    msg('m2','Duyurular GitHub\'a aktarıldı! ('+valid.length+' duyuru aktif). Site 1-2 dakika içinde yenilenecektir.',true);
+    log('[BAŞARILI] announcements.json kaydedildi ('+valid.length+' duyuru — geçmiş duyurular korundu)');
     annList=valid;
     annRender();
 
-    // Eger Discord webhook varsa son duyuruyu ilet
+    // Discord Webhook yayini
     const hook=$('hook').value.trim();
     if(hook&&valid[0]){
       const latest=valid[0];
@@ -700,21 +1605,21 @@ async function annPush(){
           body:JSON.stringify({
             username:'Mur4 Offsets Duyuru',
             embeds:[{
-              title:'📢 ['+(latest.tag||'DUYURU')+']',
+              title:'['+(latest.tag||'DUYURU')+']',
               description:latest.text||'',
               color:colorMap[latest.color]||0xe31b23,
               footer:{text:'Tarih: '+(latest.date||'')+' · Mur4 Offsets'}
             }]
           })
         });
-        log('🔔 Son duyuru Discord webhook üzerinden de paylaşıldı');
+        log('[BİLGİ] Son duyuru Discord webhook üzerinden paylaşıldı');
       }catch(e){
-        log('⚠️ Webhook duyuru hatası: '+e.message);
+        log('[UYARI] Webhook iletim hatası: '+e.message);
       }
     }
   }catch(e){
     msg('m2','Hata: '+e.message,false);
-    log('❌ announcements.json → '+e.message);
+    log('[HATA] announcements.json → '+e.message);
   }
 }
 
@@ -731,12 +1636,21 @@ function downloadAnnouncementsJson(){
 }
 
 async function testHook(){
-  const hook=$('hook').value.trim();if(!hook){msg('m2','Webhook URL boş.',false);return}
+  const hook=$('hook').value.trim();
+  if(!hook){msg('m2','Webhook URL alanı boş.',false);return}
   try{
-    const r=await fetch(hook,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({username:'Mur4 Offsets',content:'🔔 Test announce — site panel connected! ✅'})});
-    msg('m2',r.ok?'Test duyurusu Discord\'a gitti!':'Webhook HTTP '+r.status,r.ok);
-  }catch(e){msg('m2','Hata: '+e.message,false)}
+    const r=await fetch(hook,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        username:'Mur4 Offsets',
+        content:'Yönetim paneli Discord Webhook bağlantı testi başarılı.'
+      })
+    });
+    msg('m2',r.ok?'Test duyurusu başarıyla Discord\'a gönderildi!':'Webhook HTTP '+r.status,r.ok);
+  }catch(e){
+    msg('m2','Hata: '+e.message,false);
+  }
 }
 </script>
 </body>
