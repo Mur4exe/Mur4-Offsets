@@ -86,6 +86,62 @@ button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:12px;font-
       <button class="btn-gh" style="margin-top:0" onclick="staffPush()">🚀 KADROYU GÖNDER</button>
     </div>
 
+    <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <label style="margin:0;font-size:13px;color:var(--text);font-weight:800;letter-spacing:1px">4) DUYURU YÖNETİMİ</label>
+        <span style="font-size:11px;color:var(--dim);background:rgba(255,255,255,.05);padding:3px 10px;border-radius:99px" id="annCountBadge">0 Duyuru</span>
+      </div>
+      <p class="hint" style="margin-top:2px;margin-bottom:12px">Yeni duyuru eklediğinizde <b>eski duyurular korunur ve silinmez</b>. Yeni duyuru listenin en başına eklenir ve sitede canlı neon glow efektiyle görünür.</p>
+
+      <!-- YENI DUYURU EKLEME KARTI -->
+      <div class="an-new-box">
+        <div style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--red2);margin-bottom:12px">✨ YENİ DUYURU OLUŞTUR</div>
+        <div class="an-grid">
+          <div>
+            <span class="an-lab">Tag Metni (Örn: Teknik Aksaklık)</span>
+            <input id="newAnnTag" placeholder="Teknik Aksaklık" value="Teknik Aksaklık" oninput="updateNewAnnPreview()">
+          </div>
+          <div>
+            <span class="an-lab">Tag Rengi / Glow</span>
+            <select id="newAnnColor" onchange="updateNewAnnPreview()">
+              <option value="red" selected>🔴 Kırmızı (Teknik Aksaklık / Acil)</option>
+              <option value="yellow">🟡 Sarı (Bakım / Uyarı)</option>
+              <option value="green">🟢 Yeşil (Güncelleme / Çözüldü)</option>
+              <option value="blue">🔵 Mavi (Bilgilendirme / Duyuru)</option>
+              <option value="purple">🟣 Mor (Özel / Yenilik)</option>
+              <option value="cyan">🔷 Camgöbeği (Sistem / Bildirim)</option>
+            </select>
+          </div>
+          <div>
+            <span class="an-lab">Tarih</span>
+            <input id="newAnnDate" oninput="updateNewAnnPreview()">
+          </div>
+          <div style="grid-column:1/-1">
+            <span class="an-lab">Duyuru Açıklaması (Tag'in altında görünecek metin)</span>
+            <textarea id="newAnnText" placeholder="Duyuru açıklaması buraya yazılacak…" oninput="updateNewAnnPreview()" style="width:100%;min-height:80px;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font-size:13px;outline:none"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <span class="an-lab">CANLI GLOW ÖNİZLEME:</span>
+          <div class="an-preview-card" id="newAnnPreview"></div>
+        </div>
+
+        <button class="btn-gh" style="margin-top:12px;background:linear-gradient(135deg,#0a7d52,#00b06f);color:#fff" onclick="addNewAnnouncement()">➕ Bu Duyuruyu Listeye Ekle</button>
+      </div>
+
+      <!-- MEVCUT VE GECMIS DUYURULAR -->
+      <div style="margin-top:20px">
+        <span class="an-lab" style="margin:0 0 8px;font-size:11px">📋 YAYINDAKİ DUYURULAR LİSTESİ (ESKİLER KORUNUR)</span>
+        <div id="annRows"></div>
+      </div>
+
+      <div class="row" style="margin-top:14px">
+        <button class="btn-up" style="margin-top:0" onclick="annPush()">🚀 DUYURULARI GÖNDER (announcements.json)</button>
+        <button class="btn-gh" style="margin-top:0;max-width:160px" onclick="downloadAnnouncementsJson()">💾 JSON İndir</button>
+      </div>
+    </div>
+
     <div class="log" id="log"></div>
     <button class="btn-gh" onclick="logout()">🚪 ÇIKIŞ YAP</button>
   </div>
@@ -137,6 +193,8 @@ async function login(){
     if($('remember').checked) localStorage.setItem(LS+'_t',pat); else sessionStorage.setItem(LS+'_t',pat);
     openPanel();msg('m1','Giriş başarılı!',true);
     loadStaffToPanel();
+    loadAnnouncementsToPanel();
+    initNewAnnForm();
   }catch(e){msg('m1','Ağ hatası: '+e.message,false)}
 }
 function openPanel(){
@@ -166,6 +224,8 @@ async function loadStaffToPanel(){
           CFG={user:FIXED_USER,repo:FIXED_REPO,branch:FIXED_BRANCH,pat};
           openPanel();
           loadStaffToPanel();
+          loadAnnouncementsToPanel();
+          initNewAnnForm();
         }
       }
     }catch(e){}
@@ -329,10 +389,286 @@ async function staffPush(){
   }catch(e){msg('m2','Hata: '+e.message,false);log('❌ staff.json → '+e.message)}
 }
 (async function(){ // token yoksa seed yine de hazir olsun
-  if(!getToken())staffAdd({name:"Mur4t",rank:"Kurucu / Founder",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+  if(!getToken()){
+    staffAdd({name:"Mur4t",rank:"Kurucu / Founder",discordId:"910806118526234624",discordTag:"! A 1 Mur4t"});
+    loadAnnouncementsToPanel();
+    initNewAnnForm();
+  }
 })();
 
-/* ---- WEBHOOK TEST ---- */
+/* ---- DUYURU YÖNETİMİ ---- */
+function escapeHtml(str){
+  return (str||'').replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[tag] || tag));
+}
+
+let annList=[];
+function annRowStyle(){
+  const s=document.createElement('style');s.textContent=`
+    .an-new-box{background:#101217;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;margin-top:10px}
+    .an-card{background:#121318;border:1px solid var(--line);border-left:3px solid var(--card-border,#e31b23);border-radius:14px;padding:16px;margin-top:12px;animation:pop .3s ease both;position:relative}
+    .an-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+    .an-head .t{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--dim)}
+    .an-del{background:rgba(227,27,35,.1);border:1px solid rgba(227,27,35,.4);color:var(--red2);height:28px;border-radius:8px;cursor:pointer;padding:0 12px;margin:0;font-size:11px;font-weight:700;transition:.2s;width:auto}
+    .an-del:hover{background:var(--red);color:#fff}
+    .an-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    @media(max-width:600px){.an-grid{grid-template-columns:1fr}}
+    .an-lab{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;display:block}
+    .an-grid input,.an-grid select,.an-grid textarea{padding:10px 12px;font-size:13px;width:100%;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;outline:none;transition:.2s}
+    .an-grid input:focus,.an-grid select:focus,.an-grid textarea:focus{border-color:var(--red)}
+    .an-preview-card{background:linear-gradient(160deg,#1b1d23,#16181d);border:1px dashed rgba(255,255,255,.15);border-radius:12px;padding:16px;margin-top:6px;transition:.3s}
+    .an-ptag{display:inline-flex;align-items:center;gap:7px;padding:6px 16px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);text-shadow:0 1px 3px rgba(0,0,0,.7);user-select:none}
+    .an-pdot{width:7px;height:7px;border-radius:50%;background:#fff;display:inline-block;box-shadow:0 0 6px #fff;animation:dotPulse 1.6s ease-in-out infinite}
+    @keyframes dotPulse{0%,100%{transform:scale(0.8);opacity:.7}50%{transform:scale(1.35);opacity:1}}
+
+    @keyframes glowRed{0%,100%{box-shadow:0 0 12px 2px rgba(227,27,35,.5),0 0 24px 4px rgba(227,27,35,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(255,77,84,.85),0 0 38px 8px rgba(227,27,35,.45);transform:scale(1.025)}}
+    @keyframes glowGreen{0%,100%{box-shadow:0 0 12px 2px rgba(0,224,143,.5),0 0 24px 4px rgba(0,224,143,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(0,224,143,.85),0 0 38px 8px rgba(0,224,143,.45);transform:scale(1.025)}}
+    @keyframes glowBlue{0%,100%{box-shadow:0 0 12px 2px rgba(88,101,242,.5),0 0 24px 4px rgba(88,101,242,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(88,101,242,.85),0 0 38px 8px rgba(88,101,242,.45);transform:scale(1.025)}}
+    @keyframes glowYellow{0%,100%{box-shadow:0 0 12px 2px rgba(245,158,11,.5),0 0 24px 4px rgba(245,158,11,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(251,191,36,.85),0 0 38px 8px rgba(245,158,11,.45);transform:scale(1.025)}}
+    @keyframes glowPurple{0%,100%{box-shadow:0 0 12px 2px rgba(168,85,247,.5),0 0 24px 4px rgba(168,85,247,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(192,132,252,.85),0 0 38px 8px rgba(168,85,247,.45);transform:scale(1.025)}}
+    @keyframes glowCyan{0%,100%{box-shadow:0 0 12px 2px rgba(6,182,212,.5),0 0 24px 4px rgba(6,182,212,.2);transform:scale(1)}50%{box-shadow:0 0 22px 5px rgba(34,211,238,.85),0 0 38px 8px rgba(6,182,212,.45);transform:scale(1.025)}}
+
+    .an-ptag.red{background:linear-gradient(135deg,#e31b23,#991b1b);border-color:rgba(255,120,120,.45);animation:glowRed 2.3s ease-in-out infinite}
+    .an-ptag.green{background:linear-gradient(135deg,#059669,#00b06f);border-color:rgba(100,255,180,.45);animation:glowGreen 2.3s ease-in-out infinite}
+    .an-ptag.blue{background:linear-gradient(135deg,#2563eb,#4f46e5);border-color:rgba(140,170,255,.45);animation:glowBlue 2.3s ease-in-out infinite}
+    .an-ptag.yellow{background:linear-gradient(135deg,#d97706,#b45309);border-color:rgba(255,220,100,.45);animation:glowYellow 2.3s ease-in-out infinite}
+    .an-ptag.purple{background:linear-gradient(135deg,#7c3aed,#9333ea);border-color:rgba(210,140,255,.45);animation:glowPurple 2.3s ease-in-out infinite}
+    .an-ptag.cyan{background:linear-gradient(135deg,#0891b2,#0284c7);border-color:rgba(100,240,255,.45);animation:glowCyan 2.3s ease-in-out infinite}
+  `;document.head.appendChild(s);
+}
+annRowStyle();
+
+const ANN_COLORS=['red','yellow','green','blue','purple','cyan'];
+const ANN_COLOR_HEX={
+  red:'#e31b23',
+  yellow:'#f59e0b',
+  green:'#00e08f',
+  blue:'#5865F2',
+  purple:'#a855f7',
+  cyan:'#06b6d4'
+};
+const ANN_COLOR_NAMES={
+  red:'🔴 Kırmızı (Teknik Aksaklık / Acil)',
+  yellow:'🟡 Sarı (Bakım / Uyarı)',
+  green:'🟢 Yeşil (Güncelleme / Çözüldü)',
+  blue:'🔵 Mavi (Bilgilendirme / Duyuru)',
+  purple:'🟣 Mor (Özel / Yenilik)',
+  cyan:'🔷 Camgöbeği (Sistem / Bildirim)'
+};
+
+function initNewAnnForm(){
+  const dateEl=$('newAnnDate');
+  if(dateEl&&!dateEl.value){
+    dateEl.value=new Date().toLocaleDateString('tr-TR');
+  }
+  updateNewAnnPreview();
+}
+
+function updateNewAnnPreview(){
+  const tag=($('newAnnTag')?$('newAnnTag').value:'').trim()||'TEKNİK AKSAKLIK';
+  const color=($('newAnnColor')?$('newAnnColor').value:'red')||'red';
+  const date=($('newAnnDate')?$('newAnnDate').value:'').trim()||new Date().toLocaleDateString('tr-TR');
+  const text=($('newAnnText')?$('newAnnText').value:'').trim()||'Duyuru açıklaması burada canlı görünecek…';
+  const hex=ANN_COLOR_HEX[color]||'#e31b23';
+
+  const preview=$('newAnnPreview');
+  if(!preview)return;
+  preview.style.borderLeft=`3px solid ${hex}`;
+  preview.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+      <span class="an-ptag ${color}"><span class="an-pdot"></span><span>${escapeHtml(tag)}</span></span>
+      <span style="font-size:12px;color:var(--dim)">📅 ${escapeHtml(date)}</span>
+    </div>
+    <div style="font-size:14px;color:var(--text);line-height:1.6">${escapeHtml(text).replace(/\n/g,'<br>')}</div>
+  `;
+}
+
+function addNewAnnouncement(){
+  const tag=($('newAnnTag')?$('newAnnTag').value:'').trim();
+  const color=($('newAnnColor')?$('newAnnColor').value:'red')||'red';
+  const date=($('newAnnDate')?$('newAnnDate').value:'').trim()||new Date().toLocaleDateString('tr-TR');
+  const text=($('newAnnText')?$('newAnnText').value:'').trim();
+
+  if(!tag&&!text){
+    msg('m2','Lütfen tag veya duyuru açıklaması girin.',false);
+    return;
+  }
+
+  // Yeni duyuru listenin EN BAŞINA eklenir (böylece eski duyurular silinmez, korunur)
+  annList.unshift({
+    tag:tag||'Duyuru',
+    color:color,
+    date:date,
+    text:text
+  });
+
+  // Formu sonraki duyuruya hazırla
+  if($('newAnnTag'))$('newAnnTag').value='';
+  if($('newAnnText'))$('newAnnText').value='';
+  if($('newAnnDate'))$('newAnnDate').value=new Date().toLocaleDateString('tr-TR');
+  updateNewAnnPreview();
+
+  annRender();
+  msg('m2','✅ Duyuru listeye eklendi! Değişiklikleri yayına almak için "DUYURULARI GÖNDER" butonuna basın.',true);
+}
+
+function annDel(i){
+  const tag=annList[i]?(annList[i].tag||'Bu duyuruyu'):'Bu duyuruyu';
+  if(confirm(`"${tag}" silinecek. Emin misiniz?`)){
+    annList.splice(i,1);
+    annRender();
+  }
+}
+
+function annRender(){
+  const w=document.getElementById('annRows');
+  if(!w)return;
+  const badge=document.getElementById('annCountBadge');
+  if(badge)badge.textContent=`${annList.length} Duyuru`;
+
+  if(!annList.length){
+    w.innerHTML=`<div style="color:var(--dim);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:12px;font-size:13px">Henüz yayında duyuru yok. Yukarıdaki formdan yeni bir duyuru oluşturup ekleyebilirsiniz.</div>`;
+    return;
+  }
+
+  w.innerHTML=annList.map((a,i)=>{
+    const col=ANN_COLORS.includes(a.color)?a.color:'red';
+    const hex=ANN_COLOR_HEX[col]||'#e31b23';
+    return `
+      <div class="an-card an-row" style="--card-border:${hex}">
+        <div class="an-head">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="an-ptag ${col}"><span class="an-pdot"></span><span>${escapeHtml(a.tag||'TAG')}</span></span>
+            <span style="font-size:11px;color:var(--dim)">#${i+1} · ${escapeHtml(a.date||'')}</span>
+          </div>
+          <button class="an-del" onclick="annDel(${i})">✕ SİL</button>
+        </div>
+        <div class="an-grid">
+          <div>
+            <span class="an-lab">Tag (örn. Teknik Aksaklık)</span>
+            <input placeholder="Teknik Aksaklık" value="${escapeHtml(a.tag||'')}" oninput="annList[${i}].tag=this.value;annRenderCard(${i})">
+          </div>
+          <div>
+            <span class="an-lab">Renk</span>
+            <select onchange="annList[${i}].color=this.value;annRenderCard(${i})">
+              ${ANN_COLORS.map(c=>`<option value="${c}" ${a.color===c?'selected':''}>${ANN_COLOR_NAMES[c]}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <span class="an-lab">Tarih</span>
+            <input value="${escapeHtml(a.date||'')}" oninput="annList[${i}].date=this.value">
+          </div>
+          <div style="grid-column:1/-1">
+            <span class="an-lab">Duyuru Açıklaması</span>
+            <textarea oninput="annList[${i}].text=this.value" style="width:100%;min-height:65px;background:#0e0f13;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 10px;font-size:13px;outline:none">${escapeHtml(a.text||'')}</textarea>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function annRenderCard(){
+  annRender();
+}
+
+async function loadAnnouncementsToPanel(){
+  try{
+    let data=null;
+    if(CFG&&CFG.pat){
+      const mf=await ghGet('announcements.json');
+      if(mf){
+        const txt=decodeURIComponent(escape(atob(mf.content.replace(/\n/g,''))));
+        data=JSON.parse(txt);
+      }
+    }
+    if(!data){
+      const r=await fetch('announcements.json?v='+Date.now());
+      if(r.ok)data=await r.json();
+    }
+    if(Array.isArray(data)&&data.length){
+      annList=data;
+      annRender();
+      return;
+    }
+  }catch(e){
+    log('ℹ️ announcements.json bilgisi: '+e.message);
+  }
+
+  if(!annList.length){
+    annList=[
+      {
+        tag:"Teknik Aksaklık",
+        color:"red",
+        date:new Date().toLocaleDateString('tr-TR'),
+        text:"Roblox son güncellemesi sonrası bazı offset adreslerinde geçici uyumsuzluk tespit edilmiştir. Sistemlerimiz otomatik doğrulama moduna alınmış olup en kısa sürede düzeltilmiş paket yayınlanacaktır."
+      }
+    ];
+    annRender();
+  }
+}
+
+async function annPush(){
+  CFG.pat=getToken();
+  if(!CFG.pat){logout();return}
+  const valid=annList.filter(a=>(a.tag||'').trim()||(a.text||'').trim());
+  if(!valid.length){msg('m2','En az bir duyuru gerekli.',false);return}
+
+  try{
+    const jsonStr=JSON.stringify(valid,null,2);
+    await ghPut('announcements.json',jsonStr,'Mur4 Offsets: duyurular güncellendi');
+    msg('m2','✅ Duyurular GitHub\'a gönderildi! ('+valid.length+' duyuru aktif). Site 1-2 dk içinde güncellenir.',true);
+    log('✅ announcements.json yazıldı ('+valid.length+' duyuru kaydedildi — eskiler korundu)');
+    annList=valid;
+    annRender();
+
+    // Eger Discord webhook varsa son duyuruyu ilet
+    const hook=$('hook').value.trim();
+    if(hook&&valid[0]){
+      const latest=valid[0];
+      const colorMap={red:0xe31b23,yellow:0xf59e0b,green:0x00e08f,blue:0x5865F2,purple:0xa855f7,cyan:0x06b6d4};
+      try{
+        await fetch(hook,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            username:'Mur4 Offsets Duyuru',
+            embeds:[{
+              title:'📢 ['+(latest.tag||'DUYURU')+']',
+              description:latest.text||'',
+              color:colorMap[latest.color]||0xe31b23,
+              footer:{text:'Tarih: '+(latest.date||'')+' · Mur4 Offsets'}
+            }]
+          })
+        });
+        log('🔔 Son duyuru Discord webhook üzerinden de paylaşıldı');
+      }catch(e){
+        log('⚠️ Webhook duyuru hatası: '+e.message);
+      }
+    }
+  }catch(e){
+    msg('m2','Hata: '+e.message,false);
+    log('❌ announcements.json → '+e.message);
+  }
+}
+
+function downloadAnnouncementsJson(){
+  const blob=new Blob([JSON.stringify(annList,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='announcements.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 async function testHook(){
   const hook=$('hook').value.trim();if(!hook){msg('m2','Webhook URL boş.',false);return}
   try{
