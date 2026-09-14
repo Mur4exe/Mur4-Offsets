@@ -1,0 +1,14 @@
+[
+  {
+    "tag": "Teknik Aksaklık",
+    "color": "red",
+    "date": "14.09.2026",
+    "text": "Roblox son güncellemesi sonrası bazı offset adreslerinde geçici uyumsuzluk tespit edilmiştir. Sistemlerimiz otomatik doğrulama moduna alınmış olup en kısa sürede düzeltilmiş paket yayınlanacaktır."
+  },
+  {
+    "tag": "Güncelleme",
+    "color": "green",
+    "date": "13.09.2026",
+    "text": "Mur4 Offsets v2 platformu yayında! Canlı doğrulanmış external offsetleri artık web sitemiz üzerinden anlık olarak takip edebilir ve indirebilirsiniz."
+  }
+]
