@@ -174,6 +174,7 @@ footer .brand{color:var(--text);font-weight:800}
     <div id="tabs">
       <button data-tab="home" class="on"><svg class="icn" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span data-i18n="tabHome">Home</span></button>
       <button data-tab="offsets"><svg class="icn" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span data-i18n="tabOffsets">Offset Browser</span></button>
+      <button data-tab="announce"><svg class="icn" viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg><span data-i18n="tabAnnounce">Announcements</span></button>
       <button data-tab="downloads"><svg class="icn" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span data-i18n="tabDownloads">Downloads</span></button>
       <button data-tab="staff"><svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span data-i18n="tabStaff">Staff</span></button>
     </div>
@@ -204,6 +205,49 @@ footer .brand{color:var(--text);font-weight:800}
 .staff-card .ava img{width:100%;height:100%;object-fit:cover}
 .staff-rank{display:inline-block;margin-top:8px;padding:5px 16px;border-radius:99px;font-size:12px;font-weight:800;background:linear-gradient(135deg,var(--red),#8f1218);color:#fff;letter-spacing:1px}
 .staff-dc{margin-top:8px;font-size:12px;color:var(--dim)}
+
+/* ===== DUYURULAR ===== */
+.ann-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-left:4px solid var(--tag-accent,var(--red));border-radius:16px;padding:22px;margin-bottom:18px;transition:all .28s ease;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+.ann-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18);box-shadow:0 12px 36px rgba(0,0,0,.4)}
+.ann-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px}
+.ann-tag{display:inline-flex;align-items:center;gap:8px;padding:7px 18px;border-radius:999px;font-size:12.5px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);text-shadow:0 1px 3px rgba(0,0,0,.7);user-select:none}
+.ann-dot{width:8px;height:8px;border-radius:50%;background:#fff;display:inline-block;box-shadow:0 0 8px #fff;animation:dotPulse 1.6s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{transform:scale(0.8);opacity:.7}50%{transform:scale(1.35);opacity:1}}
+
+@keyframes glowRed{
+  0%,100%{box-shadow:0 0 12px 2px rgba(227,27,35,.5),0 0 24px 4px rgba(227,27,35,.2);transform:scale(1)}
+  50%{box-shadow:0 0 22px 5px rgba(255,77,84,.85),0 0 38px 8px rgba(227,27,35,.45);transform:scale(1.025)}
+}
+@keyframes glowGreen{
+  0%,100%{box-shadow:0 0 12px 2px rgba(0,224,143,.5),0 0 24px 4px rgba(0,224,143,.2);transform:scale(1)}
+  50%{box-shadow:0 0 22px 5px rgba(0,224,143,.85),0 0 38px 8px rgba(0,224,143,.45);transform:scale(1.025)}
+}
+@keyframes glowBlue{
+  0%,100%{box-shadow:0 0 12px 2px rgba(88,101,242,.5),0 0 24px 4px rgba(88,101,242,.2);transform:scale(1)}
+  50%{box-shadow:0 0 22px 5px rgba(88,101,242,.85),0 0 38px 8px rgba(88,101,242,.45);transform:scale(1.025)}
+}
+@keyframes glowYellow{
+  0%,100%{box-shadow:0 0 12px 2px rgba(245,158,11,.5),0 0 24px 4px rgba(245,158,11,.2);transform:scale(1)}
+  50%{box-shadow:0 0 22px 5px rgba(251,191,36,.85),0 0 38px 8px rgba(245,158,11,.45);transform:scale(1.025)}
+}
+@keyframes glowPurple{
+  0%,100%{box-shadow:0 0 12px 2px rgba(168,85,247,.5),0 0 24px 4px rgba(168,85,247,.2);transform:scale(1)}
+  50%{box-shadow:0 0 22px 5px rgba(192,132,252,.85),0 0 38px 8px rgba(168,85,247,.45);transform:scale(1.025)}
+}
+@keyframes glowCyan{
+  0%,100%{box-shadow:0 0 12px 2px rgba(6,182,212,.5),0 0 24px 4px rgba(6,182,212,.2);transform:scale(1)}
+  50%{box-shadow:0 0 22px 5px rgba(34,211,238,.85),0 0 38px 8px rgba(6,182,212,.45);transform:scale(1.025)}
+}
+
+.ann-tag.red{background:linear-gradient(135deg,#e31b23,#991b1b);border-color:rgba(255,120,120,.45);animation:glowRed 2.3s ease-in-out infinite}
+.ann-tag.green{background:linear-gradient(135deg,#059669,#00b06f);border-color:rgba(100,255,180,.45);animation:glowGreen 2.3s ease-in-out infinite}
+.ann-tag.blue{background:linear-gradient(135deg,#2563eb,#4f46e5);border-color:rgba(140,170,255,.45);animation:glowBlue 2.3s ease-in-out infinite}
+.ann-tag.yellow{background:linear-gradient(135deg,#d97706,#b45309);border-color:rgba(255,220,100,.45);animation:glowYellow 2.3s ease-in-out infinite}
+.ann-tag.purple{background:linear-gradient(135deg,#7c3aed,#9333ea);border-color:rgba(210,140,255,.45);animation:glowPurple 2.3s ease-in-out infinite}
+.ann-tag.cyan{background:linear-gradient(135deg,#0891b2,#0284c7);border-color:rgba(100,240,255,.45);animation:glowCyan 2.3s ease-in-out infinite}
+
+.ann-date{font-size:12.5px;color:var(--dim);display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.ann-text{font-size:15px;line-height:1.75;color:var(--text);white-space:normal;word-break:break-word}
 </style>
 </div>
 
@@ -243,6 +287,12 @@ footer .brand{color:var(--text);font-weight:800}
   <div class="sec" style="margin-top:34px"><svg class="icn" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span data-i18n="staffTitle">Staff Team</span></div>
   <p style="color:var(--dim);font-size:14px;margin:-6px 0 18px" data-i18n="staffSub">The people behind Mur4 Offsets.</p>
   <div class="staff-grid" id="staffGrid"></div>
+</div>
+
+<div class="wrap tab" id="tab-announce">
+  <div class="sec" style="margin-top:34px"><svg class="icn" viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg><span data-i18n="annTitle">Announcements</span></div>
+  <p style="color:var(--dim);font-size:14px;margin:-6px 0 18px" data-i18n="annSub">Official updates and status from Mur4t.</p>
+  <div id="annList"></div>
 </div>
 
 <div class="wrap tab" id="tab-downloads">
@@ -381,12 +431,13 @@ const EN = {
   tabHome:"Home", tabOffsets:"Offset Browser", tabDownloads:"Downloads",
   copied:"Copied!", lastUp:"Updated", lastNow:"just now", uM:"min ago", uH:"h ago", uD:"d ago",
   tabStaff:"Staff", staffTitle:"Staff Team", staffSub:"The people behind Mur4 Offsets.",
+  tabAnnounce:"Announcements", annTitle:"Announcements", annSub:"Official updates and status from Mur4t.", annEmpty:"No announcements yet.",
   diffBtn:"Compare versions", diffRun:"Compare", diffAdded:"ADDED", diffRemoved:"REMOVED", diffChanged:"CHANGED", diffEmpty:"No differences between these versions.", diffSame:"same", diffSel:"Select two versions",
   dlNote:"All files are extracted from the live client and read-verified in memory (dead offsets filtered out) — write usage is expected to work but not guaranteed.",
   browserNote:"Offsets are extracted from the live client and read-verified in memory (dead ones are filtered out) — write usage is expected to work but not guaranteed."
 };
 const I18N = {
-tr:{join:"DISCORD'A KATIL",badgeAuto:"Her güncellemede otomatik",badgeLive:"Canlı doğrulanmış",badgeLive2:"offsetler",badgeZero:"Sıfır paste",badgeFree:"%100 ücretsiz",stOffsets:"Offset",stClasses:"Sınıf",stLive:"Canlı doğrulanmış",stVersion:"Roblox Sürümü",stOnline:"Şu An Online",secBrowser:"Offset Tarayıcı",searchPh:"Sınıf veya özellik ara… (örn. WalkSpeed)",secDownloads:"İndirilenler",tabHome:"Ana Sayfa",tabOffsets:"Offset Tarayıcı",tabDownloads:"İndirilenler",tabStaff:"Yetkili Kadrosu",staffTitle:"Yetkili Kadrosu",staffSub:"Mur4 Offsets'in arkasındaki ekip.",copied:"Kopyalandı!",lastUp:"Güncellendi",lastNow:"az önce",uM:"dk önce",uH:"sa önce",uD:"gün önce",diffBtn:"Sürümleri karşılaştır",diffRun:"Karşılaştır",diffAdded:"EKLENDİ",diffRemoved:"KALDIRILDI",diffChanged:"DEĞİŞTİ",diffEmpty:"Bu sürümler arasında fark yok.",diffSame:"aynı",diffSel:"İki sürüm seç",dlNote:"Tüm dosyalar canlı client'tan çıkarılır ve bellekte okuma doğrulamasından geçer (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",browserNote:"Offsetler canlı client'tan çıkarılıp bellekte okuma doğrulamasından geçirilir (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",dlJson:"Makine okunur · araçlar ve botlar için",dlTxt:"İnsan okunur namespace dökümü",dlH:"C++ header · projene direkt ekle",secVerify:"Doğrulama ve Topluluk",verifyT:"Offsetler nasıl doğrulanıyor?",verifyP1:"Eşsiz sentinel değerleri sandbox laboratuvarında Roblox property'leri üzerinden yazılır, ardından canlı client belleği taranır. Bulunan her adres zaman içinde tekrar örneklenip sınıflandırılır:",pillLive:"CANLI — değer script fazlarını takip ediyor",pillStable:"SABİT — sentinel değer yerinde",pillDead:"ÖLÜ — sürümlerden otomatik ayıklanır",verifyP2:"Ölü offsetler asla yayınlana pakete girmez. Tipik koşu: 246 CANLI / 136 SABİT / 0 ÖLÜ.",footerEdu:"Yalnızca eğitim ve araştırma amaçlıdır. Roblox Corporation ile bağlantılı değildir.",notFound:"offsets.json bulunamadı — admin panelinden dump dosyalarını yükle.",latest:"Son",filtered:"Filtreli",offsets:"offset"},
+tr:{join:"DISCORD'A KATIL",badgeAuto:"Her güncellemede otomatik",badgeLive:"Canlı doğrulanmış",badgeLive2:"offsetler",badgeZero:"Sıfır paste",badgeFree:"%100 ücretsiz",stOffsets:"Offset",stClasses:"Sınıf",stLive:"Canlı doğrulanmış",stVersion:"Roblox Sürümü",stOnline:"Şu An Online",secBrowser:"Offset Tarayıcı",searchPh:"Sınıf veya özellik ara… (örn. WalkSpeed)",secDownloads:"İndirilenler",tabHome:"Ana Sayfa",tabOffsets:"Offset Tarayıcı",tabDownloads:"İndirilenler",tabStaff:"Yetkili Kadrosu",staffTitle:"Yetkili Kadrosu",staffSub:"Mur4 Offsets'in arkasındaki ekip.",tabAnnounce:"Duyurular",annTitle:"Duyurular",annSub:"Mur4t'tan resmi güncellemeler ve durum bildirimleri.",annEmpty:"Henüz duyuru bulunmuyor.",copied:"Kopyalandı!",lastUp:"Güncellendi",lastNow:"az önce",uM:"dk önce",uH:"sa önce",uD:"gün önce",diffBtn:"Sürümleri karşılaştır",diffRun:"Karşılaştır",diffAdded:"EKLENDİ",diffRemoved:"KALDIRILDI",diffChanged:"DEĞİŞTİ",diffEmpty:"Bu sürümler arasında fark yok.",diffSame:"aynı",diffSel:"İki sürüm seç",dlNote:"Tüm dosyalar canlı client'tan çıkarılır ve bellekte okuma doğrulamasından geçer (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",browserNote:"Offsetler canlı client'tan çıkarılıp bellekte okuma doğrulamasından geçirilir (ölüler ayıklanır) — yazma tarafının çalışması beklenir ama garanti edilmez.",dlJson:"Makine okunur · araçlar ve botlar için",dlTxt:"İnsan okunur namespace dökümü",dlH:"C++ header · projene direkt ekle",secVerify:"Doğrulama ve Topluluk",verifyT:"Offsetler nasıl doğrulanıyor?",verifyP1:"Eşsiz sentinel değerleri sandbox laboratuvarında Roblox property'leri üzerinden yazılır, ardından canlı client belleği taranır. Bulunan her adres zaman içinde tekrar örneklenip sınıflandırılır:",pillLive:"CANLI — değer script fazlarını takip ediyor",pillStable:"SABİT — sentinel değer yerinde",pillDead:"ÖLÜ — sürümlerden otomatik ayıklanır",verifyP2:"Ölü offsetler asla yayınlana pakete girmez. Tipik koşu: 246 CANLI / 136 SABİT / 0 ÖLÜ.",footerEdu:"Yalnızca eğitim ve araştırma amaçlıdır. Roblox Corporation ile bağlantılı değildir.",notFound:"offsets.json bulunamadı — admin panelinden dump dosyalarını yükle.",latest:"Son",filtered:"Filtreli",offsets:"offset"},
 es:{join:"ÚNETE AL DISCORD",badgeAuto:"Actualizado en cada parche",badgeLive:"Verificado en vivo",badgeZero:"Cero paste",badgeFree:"100% gratis",stOffsets:"Offsets",stClasses:"Clases",stLive:"Verificados en vivo",stVersion:"Versión de Roblox",secBrowser:"Explorador de Offsets",searchPh:"Buscar clase o propiedad… (ej. WalkSpeed)",secDownloads:"Descargas",dlJson:"Legible por máquinas · para herramientas y bots",dlTxt:"Volcado legible por humanos",dlH:"Cabecera C++ · pégala en tu proyecto",secVerify:"Verificación y Comunidad",verifyT:"Cómo se verifican los offsets",pillLive:"ACTIVO — el valor sigue las fases del script",pillStable:"ESTABLE — valor centinela en su lugar",pillDead:"MUERTO — filtrado automáticamente",footerEdu:"Solo con fines educativos y de investigación. No afiliado a Roblox Corporation.",latest:"Última",filtered:"Filtrada",offsets:"offsets"},
 pt:{join:"ENTRE NO DISCORD",badgeAuto:"Atualizado a cada patch",badgeLive:"Verificado ao vivo",badgeZero:"Zero paste",badgeFree:"100% grátis",stOffsets:"Offsets",stClasses:"Classes",stLive:"Verificados ao vivo",stVersion:"Versão do Roblox",secBrowser:"Navegador de Offsets",searchPh:"Buscar classe ou propriedade… (ex. WalkSpeed)",secDownloads:"Downloads",dlJson:"Legível por máquina · para ferramentas e bots",dlTxt:"Dump legível por humanos",dlH:"Cabeçalho C++ · coloque no seu projeto",secVerify:"Verificação e Comunidade",verifyT:"Como os offsets são verificados",pillLive:"ATIVO — valor acompanha as fases do script",pillStable:"ESTÁVEL — valor sentinela no lugar",pillDead:"MORTO — filtrado automaticamente",footerEdu:"Apenas para fins educacionais e de pesquisa. Não afiliado à Roblox Corporation.",latest:"Mais recente",filtered:"Filtrada",offsets:"offsets"},
 fr:{join:"REJOINDRE LE DISCORD",badgeAuto:"Mis à jour à chaque patch",badgeLive:"Vérifié en direct",badgeZero:"Zéro paste",badgeFree:"100% gratuit",stOffsets:"Offsets",stClasses:"Classes",stLive:"Vérifiés en direct",stVersion:"Version Roblox",secBrowser:"Navigateur d'Offsets",searchPh:"Rechercher une classe ou propriété… (ex. WalkSpeed)",secDownloads:"Téléchargements",dlJson:"Lisible par machine · pour outils et bots",dlTxt:"Dump lisible par humains",dlH:"En-tête C++ · à intégrer dans votre projet",secVerify:"Vérification et Communauté",verifyT:"Comment les offsets sont vérifiés",pillLive:"VIVANT — la valeur suit les phases du script",pillStable:"STABLE — valeur sentinelle en place",pillDead:"MORT — filtré automatiquement",footerEdu:"À des fins éducatives et de recherche uniquement. Non affilié à Roblox Corporation.",latest:"Dernière",filtered:"Filtrée",offsets:"offsets"},
@@ -451,7 +502,64 @@ I18N.sl = Object.assign({},I18N.hr,{join:"PRIDRUŽI SE DISCORDU"});
 I18N.mk = Object.assign({},I18N.sr,{join:"ПРИКЛУЧИ СЕ НА ДИСКОРД"});
 I18N.ca = Object.assign({},I18N.es,{join:"UNEIX-TE AL DISCORD",latest:"Última",filtered:"Filtrada"});
 
-let LANG = localStorage.getItem("mur4lang") || "en";
+const ANNOUNCE_I18N = {
+  en:{tabAnnounce:"Announcements",annTitle:"Announcements",annSub:"Official updates and status from Mur4t.",annEmpty:"No announcements yet."},
+  tr:{tabAnnounce:"Duyurular",annTitle:"Duyurular",annSub:"Mur4t'tan resmi güncellemeler ve durum bildirimleri.",annEmpty:"Henüz duyuru bulunmuyor."},
+  es:{tabAnnounce:"Anuncios",annTitle:"Anuncios",annSub:"Actualizaciones y estado oficiales de Mur4t.",annEmpty:"Aún no hay anuncios."},
+  pt:{tabAnnounce:"Anúncios",annTitle:"Anúncios",annSub:"Atualizações e status oficiais de Mur4t.",annEmpty:"Nenhum anúncio ainda."},
+  fr:{tabAnnounce:"Annonces",annTitle:"Annonces",annSub:"Mises à jour et statuts officiels de Mur4t.",annEmpty:"Aucune annonce pour le moment."},
+  de:{tabAnnounce:"Ankündigungen",annTitle:"Ankündigungen",annSub:"Offizielle Updates und Status von Mur4t.",annEmpty:"Noch keine Ankündigungen vorhanden."},
+  it:{tabAnnounce:"Annunci",annTitle:"Annunci",annSub:"Aggiornamenti ufficiali e stato da Mur4t.",annEmpty:"Nessun annuncio al momento."},
+  nl:{tabAnnounce:"Aankondigingen",annTitle:"Aankondigingen",annSub:"Officiële updates en status van Mur4t.",annEmpty:"Nog geen aankondigingen."},
+  pl:{tabAnnounce:"Ogłoszenia",annTitle:"Ogłoszenia",annSub:"Oficjalne aktualizacje i status od Mur4t.",annEmpty:"Brak ogłoszeń."},
+  ru:{tabAnnounce:"Объявления",annTitle:"Объявления",annSub:"Официальные обновления и статус от Mur4t.",annEmpty:"Объявлений пока нет."},
+  uk:{tabAnnounce:"Оголошення",annTitle:"Оголошення",annSub:"Офіційні оновлення та статус від Mur4t.",annEmpty:"Оголошень поки немає."},
+  ar:{tabAnnounce:"الإعلانات",annTitle:"الإعلانات",annSub:"التحديثات الرسمية وحالة النظام من Mur4t.",annEmpty:"لا توجد إعلانات بعد."},
+  fa:{tabAnnounce:"اطلاعیه‌ها",annTitle:"اطلاعیه‌ها",annSub:"به‌روزرسانی‌ها و وضعیت رسمی از Mur4t.",annEmpty:"هنوز اطلاعیه‌ای وجود ندارد."},
+  he:{tabAnnounce:"הודעות",annTitle:"הודעות",annSub:"עדכונים וסטטוס רשמיים מאת Mur4t.",annEmpty:"אין עדיין הודעות."},
+  hi:{tabAnnounce:"घोषणाएं",annTitle:"घोषणाएं",annSub:"Mur4t से आधिकारिक अपडेट और स्थिति।",annEmpty:"अभी तक कोई घोषणा नहीं है।"},
+  bn:{tabAnnounce:"ঘোষণা",annTitle:"ঘোষণা",annSub:"Mur4t থেকে অফিসিয়াল আপডেট এবং স্ট্যাটাস।",annEmpty:"এখনও কোনো ঘোষণা নেই।" },
+  ur:{tabAnnounce:"اعلانات",annTitle:"اعلانات",annSub:"Mur4t کی جانب سے سرکاری اپ ڈیٹس اور صورتحال۔",annEmpty:"ابھی تک کوئی اعلان نہیں ہے۔"},
+  id:{tabAnnounce:"Pengumuman",annTitle:"Pengumuman",annSub:"Pembaruan dan status resmi dari Mur4t.",annEmpty:"Belum ada pengumuman."},
+  ms:{tabAnnounce:"Pengumuman",annTitle:"Pengumuman",annSub:"Kemas kini dan status rasmi daripada Mur4t.",annEmpty:"Tiada pengumuman lagi."},
+  tl:{tabAnnounce:"Mga Anunsyo",annTitle:"Mga Anunsyo",annSub:"Opisyal na mga update at katayuan mula kay Mur4t.",annEmpty:"Wala pang mga anunsyo."},
+  th:{tabAnnounce:"ประกาศ",annTitle:"ประกาศ",annSub:"การอัปเดตและสถานะอย่างเป็นทางการจาก Mur4t",annEmpty:"ยังไม่มีประกาศในขณะนี้"},
+  vi:{tabAnnounce:"Thông báo",annTitle:"Thông báo",annSub:"Cập nhật và trạng thái chính thức từ Mur4t.",annEmpty:"Chưa có thông báo nào."},
+  zh:{tabAnnounce:"公告",annTitle:"公告",annSub:"来自 Mur4t 的官方更新与状态。",annEmpty:"暂无公告。"},
+  ja:{tabAnnounce:"お知らせ",annTitle:"お知らせ",annSub:"Mur4t からの公式アップデートとステータス。",annEmpty:"現在お知らせはありません。"},
+  ko:{tabAnnounce:"공지사항",annTitle:"공지사항",annSub:"Mur4t의 공식 업데이트 및 현황.",annEmpty:"아직 공지사항이 없습니다."},
+  sv:{tabAnnounce:"Meddelanden",annTitle:"Meddelanden",annSub:"Officiella uppdateringar och status från Mur4t.",annEmpty:"Inga meddelanden ännu."},
+  no:{tabAnnounce:"Kunngjøringer",annTitle:"Kunngjøringer",annSub:"Offisielle oppdateringer og status fra Mur4t.",annEmpty:"Ingen kunngjøringer ennå."},
+  da:{tabAnnounce:"Meddelelser",annTitle:"Meddelelser",annSub:"Officielle opdateringer og status fra Mur4t.",annEmpty:"Ingen meddelelser endnu."},
+  fi:{tabAnnounce:"Ilmoitukset",annTitle:"Ilmoitukset",annSub:"Viralliset päivitykset ja tila Mur4tilta.",annEmpty:"Ei vielä ilmoituksia."},
+  cs:{tabAnnounce:"Oznámení",annTitle:"Oznámení",annSub:"Oficiální aktualizace a stav od Mur4t.",annEmpty:"Zatím žádná oznámení."},
+  sk:{tabAnnounce:"Oznámenia",annTitle:"Oznámenia",annSub:"Oficiálne aktualizácie a stav od Mur4t.",annEmpty:"Zatiaľ žiadne oznámenia."},
+  hu:{tabAnnounce:"Közlemények",annTitle:"Közlemények",annSub:"Hivatalos frissítések és állapot Mur4t-tól.",annEmpty:"Még nincsenek közlemények."},
+  ro:{tabAnnounce:"Anunțuri",annTitle:"Anunțuri",annSub:"Actualizări și stare oficiale de la Mur4t.",annEmpty:"Niciun anunț încă."},
+  bg:{tabAnnounce:"Съобщения",annTitle:"Съобщения",annSub:"Официални актуализации и статус от Mur4t.",annEmpty:"Все още няма съобщения."},
+  el:{tabAnnounce:"Ανακοινώσεις",annTitle:"Ανακοινώσεις",annSub:"Επίσημες ενημερώσεις και κατάσταση από τον Mur4t.",annEmpty:"Δεν υπάρχουν ανακοινώσεις ακόμα."},
+  hr:{tabAnnounce:"Obavijesti",annTitle:"Obavijesti",annSub:"Službena ažuriranja i status od Mur4t.",annEmpty:"Još nema obavijesti."},
+  sr:{tabAnnounce:"Обавештења",annTitle:"Обавештења",annSub:"Званична ажурирања и статус од Mur4t.",annEmpty:"Још нема обавештења."},
+  lt:{tabAnnounce:"Skelbimai",annTitle:"Skelbimai",annSub:"Oficialūs atnaujinimai ir būsena iš Mur4t.",annEmpty:"Skelbimų kol kas nėra."},
+  lv:{tabAnnounce:"Paziņojumi",annTitle:"Paziņojumi",annSub:"Oficiālie atjauninājumi un statuss no Mur4t.",annEmpty:"Paziņojumu vēl nav."},
+  et:{tabAnnounce:"Teated",annTitle:"Teated",annSub:"Mur4t ametlikud värskendused ja olek.",annEmpty:"Teateid veel pole."},
+  sq:{tabAnnounce:"Njoftime",annTitle:"Njoftime",annSub:"Përditësime dhe status zyrtar nga Mur4t.",annEmpty:"Nuk ka ende njoftime."},
+  ka:{tabAnnounce:"განცხადებები",annTitle:"განცხადებები",annSub:"ოფიციალური განახლებები და სტატუსი Mur4t-ისგან.",annEmpty:"განცხადებები ჯერ არ არის."},
+  az:{tabAnnounce:"Elanlar",annTitle:"Elanlar",annSub:"Mur4t-dan rəsmi yeniləmələr və status.",annEmpty:"Hələ ki elan yoxdur."},
+  kk:{tabAnnounce:"Хабарландырулар",annTitle:"Хабарландырулар",annSub:"Mur4t ресми жаңартулары мен күйі.",annEmpty:"Әзірге хабарландыру жоқ."},
+  uz:{tabAnnounce:"E'lonlar",annTitle:"E'lonlar",annSub:"Mur4t dan rasmiy yangilanishlar va holat.",annEmpty:"Hozircha e'lonlar yo'q."},
+  sw:{tabAnnounce:"Matangazo",annTitle:"Matangazo",annSub:"Sasisho na hali rasmi kutoka kwa Mur4t.",annEmpty:"Bado hakuna matangazo."},
+  af:{tabAnnounce:"Aankondigings",annTitle:"Aankondigings",annSub:"Amptelike opdaterings en status vanaf Mur4t.",annEmpty:"Nog geen aankondigings nie."},
+  be:{tabAnnounce:"Абвесткі",annTitle:"Абвесткі",annSub:"Афіцыйныя абнаўленні і статус ад Mur4t.",annEmpty:"Абвестак пакуль няма."},
+  sl:{tabAnnounce:"Obvestila",annTitle:"Obvestila",annSub:"Uradne posodobitve in stanje od Mur4t.",annEmpty:"Še ni obvestil."},
+  mk:{tabAnnounce:"Известувања",annTitle:"Известувања",annSub:"Официјални ажурирања и статус од Mur4t.",annEmpty:"Сè уште нема известувања."},
+  ca:{tabAnnounce:"Anuncis",annTitle:"Anuncis",annSub:"Actualitzacions i estat oficials de Mur4t.",annEmpty:"Encara no hi ha anuncis."}
+};
+for(const [lang, dict] of Object.entries(ANNOUNCE_I18N)){
+  I18N[lang] = Object.assign(I18N[lang] || {}, dict);
+}
+
+let LANG = localStorage.getItem("mur4lang") || ((navigator.language && navigator.language.toLowerCase().startsWith("tr")) ? "tr" : "en");
 const t = k => (I18N[LANG] && I18N[LANG][k]) || EN[k] || k;
 const RTL = ["ar","fa","he","ur"].includes(LANG);
 
@@ -571,8 +679,51 @@ function rbxAvatarImg(userId,w,h){
   return `https://www.roblox.com/avatar-thumbnail/image?userId=${userId}&width=${w}&height=${h}&format=png`;
 }
 
-(async function loadStaff(){
-  const grid=document.getElementById("staffGrid");if(!grid)return;
+/* ---- DUYURULAR ---- */
+function escapeHtml(str){
+  return (str||'').replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[tag] || tag));
+}
+
+(async function loadAnnouncements(){
+  const list=document.getElementById("annList");if(!list)return;
+  let anns=[];
+  try{
+    const r=await fetch("announcements.json?v="+Date.now());
+    if(r.ok)anns=await r.json();
+  }catch(e){}
+  if(!Array.isArray(anns)||!anns.length){
+    list.innerHTML=`<div data-i18n="annEmpty" style="color:var(--dim);text-align:center;padding:36px 20px;border:1px dashed var(--line);border-radius:14px;background:rgba(255,255,255,.02)">${t("annEmpty")}</div>`;
+    return;
+  }
+  const colorBorderMap = {
+    red: "#e31b23",
+    green: "#00e08f",
+    blue: "#5865F2",
+    yellow: "#f59e0b",
+    purple: "#a855f7",
+    cyan: "#06b6d4"
+  };
+  list.innerHTML=anns.map(a=>{
+    const col=["red","green","blue","yellow","purple","cyan"].includes(a.color)?a.color:"red";
+    const accentColor=colorBorderMap[col]||"#e31b23";
+    const d=a.date?`<div class="ann-date"><svg class="icn" style="width:13px;height:13px" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${escapeHtml(a.date)}</div>`:"";
+    return `<div class="ann-card" style="--tag-accent:${accentColor}">
+      <div class="ann-head">
+        <span class="ann-tag ${col}"><span class="ann-dot"></span><span class="ann-tag-txt">${escapeHtml(a.tag||"DUYURU")}</span></span>
+        ${d}
+      </div>
+      <div class="ann-text">${escapeHtml(a.text||"").replace(/\n/g,"<br>")}</div>
+    </div>`;
+  }).join("");
+})();
+
+(async function loadStaff(){  const grid=document.getElementById("staffGrid");if(!grid)return;
   let staff=[];
   try{
     const r=await fetch("staff.json?v="+Date.now());
